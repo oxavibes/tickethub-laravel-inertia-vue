@@ -10,7 +10,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
 const navigationLinks = [
 	{ name: 'Dashboard', route: 'dashboard' },
-	// { name: 'Users', route: 'users.index' },
+	{ name: 'Users', route: 'users.index' },
 	{ name: 'Tickets', route: 'tickets.index' },
 	// { name: 'Tickets logs', route: 'tickets.logs' },
 	{ name: 'Labels', route: 'labels.index' },
