@@ -1,11 +1,5 @@
 <script setup>
-import { ref } from 'vue';
-
-
 import TheNavbar from '@/Components/Layout/TheNavbar.vue';
-
-
-const showingNavigationDropdown = ref(false);
 </script>
 
 <template>

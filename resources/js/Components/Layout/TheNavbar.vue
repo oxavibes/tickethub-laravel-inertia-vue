@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue';
+
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
 import NavLink from '@/Components/NavLink.vue';
@@ -11,9 +13,12 @@ const navigationLinks = [
 	// { name: 'Users', route: 'users.index' },
 	{ name: 'Tickets', route: 'tickets.index' },
 	// { name: 'Tickets logs', route: 'tickets.logs' },
-	// { name: 'Labels', route: 'labels.index' },
+	{ name: 'Labels', route: 'labels.index' },
 	{ name: 'Categories', route: 'categories.index' },
 ];
+
+
+const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
@@ -90,8 +95,9 @@ const navigationLinks = [
 		<!-- Responsive Navigation Menu -->
 		<div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
 			<div class="pt-2 pb-3 space-y-1">
-				<ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-					Dashboard
+				<ResponsiveNavLink v-for="link in navigationLinks" :key="link.name" :href="route(link.route)"
+					:active="route().current(link.route)">
+					{{ link.name }}
 				</ResponsiveNavLink>
 			</div>
 
