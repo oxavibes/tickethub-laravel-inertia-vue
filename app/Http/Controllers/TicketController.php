@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tickets;
-use App\Http\Requests\StoreTicketsRequest;
-use App\Http\Requests\UpdateTicketsRequest;
+use App\Models\Ticket;
+use App\Http\Requests\StoreTicketRequest;
+use App\Http\Requests\UpdateTicketRequest;
 use Inertia\Inertia;
 
-class TicketsController extends Controller
+class TicketController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -28,7 +28,7 @@ class TicketsController extends Controller
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(StoreTicketsRequest $request)
+	public function store(StoreTicketRequest $request)
 	{
 		//
 	}
@@ -36,7 +36,7 @@ class TicketsController extends Controller
 	/**
 	 * Display the specified resource.
 	 */
-	public function show(Tickets $tickets)
+	public function show(Ticket $ticket)
 	{
 		//
 	}
@@ -44,7 +44,7 @@ class TicketsController extends Controller
 	/**
 	 * Show the form for editing the specified resource.
 	 */
-	public function edit(Tickets $tickets)
+	public function edit(Ticket $ticket)
 	{
 		//
 	}
@@ -52,7 +52,7 @@ class TicketsController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(UpdateTicketsRequest $request, Tickets $tickets)
+	public function update(UpdateTicketRequest $request, Ticket $ticket)
 	{
 		//
 	}
@@ -60,7 +60,7 @@ class TicketsController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(Tickets $tickets)
+	public function destroy(Ticket $ticket)
 	{
 		//
 	}

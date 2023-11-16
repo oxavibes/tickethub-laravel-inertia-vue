@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Tickets;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class TicketsPolicy
+class TicketPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class TicketsPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Tickets $tickets): bool
+    public function view(User $user, Ticket $ticket): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class TicketsPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Tickets $tickets): bool
+    public function update(User $user, Ticket $ticket): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class TicketsPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Tickets $tickets): bool
+    public function delete(User $user, Ticket $ticket): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class TicketsPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Tickets $tickets): bool
+    public function restore(User $user, Ticket $ticket): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class TicketsPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Tickets $tickets): bool
+    public function forceDelete(User $user, Ticket $ticket): bool
     {
         //
     }
