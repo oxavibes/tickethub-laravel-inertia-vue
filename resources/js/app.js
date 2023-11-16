@@ -4,9 +4,12 @@ import '../css/app.css';
 import 'flowbite';
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -17,6 +20,10 @@ createInertiaApp({
 		return createApp({ render: () => h(App, props) })
 			.use(plugin)
 			.use(ZiggyVue, Ziggy)
+			.component('Link', Link)
+			.component('Head', Head)
+			.component('GuestLayout', GuestLayout)
+			.component('AuthenticatedLayout', AuthenticatedLayout)
 			.mount(el);
 	},
 	progress: {
