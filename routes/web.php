@@ -1,10 +1,13 @@
 <?php
 
+use Inertia\Inertia;
+
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,9 @@ Route::middleware('auth')->group(function () {
 
 	// TICKETS
 	Route::resource('/tickets', TicketController::class);
+
+	// CATEGORIES
+	Route::resource('/categories', CategoryController::class);
 });
 
 require __DIR__ . '/auth.php';
