@@ -4,7 +4,7 @@ import BasePagination from '@/Components/Shared/BasePagination.vue';
 </script>
 
 <template>
-	<div class="bg-white relative overflow-x-auto shadow-md sm:rounded-lg px-6 pt-4 pb-6">
+	<div class="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg px-6 pt-4 pb-6">
 		<div class="pb-4 bg-white dark:bg-gray-900">
 			<label for="tickets-table-search" class="sr-only">Search</label>
 			<div class="relative mt-1">
