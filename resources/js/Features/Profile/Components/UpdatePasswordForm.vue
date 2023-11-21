@@ -2,10 +2,12 @@
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
-import TextInput from '@/Components/TextInput.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import PrimaryButton from '@/Components/Shared/PrimaryButton.vue';
+
+import TextInput from '@/Components/Form/TextInput.vue';
+import InputError from '@/Components/Form/InputError.vue';
+import InputLabel from '@/Components/Form/InputLabel.vue';
+
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);

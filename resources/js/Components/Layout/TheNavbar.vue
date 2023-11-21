@@ -3,10 +3,10 @@ import { ref } from 'vue';
 
 import TheLogo from '@/Components/Layout/TheLogo.vue';
 
-import NavLink from '@/Components/NavLink.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import NavLink from '@/Components/Shared/NavLink.vue';
+import Dropdown from '@/Components/Shared/Dropdown.vue';
+import DropdownLink from '@/Components/Shared/DropdownLink.vue';
+import ResponsiveNavLink from '@/Components/Shared/ResponsiveNavLink.vue';
 
 const navigationLinks = [
 	{ name: 'Dashboard', route: 'dashboard' },
