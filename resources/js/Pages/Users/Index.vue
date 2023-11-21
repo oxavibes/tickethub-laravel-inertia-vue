@@ -7,9 +7,7 @@ import { UsersTable, UsersEditModal, UsersDeleteModal } from "@/Features/Users";
 
 	<AuthenticatedLayout>
 		<template #header>
-			<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-				<h2 class="p-6 font-semibold text-xl text-gray-800 leading-tight">Users</h2>
-			</div>
+			<h2 class="p-6 font-semibold text-xl text-gray-800 leading-tight">Users</h2>
 		</template>
 
 

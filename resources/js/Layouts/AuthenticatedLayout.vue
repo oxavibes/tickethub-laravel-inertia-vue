@@ -10,7 +10,9 @@ import TheNavbar from '@/Components/Layout/TheNavbar.vue';
 			<!-- Page Heading -->
 			<header v-if="$slots.header">
 				<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-					<slot name="header" />
+					<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+						<slot name="header" />
+					</div>
 				</div>
 			</header>
 
