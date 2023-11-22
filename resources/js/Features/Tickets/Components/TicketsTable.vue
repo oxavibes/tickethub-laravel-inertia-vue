@@ -1,11 +1,12 @@
 <script setup>
+import PrimaryButton from "@/Components/Buttons/PrimaryButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
 </script>
 
 <template>
 	<div class="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg px-6 pt-4 pb-6">
-		<div class="pb-4 bg-white dark:bg-gray-900">
+		<div class="pb-4 bg-white dark:bg-gray-900 flex flex-wrap gap-4 justify-between items-baseline">
 			<label for="tickets-table-search" class="sr-only">Search</label>
 			<div class="relative mt-1">
 				<div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -19,6 +20,11 @@ import BasePagination from '@/Components/Shared/BasePagination.vue';
 					class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					placeholder="Search for tickets">
 			</div>
+
+
+			<PrimaryButton type="submit">
+				New ticket
+			</PrimaryButton>
 		</div>
 		<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

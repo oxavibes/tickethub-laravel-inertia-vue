@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 
-import PrimaryButton from '@/Components/Shared/PrimaryButton.vue';
+import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 
 import Checkbox from '@/Components/Form/Checkbox.vue';
 import TextInput from '@/Components/Form/TextInput.vue';
