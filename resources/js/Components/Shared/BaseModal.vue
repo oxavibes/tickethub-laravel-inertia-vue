@@ -39,7 +39,7 @@ onMounted(() => {
 						<slot />
 					</div>
 
-					<div class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200">
+					<div class="flex justify-end items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200">
 						<slot name="footer" />
 					</div>
 				</form>
