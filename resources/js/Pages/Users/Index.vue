@@ -10,7 +10,6 @@ import { UsersTable, UsersEditModal, UsersDeleteModal } from "@/Features/Users";
 			<h2 class="p-6 font-semibold text-xl text-gray-800 leading-tight">Users</h2>
 		</template>
 
-
 		<template #default>
 			<UsersTable />
 		</template>

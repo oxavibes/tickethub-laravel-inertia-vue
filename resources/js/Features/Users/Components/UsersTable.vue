@@ -1,13 +1,5 @@
 <script setup>
-import { onMounted } from "vue";
-import { initModals, initDropdowns } from "flowbite";
-
 import BasePagination from '@/Components/Shared/BasePagination.vue';
-
-onMounted(() => {
-	initModals()
-	initDropdowns()
-});
 </script>
 
 <template>
