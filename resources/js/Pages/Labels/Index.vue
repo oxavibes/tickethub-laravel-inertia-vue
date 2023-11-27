@@ -1,4 +1,5 @@
 <script setup>
+import { CreateLabelModal, DeleteLabelModal, EditLabelModal } from "@/Features/Labels";
 import BaseTable from "@/Components/Shared/BaseTable.vue";
 </script>
 
@@ -10,9 +11,16 @@ import BaseTable from "@/Components/Shared/BaseTable.vue";
 			<h2 class="p-6 font-semibold text-xl text-gray-800 leading-tight">Labels</h2>
 		</template>
 
-
 		<template #default>
-			<BaseTable name="labels" />
+			<BaseTable targetModalId="Label" name="labels">
+				<template #buttonText>
+					New label
+				</template>
+			</BaseTable>
 		</template>
 	</AuthenticatedLayout>
+
+	<CreateLabelModal />
+	<EditLabelModal />
+	<DeleteLabelModal />
 </template>
