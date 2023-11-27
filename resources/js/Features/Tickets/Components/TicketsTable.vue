@@ -22,7 +22,7 @@ import BasePagination from '@/Components/Shared/BasePagination.vue';
 			</div>
 
 
-			<PrimaryButton type="submit">
+			<PrimaryButton class="h-[38px]" type="submit">
 				New ticket
 			</PrimaryButton>
 		</div>
