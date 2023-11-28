@@ -1,5 +1,13 @@
 <script setup>
-import { UsersTable, UsersEditModal, UsersDeleteModal } from "@/Features/Users";
+import BaseTable from "@/Components/Shared/BaseTable.vue";
+import { CreateUserModal, EditUserModal, DeleteUserModal } from "@/Features/Users";
+
+const headers = [
+	{ label: 'Name', key: 'name' },
+	{ label: 'Email', key: 'email' },
+	{ label: 'Role', key: 'role' },
+	{ label: 'Actions', key: 'actions' },
+]
 </script>
 
 <template>
@@ -11,10 +19,15 @@ import { UsersTable, UsersEditModal, UsersDeleteModal } from "@/Features/Users";
 		</template>
 
 		<template #default>
-			<UsersTable />
+			<BaseTable :headers="headers" targetModalId="User" placeholder="Search for users">
+				<template #button>
+					New user
+				</template>
+			</BaseTable>
 		</template>
 	</AuthenticatedLayout>
 
-	<UsersEditModal />
-	<UsersDeleteModal />
+	<CreateUserModal />
+	<EditUserModal />
+	<DeleteUserModal />
 </template>
