@@ -12,7 +12,11 @@ import { TicketsTable } from "@/Features/Tickets";
 
 
 		<template #default>
-			<TicketsTable />
+			<TicketsTable>
+				<template #button>
+					New ticket
+				</template>
+			</TicketsTable>
 		</template>
 	</AuthenticatedLayout>
 </template>

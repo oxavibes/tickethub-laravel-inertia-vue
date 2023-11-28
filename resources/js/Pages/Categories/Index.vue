@@ -12,7 +12,11 @@ import BaseTable from "@/Components/Shared/BaseTable.vue";
 
 
 		<template #default>
-			<BaseTable name="categories" />
+			<BaseTable name="categories">
+				<template #button>
+					New category
+				</template>
+			</BaseTable>
 		</template>
 	</AuthenticatedLayout>
 </template>
