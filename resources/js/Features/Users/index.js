@@ -1,3 +1,3 @@
-export { default as UsersTable } from "./Components/UsersTable.vue";
-export { default as UsersEditModal } from "./Components/UsersEditModal.vue";
-export { default as UsersDeleteModal } from "./Components/UsersDeleteModal.vue";
+export { default as CreateUserModal } from "./Components/CreateUserModal.vue";
+export { default as EditUserModal } from "./Components/EditUserModal.vue";
+export { default as DeleteUserModal } from "./Components/DeleteUserModal.vue";
