@@ -3,8 +3,24 @@ import PrimaryButton from "@/Components/Buttons/PrimaryButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
 const props = defineProps({
-	name: [String],
-	targetModalId: [String],
+	name: {
+		type: [String],
+		required: true,
+	},
+	headers: {
+		type: [Object],
+		required: true,
+		default: () => []
+	},
+	data: {
+		type: [Array],
+		required: true,
+		default: () => []
+	},
+	targetModalId: {
+		type: [String],
+		required: true
+	}
 })
 
 const dataModalTargetNew = `create${props.targetModalId}Modal`;
@@ -31,30 +47,28 @@ const dataModalTargetDelete = `delete${props.targetModalId}Modal`;
 
 
 			<PrimaryButton :data-modal-target="dataModalTargetNew" :data-modal-show="dataModalTargetNew" class="h-[38px]">
-				<slot name="buttonText"></slot>
+				<slot name="button"></slot>
 			</PrimaryButton>
 		</div>
 
 		<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 				<tr>
-					<th scope="col" class="px-6 py-3">
-						Title
-					</th>
-					<th scope="col" class="px-6 py-3">
-						Slug
-					</th>
-					<th scope="col" class="px-6 py-3">
-						Visible
-					</th>
-					<th scope="col" class="px-6 py-3">
-						Action
+					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3">
+						{{ label }}
 					</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<tr v-for=" i in 10" :key="i"
+				<tr v-show="!data.length" class="bg-white border-b hover:bg-gray-50">
+					<td colspan="4" class="px-6 py-4 text-gray-900 text-center">
+						No records found
+					</td>
+				</tr>
+
+
+				<tr v-show="data.length" v-for="record in data" :key="record"
 					class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -78,7 +92,7 @@ const dataModalTargetDelete = `delete${props.targetModalId}Modal`;
 			</tbody>
 		</table>
 
-		<BasePagination />
+		<BasePagination v-show="data.length" />
 	</div>
 </template>
 
