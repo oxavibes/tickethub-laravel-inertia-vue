@@ -13,8 +13,8 @@ const navigationLinks = [
 	{ name: 'Users', route: 'users.index' },
 	{ name: 'Tickets', route: 'tickets.index' },
 	// { name: 'Tickets logs', route: 'tickets.logs' },
-	{ name: 'Labels', route: 'labels.index' },
 	{ name: 'Categories', route: 'categories.index' },
+	{ name: 'Labels', route: 'labels.index' },
 ];
 
 
