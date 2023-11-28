@@ -31,7 +31,7 @@ const headers = [
 		</template>
 
 		<template #default>
-			<BaseTable name="labels" :headers="headers" targetModalId="Label">
+			<BaseTable :headers="headers" targetModalId="Label" placeholder="Search for labels">
 				<template #button>
 					New label
 				</template>

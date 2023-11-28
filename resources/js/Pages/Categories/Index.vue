@@ -1,5 +1,24 @@
 <script setup>
 import BaseTable from "@/Components/Shared/BaseTable.vue";
+
+const headers = [
+	{
+		key: "title",
+		label: "Title",
+	},
+	{
+		key: "slug",
+		label: "Slug",
+	},
+	{
+		key: "is_visible",
+		label: "Is Visible",
+	},
+	{
+		key: "actions",
+		label: "Actions",
+	},
+];
 </script>
 
 <template>
@@ -12,7 +31,7 @@ import BaseTable from "@/Components/Shared/BaseTable.vue";
 
 
 		<template #default>
-			<BaseTable name="categories">
+			<BaseTable :headers="headers" targetModalId="Category" placeholder="Search for categories">
 				<template #button>
 					New category
 				</template>
