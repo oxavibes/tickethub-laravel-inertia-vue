@@ -1,6 +1,25 @@
 <script setup>
 import { CreateLabelModal, DeleteLabelModal, EditLabelModal } from "@/Features/Labels";
 import BaseTable from "@/Components/Shared/BaseTable.vue";
+
+const headers = [
+	{
+		key: "title",
+		label: "Title",
+	},
+	{
+		key: "slug",
+		label: "Slug",
+	},
+	{
+		key: "is_visible",
+		label: "Is Visible",
+	},
+	{
+		key: "actions",
+		label: "Actions",
+	},
+];
 </script>
 
 <template>
@@ -12,8 +31,8 @@ import BaseTable from "@/Components/Shared/BaseTable.vue";
 		</template>
 
 		<template #default>
-			<BaseTable targetModalId="Label" name="labels">
-				<template #buttonText>
+			<BaseTable name="labels" :headers="headers" targetModalId="Label">
+				<template #button>
 					New label
 				</template>
 			</BaseTable>
