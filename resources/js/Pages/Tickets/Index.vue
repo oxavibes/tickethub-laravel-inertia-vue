@@ -1,6 +1,6 @@
 <script setup>
 import BaseTable from "@/Components/Shared/BaseTable.vue";
-// import { TicketsTable } from "@/Features/Tickets";
+import { CreateTicketModal, EditTicketModal, DeleteTicketModal } from "@/Features/Tickets";
 
 const headers = [
 	{
@@ -39,7 +39,6 @@ const headers = [
 			<h2 class="p-6 font-semibold text-xl text-gray-800 leading-tight">Tickets</h2>
 		</template>
 
-
 		<template #default>
 			<BaseTable :headers="headers" targetModalId="Ticket" placeholder="Search for tickets">
 				<template #button>
@@ -48,4 +47,8 @@ const headers = [
 			</BaseTable>
 		</template>
 	</AuthenticatedLayout>
+
+	<CreateTicketModal />
+	<EditTicketModal />
+	<DeleteTicketModal />
 </template>
