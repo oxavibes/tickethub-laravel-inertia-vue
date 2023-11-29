@@ -1,5 +1,12 @@
 <script setup>
+import { onMounted } from 'vue'
+import { initModals } from "flowbite";
+
 import TheNavbar from '@/Components/Layout/TheNavbar.vue';
+
+onMounted(() => {
+	initModals()
+});
 </script>
 
 <template>
