@@ -61,13 +61,13 @@ const dataModalTargetDelete = `delete${props.targetModalId}Modal`;
 
 			<tbody>
 				<tr v-show="!data.length" class="bg-white border-b hover:bg-gray-50">
-					<td colspan="4" class="px-6 py-4 text-gray-900 text-center">
+					<td :colspan="headers.length" class="px-6 py-4 text-gray-900 text-center">
 						No records found
 					</td>
 				</tr>
 
 
-				<tr v-show="data.length" v-for="record in data" :key="record"
+				<tr v-for="record in data" :key="record"
 					class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
