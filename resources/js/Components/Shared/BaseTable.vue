@@ -66,7 +66,6 @@ const dataModalTargetDelete = `delete${props.targetModalId}Modal`;
 					</td>
 				</tr>
 
-
 				<tr v-for="record in data" :key="record"
 					class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
@@ -81,6 +80,17 @@ const dataModalTargetDelete = `delete${props.targetModalId}Modal`;
 					</td>
 
 					<td class="px-6 py-4 flex flex-wrap gap-4">
+						<a href="#" type="button" :data-modal-target="dataModalTargetEdit" :data-modal-show="dataModalTargetEdit"
+							class="font-medium text-gray-900 hover:underline">Edit </a>
+
+						<a href="#" type="button" :data-modal-target="dataModalTargetDelete" :data-modal-show="dataModalTargetDelete"
+							class="font-medium text-red-600 hover:underline">Delete </a>
+					</td>
+				</tr>
+
+				<!-- Workaround to prevent modal initialization error -->
+				<tr class="hidden">
+					<td>
 						<a href="#" type="button" :data-modal-target="dataModalTargetEdit" :data-modal-show="dataModalTargetEdit"
 							class="font-medium text-gray-900 hover:underline">Edit </a>
 
