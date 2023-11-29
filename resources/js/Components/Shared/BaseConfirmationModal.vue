@@ -1,12 +1,10 @@
 <script setup>
-import { onMounted } from 'vue'
-import { initModals } from "flowbite";
-
-const props = defineProps(['id'])
-
-onMounted(() => {
-	initModals()
-});
+const props = defineProps({
+	id: {
+		type: [String, Number],
+		required: true
+	},
+})
 </script>
 
 <template>
