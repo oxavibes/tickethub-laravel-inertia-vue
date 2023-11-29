@@ -1,5 +1,34 @@
 <script setup>
-import { TicketsTable } from "@/Features/Tickets";
+import BaseTable from "@/Components/Shared/BaseTable.vue";
+// import { TicketsTable } from "@/Features/Tickets";
+
+const headers = [
+	{
+		label: 'Title',
+		key: 'title'
+	},
+	{
+		label: 'Status',
+		key: 'status'
+	},
+	{
+		label: 'Priority',
+		key: 'priority'
+	},
+	{
+		label: 'Category',
+		key: 'category'
+	},
+	{
+		label: 'Labels',
+		key: 'labels'
+	},
+	{
+		label: 'Assigned To',
+		key: 'assigned_to'
+
+	}
+]
 </script>
 
 <template>
@@ -12,11 +41,11 @@ import { TicketsTable } from "@/Features/Tickets";
 
 
 		<template #default>
-			<TicketsTable>
+			<BaseTable :headers="headers" targetModalId="Ticket" placeholder="Search for tickets">
 				<template #button>
 					New ticket
 				</template>
-			</TicketsTable>
+			</BaseTable>
 		</template>
 	</AuthenticatedLayout>
 </template>
