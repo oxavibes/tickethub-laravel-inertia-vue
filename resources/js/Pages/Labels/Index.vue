@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
 
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
 import BaseTable from "@/Components/Shared/BaseTable.vue";
 import { CreateLabelModal, DeleteLabelModal, EditLabelModal } from "@/Features/Labels";
 
@@ -30,11 +33,30 @@ const headers = [
 	},
 ];
 
+const modalStore = useModalStore();
+const { createLabelModalOpen, editLabelModalOpen, deleteLabelModalOpen } = storeToRefs(modalStore)
+
 const selectedLabel = ref();
 
-const setSelectedLabel = (label) => {
+function setSelectedLabel(label) {
 	selectedLabel.value = label;
 };
+
+function onCreate() {
+	createLabelModalOpen.value = true
+}
+
+function onEdit(label) {
+	editLabelModalOpen.value = true
+
+	setSelectedLabel(label)
+}
+
+function onDelete(label) {
+	deleteLabelModalOpen.value = true
+
+	setSelectedLabel(label)
+}
 </script>
 
 <template>
@@ -46,9 +68,8 @@ const setSelectedLabel = (label) => {
 		</template>
 
 		<template #default>
-			<BaseTable :headers="headers" :data="labels" createModalId="createLabelModal" editModalId="editLabelModal"
-				deleteModalId="deleteLabelModal" placeholder="Search for labels" @on-edit="setSelectedLabel"
-				@on-delete="setSelectedLabel">
+			<BaseTable table-id="labels" placeholder="Search for labels" :headers="headers" :data="labels" @on-create="onCreate"
+				@on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					New label
 				</template>

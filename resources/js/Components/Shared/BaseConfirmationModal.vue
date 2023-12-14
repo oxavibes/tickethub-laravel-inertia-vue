@@ -3,10 +3,6 @@ import { computed, ref } from 'vue'
 import useHideScrollbar from '@/Composables/useHideScrollbar';
 
 const props = defineProps({
-	modalId: {
-		type: [String, Number],
-		required: true
-	},
 	isOpen: {
 		type: [Boolean],
 		required: true,

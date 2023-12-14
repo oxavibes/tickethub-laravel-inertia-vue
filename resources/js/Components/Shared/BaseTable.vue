@@ -5,6 +5,10 @@ import PrimaryButton from "@/Components/Buttons/PrimaryButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
 const props = defineProps({
+	tableId: {
+		type: [String, Number],
+		required: true,
+	},
 	headers: {
 		type: [Object],
 		required: true,
@@ -18,45 +22,15 @@ const props = defineProps({
 		required: true,
 		default: () => { }
 	},
-	createModalId: {
-		type: [String],
-		required: true
-	},
-	editModalId: {
-		type: [String],
-		required: true
-	},
-	deleteModalId: {
-		type: [String],
-		required: true
-	}
 })
 
-const emit = defineEmits(['onDelete', 'onEdit']);
-
-const { openModal } = useModalStore();
-
-function onClickOpen() {
-	openModal(props.createModalId)
-}
-
-function onClickEdit(record) {
-	openModal(props.editModalId)
-
-	emit('onEdit', record)
-}
-
-function onClickDelete(record) {
-	openModal(props.deleteModalId)
-
-	emit('onDelete', record)
-}
+const emit = defineEmits(['onCreate', 'onEdit', 'onDelete']);
 </script>
 
 <template>
 	<div class="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg px-6 pt-4 pb-6">
 		<div class="pb-4 bg-white dark:bg-gray-900 flex flex-wrap gap-4 justify-between items-baseline">
-			<label :for="`${createModalId}-table-search`" class="sr-only">Search</label>
+			<label :for="`${tableId}-table-search`" class="sr-only">Search</label>
 			<div class="relative mt-1">
 				<div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
 					<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -65,13 +39,13 @@ function onClickDelete(record) {
 							d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
 					</svg>
 				</div>
-				<input type="text" :id="`${createModalId}-table-search`"
+				<input type="text" :id="`${tableId}-table-search`"
 					class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					:placeholder="placeholder">
 			</div>
 
 
-			<PrimaryButton @click="onClickOpen" class="h-[38px]">
+			<PrimaryButton @click="$emit('onCreate')" class="h-[38px]">
 				<slot name="button"></slot>
 			</PrimaryButton>
 		</div>
@@ -108,11 +82,12 @@ function onClickDelete(record) {
 					</td>
 
 					<td class="px-6 py-4 flex flex-wrap gap-4">
-						<a href="#" type="button" @click="onClickEdit(record)" class="font-medium text-gray-900 hover:underline">Edit
+						<a href="#" type="button" @click="$emit('onEdit', record)"
+							class="font-medium text-gray-900 hover:underline">Edit
 						</a>
 
 						<a href="#" type="button" class="font-medium text-red-600 hover:underline"
-							@click="onClickDelete(record)">Delete </a>
+							@click="$emit('onDelete', record)">Delete </a>
 					</td>
 				</tr>
 			</tbody>

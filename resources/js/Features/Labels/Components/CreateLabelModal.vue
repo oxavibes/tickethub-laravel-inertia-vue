@@ -1,5 +1,4 @@
 <script setup>
-import { onBeforeMount } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -9,35 +8,28 @@ import BaseModal from '@/Components/Shared/BaseModal.vue';
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 
-const modalId = 'createLabelModal';
-
 const form = useForm({
 	title: '',
 	visible: true,
 });
 
 const modalStore = useModalStore();
-const { closeModal } = modalStore;
-const { modals } = storeToRefs(modalStore)
+const { createLabelModalOpen } = storeToRefs(modalStore)
 
 function onSubmit() {
 	form.post(route('labels.store'), {
 		preserveScroll: true,
 		onSuccess: () => {
-			closeModal(modalId);
+			createLabelModalOpen.value = false
 
 			form.reset()
 		},
 	})
 }
-
-onBeforeMount(() => {
-	modals[modalId] = false
-});
 </script>
 
 <template>
-	<BaseModal :modalId="modalId" v-model:is-open="modals[modalId]" @on-close="closeModal(modalId)">
+	<BaseModal v-model:is-open="createLabelModalOpen" @on-close="createLabelModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">

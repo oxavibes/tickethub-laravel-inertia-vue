@@ -1,5 +1,5 @@
 <script setup>
-import { watch, onBeforeMount } from 'vue';
+import { watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -20,8 +20,6 @@ const props = defineProps({
 	},
 })
 
-const modalId = 'editLabelModal';
-
 const form = useForm({
 	...props.label
 });
@@ -32,8 +30,7 @@ watch(() => props.label, (newVal) => {
 });
 
 const modalStore = useModalStore();
-const { closeModal } = modalStore;
-const { modals } = storeToRefs(modalStore);
+const { editLabelModalOpen } = storeToRefs(modalStore);
 
 function onSubmit() {
 	const uri = route('labels.update', { label: props.label })
@@ -41,20 +38,16 @@ function onSubmit() {
 	form.patch(uri, {
 		preserveScroll: true,
 		onSuccess: () => {
-			closeModal(modalId);
+			editLabelModalOpen.value = false
 
 			form.reset()
 		},
 	})
 }
-
-onBeforeMount(() => {
-	modals[modalId] = false
-});
 </script>
 
 <template>
-	<BaseModal :modalId="modalId" v-model:is-open="modals[modalId]" @on-close="closeModal(modalId)">
+	<BaseModal v-model:is-open="editLabelModalOpen" @on-close="editLabelModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
