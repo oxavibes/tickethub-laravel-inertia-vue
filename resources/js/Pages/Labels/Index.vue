@@ -1,6 +1,15 @@
 <script setup>
-import { CreateLabelModal, DeleteLabelModal, EditLabelModal } from "@/Features/Labels";
+import { ref } from "vue";
+
 import BaseTable from "@/Components/Shared/BaseTable.vue";
+import { CreateLabelModal, DeleteLabelModal, EditLabelModal } from "@/Features/Labels";
+
+defineProps({
+	labels: {
+		type: [Object],
+		default: () => [],
+	},
+});
 
 const headers = [
 	{
@@ -20,6 +29,12 @@ const headers = [
 		label: "Actions",
 	},
 ];
+
+const selectedLabel = ref();
+
+const setSelectedLabel = (label) => {
+	selectedLabel.value = label;
+};
 </script>
 
 <template>
@@ -31,7 +46,9 @@ const headers = [
 		</template>
 
 		<template #default>
-			<BaseTable :headers="headers" targetModalId="Label" placeholder="Search for labels">
+			<BaseTable :headers="headers" :data="labels" createModalId="createLabelModal" editModalId="editLabelModal"
+				deleteModalId="deleteLabelModal" placeholder="Search for labels" @on-edit="setSelectedLabel"
+				@on-delete="setSelectedLabel">
 				<template #button>
 					New label
 				</template>
@@ -40,6 +57,6 @@ const headers = [
 	</AuthenticatedLayout>
 
 	<CreateLabelModal />
-	<EditLabelModal />
-	<DeleteLabelModal />
+	<EditLabelModal :label="selectedLabel" />
+	<DeleteLabelModal :label="selectedLabel" />
 </template>
