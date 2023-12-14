@@ -44,6 +44,11 @@ class User extends Authenticatable
 		'password' => 'hashed',
 	];
 
+	public function labels(): HasMany
+	{
+		return $this->hasMany(Label::class);
+	}
+
 	public function tickets(): HasMany
 	{
 		return $this->hasMany(Ticket::class);
