@@ -40,7 +40,8 @@ const computedLinkClass = computed(() => {
 			<span class="font-semibold text-gray-900 dark:text-white">{{ data.from }}-{{ data.to }}</span> of
 			<span class="font-semibold text-gray-900 dark:text-white">{{ data.total }}</span>
 		</span>
-		<ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+
+		<ul v-show="data.last_page > 1" class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
 			<li v-for="link in data.links" :key="link.label">
 				<Component :is="computedComponent(link)" v-html="link.label" :href="link.url" class="base"
 					:class="computedLinkClass(link)" :aria-current="link.active ? 'page' : undefined" />
