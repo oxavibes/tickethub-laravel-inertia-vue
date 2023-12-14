@@ -12,6 +12,9 @@ defineProps({
 		type: [Object],
 		default: () => [],
 	},
+	filters: {
+		type: [Object],
+	}
 });
 
 const headers = [
@@ -68,8 +71,8 @@ function onDelete(label) {
 		</template>
 
 		<template #default>
-			<BaseTable table-id="labels" placeholder="Search for labels" :headers="headers" :data="labels" @on-create="onCreate"
-				@on-edit="onEdit" @on-delete="onDelete">
+			<BaseTable table-id="labels" placeholder="Search for labels" :headers="headers" :data="labels" :filters="filters"
+				@on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					New label
 				</template>
