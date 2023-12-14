@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Label;
+use Illuminate\Support\Str;
 use App\Http\Requests\StoreLabelRequest;
 use App\Http\Requests\UpdateLabelRequest;
-use Inertia\Inertia;
 
 class LabelController extends Controller
 {
@@ -14,7 +15,11 @@ class LabelController extends Controller
 	 */
 	public function index()
 	{
-		return Inertia::render('Labels/Index');
+		$labels = Label::orderBy('created_at', 'desc')->paginate(10);
+
+		return Inertia::render('Labels/Index', [
+			'labels' => $labels
+		]);
 	}
 
 	/**
@@ -30,7 +35,13 @@ class LabelController extends Controller
 	 */
 	public function store(StoreLabelRequest $request)
 	{
-		//
+		$label = new Label();
+		$label->title = $request->get('title');
+		$label->visible = $request->get('visible');
+		$label->slug = Str::slug($request->get('title'));
+		$label->save();
+
+		return redirect()->back()->with('success', 'Label created successfully');
 	}
 
 	/**
@@ -54,7 +65,14 @@ class LabelController extends Controller
 	 */
 	public function update(UpdateLabelRequest $request, Label $label)
 	{
-		//
+
+		$label->title = $request->get('title');
+		$label->visible = $request->get('visible');
+		$label->slug = Str::slug($request->get('title'));
+
+		$label->save();
+
+		return redirect()->back()->with('success', 'Label updated successfully');
 	}
 
 	/**
@@ -62,6 +80,8 @@ class LabelController extends Controller
 	 */
 	public function destroy(Label $label)
 	{
-		//
+		$label->delete();
+
+		return redirect()->back()->with('success', 'Label deleted successfully');
 	}
 }
