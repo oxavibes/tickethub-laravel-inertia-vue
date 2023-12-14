@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Label;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Request;
+
 use App\Http\Requests\StoreLabelRequest;
 use App\Http\Requests\UpdateLabelRequest;
 
@@ -15,10 +17,15 @@ class LabelController extends Controller
 	 */
 	public function index()
 	{
-		$labels = Label::orderBy('created_at', 'desc')->paginate(10);
+		$labels = Label::query()
+			->when(Request::input('search'), fn ($query, $search) => $query->where('title', 'like', '%' . $search . '%'))
+			->orderBy('created_at', 'desc')
+			->paginate(10)
+			->withQueryString();
 
 		return Inertia::render('Labels/Index', [
-			'labels' => $labels
+			'labels' => $labels,
+			'filters' => Request::only(['search']),
 		]);
 	}
 
@@ -65,7 +72,6 @@ class LabelController extends Controller
 	 */
 	public function update(UpdateLabelRequest $request, Label $label)
 	{
-
 		$label->title = $request->get('title');
 		$label->visible = $request->get('visible');
 		$label->slug = Str::slug($request->get('title'));
