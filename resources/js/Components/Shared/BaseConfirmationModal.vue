@@ -1,4 +1,7 @@
 <script setup>
+import { computed, ref } from 'vue'
+import useHideScrollbar from '@/Composables/useHideScrollbar';
+
 const props = defineProps({
 	modalId: {
 		type: [String, Number],
@@ -11,7 +14,17 @@ const props = defineProps({
 	},
 })
 
-const emit = defineEmits(['onConfirm', 'onClose'])
+const emit = defineEmits(['onConfirm', 'onClose', 'update:isOpen'])
+
+const target = ref()
+const currentModalModel = computed({
+	get: () => props.isOpen,
+	set: (value) => {
+		emit('update:isOpen', value)
+	}
+})
+
+useHideScrollbar({ target, currentModalModel })
 </script>
 
 <template>
@@ -20,7 +33,7 @@ const emit = defineEmits(['onConfirm', 'onClose'])
 		leave-from-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0">
 		<div v-show="isOpen" tabindex="-1"
 			class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[51] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-			<div class="relative p-4 w-full max-w-md max-h-full inset-1/2 -translate-x-1/2 -translate-y-1/2">
+			<div ref="target" class="relative p-4 w-full max-w-md max-h-full inset-1/2 -translate-x-1/2 -translate-y-1/2">
 				<form class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 
 					<button type="button" @click="$emit('onClose')"
