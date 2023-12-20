@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { watchDebounced } from '@vueuse/core'
 import { router } from '@inertiajs/vue3'
+import { watchDebounced } from '@vueuse/core'
 
 import PrimaryButton from "@/Components/Buttons/PrimaryButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
@@ -35,8 +35,8 @@ const emit = defineEmits(['onCreate', 'onEdit', 'onDelete']);
 
 watchDebounced(search, (value) => {
 	router.get(route('labels.index'), { search: value }, {
+		replace: true,
 		preserveState: true,
-		replace: true
 	});
 }, { debounce: 300 });
 </script>
@@ -107,7 +107,7 @@ watchDebounced(search, (value) => {
 			</tbody>
 		</table>
 
-		<BasePagination :data="data" />
+		<BasePagination v-show="data?.data?.length" :data="data" />
 	</div>
 </template>
 

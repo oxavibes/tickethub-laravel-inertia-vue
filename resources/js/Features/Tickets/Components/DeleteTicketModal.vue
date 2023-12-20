@@ -3,7 +3,7 @@ import BaseConfirmationModal from '@/Components/Shared/BaseConfirmationModal.vue
 </script>
 
 <template>
-	<BaseConfirmationModal id="deleteTicketModal">
+	<BaseConfirmationModal modal-id="deleteTicketModal">
 		<template #title>
 			Are you sure you want to delete this ticket?
 		</template>
