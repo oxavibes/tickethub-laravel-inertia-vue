@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
 
 		$this->call([
 			LabelSeeder::class,
+			RoleSeeder::class,
+			UserSeeder::class,
 		]);
 	}
 }
