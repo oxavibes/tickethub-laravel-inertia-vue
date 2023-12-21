@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Category;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Request;
+
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
@@ -14,7 +18,16 @@ class CategoryController extends Controller
 	 */
 	public function index()
 	{
-		return Inertia::render('Categories/Index');
+		$categories = Category::query()
+			->when(Request::input('search'), fn ($query, $search) => $query->where('title', 'like', '%' . $search . '%'))
+			->orderBy('created_at', 'desc')
+			->paginate(10)
+			->withQueryString();
+
+		return Inertia::render('Categories/Index', [
+			'categories' => $categories,
+			'filters' => Request::only(['search']),
+		]);
 	}
 
 	/**
@@ -30,7 +43,13 @@ class CategoryController extends Controller
 	 */
 	public function store(StoreCategoryRequest $request)
 	{
-		//
+		$category = new Category();
+		$category->title = $request->get('title');
+		$category->visible = $request->get('visible');
+		$category->slug = Str::slug($request->get('title'));
+		$category->save();
+
+		return redirect()->back()->with('success', 'Category created successfully');
 	}
 
 	/**
@@ -54,7 +73,12 @@ class CategoryController extends Controller
 	 */
 	public function update(UpdateCategoryRequest $request, Category $category)
 	{
-		//
+		$category->title = $request->get('title');
+		$category->visible = $request->get('visible');
+		$category->slug = Str::slug($request->get('title'));
+		$category->save();
+
+		return redirect()->back()->with('success', 'Category updated successfully');
 	}
 
 	/**
@@ -62,6 +86,8 @@ class CategoryController extends Controller
 	 */
 	public function destroy(Category $category)
 	{
-		//
+		$category->delete();
+
+		return redirect()->back()->with('success', 'Category deleted successfully');
 	}
 }

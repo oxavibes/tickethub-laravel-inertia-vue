@@ -1,10 +1,53 @@
 <script setup>
+import { watch } from 'vue';
+import { useForm } from '@inertiajs/vue3';
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
 import BaseModal from '@/Components/Shared/BaseModal.vue';
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+
+const props = defineProps({
+	category: {
+		type: [Object],
+		required: true,
+		default: () => ({
+			title: '',
+			visible: false
+		})
+	},
+})
+
+const form = useForm({
+	...props.category
+});
+
+watch(() => props.category, (newVal) => {
+	form.title = newVal.title;
+	form.visible = newVal.visible;
+});
+
+const modalStore = useModalStore();
+const { editCategoryModalOpen } = storeToRefs(modalStore);
+
+function onSubmit() {
+	const uri = route('categories.update', { category: props.category })
+
+	form.patch(uri, {
+		preserveScroll: true,
+		onSuccess: () => {
+			editCategoryModalOpen.value = false
+
+			form.reset()
+		},
+	})
+}
 </script>
 
 <template>
-	<BaseModal id="editCategoryModal">
+	<BaseModal v-model:is-open="editCategoryModalOpen" @on-close="editCategoryModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
@@ -13,47 +56,43 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 		</template>
 
 		<!-- Modal body -->
-		<div class="grid gap-6">
-			<div class="">
-				<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900">
-					Name
-				</label>
-				<input type="text" name="first-name" id="first-name"
-					class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-					placeholder="Bonnie">
-			</div>
+		<form id="edit-label-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
 
-			<div class="">
-				<label for="" class="block mb-2 text-sm font-medium text-gray-900">
+			<BaseInput label="Title" id="edit-category-title" type="text" v-model="form.title"
+				:error-message="form.errors.title" @focus="form.clearErrors('title')" />
+
+			<div>
+				<label class="block mb-2 text-sm font-medium text-gray-900">
 					Is Visible?
 				</label>
 
 				<div class="flex flex-wrap gap-6">
 					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-							<input id="is-visible-true" type="radio" value="" name="bordered-radio"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-							<label for="is-visible-true"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">True</label>
+						<div class=" flex items-center ps-4 border border-gray-200 rounded">
+							<input v-model="form.visible" id="edit-label-visible-true" type="radio" :value="true"
+								name="edit-label-visible"
+								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+							<label for="edit-label-visible-true" class="w-full py-4 ms-2 text-sm font-medium text-gray-900">True</label>
 						</div>
 					</div>
 
 					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-							<input id="is-visible-false" type="radio" value="" name="bordered-radio"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-							<label for="is-visible-false"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">False</label>
+						<div class=" flex items-center ps-4 border border-gray-200 rounded">
+							<input v-model="form.visible" id="edit-label-visible-false" type="radio" :value="false"
+								name="edit-label-visible"
+								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+							<label for="edit-label-visible-false"
+								class="w-full py-4 ms-2 text-sm font-medium text-gray-900">False</label>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 
 		<!-- Modal footer -->
 		<template #footer>
-			<PrimaryButton type="submit">
-				Create
+			<PrimaryButton form="edit-label-form" type="submit" :isLoading="form.processing">
+				Save
 			</PrimaryButton>
 		</template>
 	</BaseModal>

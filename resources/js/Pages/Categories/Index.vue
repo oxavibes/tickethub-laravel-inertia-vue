@@ -1,6 +1,21 @@
 <script setup>
+import { ref } from "vue";
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
 import BaseTable from "@/Components/Shared/BaseTable.vue";
 import { CreateCategoryModal, DeleteCategoryModal, EditCategoryModal } from "@/Features/Categories";
+
+defineProps({
+	categories: {
+		type: [Object],
+		default: () => [],
+	},
+	filters: {
+		type: [Object],
+	}
+});
 
 const headers = [
 	{
@@ -20,6 +35,31 @@ const headers = [
 		label: "Actions",
 	},
 ];
+
+const modalStore = useModalStore();
+const { createCategoryModalOpen, editCategoryModalOpen, deleteCategoryModalOpen } = storeToRefs(modalStore)
+
+const selectedCategory = ref();
+
+function setSelectedCategory(category) {
+	selectedCategory.value = category;
+};
+
+function onCreate() {
+	createCategoryModalOpen.value = true
+}
+
+function onEdit(category) {
+	editCategoryModalOpen.value = true
+
+	setSelectedCategory(category)
+}
+
+function onDelete(category) {
+	deleteCategoryModalOpen.value = true
+
+	setSelectedCategory(category)
+}
 </script>
 
 <template>
@@ -31,7 +71,9 @@ const headers = [
 		</template>
 
 		<template #default>
-			<BaseTable :headers="headers" targetModalId="Category" placeholder="Search for categories">
+			<BaseTable table-id="categories" placeholder="Search for categories" :headers="headers" :data="categories"
+				:route="route('categories.index')" :filters="filters" @on-create="onCreate" @on-edit="onEdit"
+				@on-delete="onDelete">
 				<template #button>
 					New category
 				</template>
@@ -40,6 +82,6 @@ const headers = [
 	</AuthenticatedLayout>
 
 	<CreateCategoryModal />
-	<EditCategoryModal />
-	<DeleteCategoryModal />
+	<EditCategoryModal :category="selectedCategory" />
+	<DeleteCategoryModal :category="selectedCategory" />
 </template>

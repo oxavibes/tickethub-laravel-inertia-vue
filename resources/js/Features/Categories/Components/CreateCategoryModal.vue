@@ -1,10 +1,35 @@
 <script setup>
+import { useForm } from '@inertiajs/vue3';
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Shared/BaseModal.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+
+const form = useForm({
+	title: '',
+	visible: true,
+});
+
+const modalStore = useModalStore();
+const { createCategoryModalOpen } = storeToRefs(modalStore)
+
+function onSubmit() {
+	form.post(route('categories.store'), {
+		preserveScroll: true,
+		onSuccess: () => {
+			createCategoryModalOpen.value = false
+
+			form.reset()
+		},
+	})
+}
 </script>
 
 <template>
-	<BaseModal id="createCategoryModal">
+	<BaseModal v-model:is-open="createCategoryModalOpen" @on-close="createCategoryModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
@@ -13,46 +38,42 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 		</template>
 
 		<!-- Modal body -->
-		<div class="grid gap-6">
-			<div class="">
-				<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900">
-					Name
-				</label>
-				<input type="text" name="first-name" id="first-name"
-					class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-					placeholder="Bonnie">
-			</div>
+		<form id="create-category-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
+			<BaseInput label="Title" id="create-label-name" type="text" v-model="form.title" :error-message="form.errors.title"
+				@focus="form.clearErrors('title')" />
 
-			<div class="">
-				<label for="" class="block mb-2 text-sm font-medium text-gray-900">
+			<div>
+				<label class="block mb-2 text-sm font-medium text-gray-900">
 					Is Visible?
 				</label>
 
 				<div class="flex flex-wrap gap-6">
 					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-							<input id="is-visible-true" type="radio" value="" name="bordered-radio"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-							<label for="is-visible-true"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">True</label>
+						<div class=" flex items-center ps-4 border border-gray-200 rounded">
+							<input v-model="form.visible" id="create-label-visible-true" type="radio" :value="true"
+								name="create-label-visible"
+								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+							<label for="create-label-visible-true"
+								class="w-full py-4 ms-2 text-sm font-medium text-gray-900">True</label>
 						</div>
 					</div>
 
 					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-							<input id="is-visible-false" type="radio" value="" name="bordered-radio"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-							<label for="is-visible-false"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">False</label>
+						<div class=" flex items-center ps-4 border border-gray-200 rounded">
+							<input v-model="form.visible" id="create-label-visible-false" type="radio" :value="false"
+								name="create-label-visible"
+								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
+							<label for="create-label-visible-false"
+								class="w-full py-4 ms-2 text-sm font-medium text-gray-900">False</label>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 
 		<!-- Modal footer -->
 		<template #footer>
-			<PrimaryButton type="submit">
+			<PrimaryButton form="create-category-form" type="submit" :isLoading="form.processing">
 				Create
 			</PrimaryButton>
 		</template>
