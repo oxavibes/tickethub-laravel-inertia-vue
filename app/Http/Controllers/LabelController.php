@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Label;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Request;
 

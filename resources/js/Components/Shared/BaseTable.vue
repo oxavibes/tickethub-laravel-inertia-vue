@@ -16,9 +16,6 @@ const props = defineProps({
 		required: true,
 		default: () => []
 	},
-	placeholder: {
-		type: [String],
-	},
 	data: {
 		type: [Object],
 		required: true,
@@ -26,15 +23,22 @@ const props = defineProps({
 	},
 	filters: {
 		type: [Object],
+	},
+	placeholder: {
+		type: [String],
+	},
+	route: {
+		type: [String],
+		required: true
 	}
 })
 
-const search = ref(props.filters.search);
+const search = ref(props.filters?.search);
 
 const emit = defineEmits(['onCreate', 'onEdit', 'onDelete']);
 
 watchDebounced(search, (value) => {
-	router.get(route('labels.index'), { search: value }, {
+	router.get(props.route, { search: value }, {
 		replace: true,
 		preserveState: true,
 	});

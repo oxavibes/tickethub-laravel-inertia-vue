@@ -4,8 +4,8 @@ import { useForm } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
-import BaseModal from '@/Components/Shared/BaseModal.vue';
 import BaseInput from '@/Components/Form/BaseInput.vue';
+import BaseModal from '@/Components/Shared/BaseModal.vue';
 import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 
 const form = useForm({
@@ -38,7 +38,7 @@ function onSubmit() {
 		</template>
 
 		<!-- Modal body -->
-		<form id="createLabelForm" class="grid gap-6" novalidate @submit.prevent="onSubmit">
+		<form id="create-label-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
 			<BaseInput label="Title" id="create-label-name" type="text" v-model="form.title" :error-message="form.errors.title"
 				@focus="form.clearErrors('title')" />
 
@@ -73,7 +73,7 @@ function onSubmit() {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<PrimaryButton form="createLabelForm" type="submit" :isLoading="form.processing">
+			<PrimaryButton form="create-label-form" type="submit" :isLoading="form.processing">
 				Create
 			</PrimaryButton>
 		</template>
