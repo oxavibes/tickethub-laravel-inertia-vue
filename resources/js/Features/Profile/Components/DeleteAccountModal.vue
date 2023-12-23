@@ -2,19 +2,22 @@
 import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
-import BaseModal from '@/Components/Shared/BaseModal.vue';
+import { storeToRefs } from 'pinia'
+import { useModalStore } from '@/Stores/modals';
+
+import BaseModal from '@/Components/Modals/BaseModal.vue';
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 import TextInput from '@/Components/Form/TextInput.vue';
 import InputError from '@/Components/Form/InputError.vue';
 import InputLabel from '@/Components/Form/InputLabel.vue';
 
-import SecondaryButton from '@/Components/Buttons/SecondaryButton.vue';
-import DangerButton from '@/Components/Buttons/DangerButton.vue';
-
-
 const form = useForm({
 	password: '',
 });
+
+const modalStore = useModalStore();
+const { accountModalOpen } = storeToRefs(modalStore)
 
 
 const deleteUser = () => {
@@ -38,13 +41,15 @@ onMounted(() => {
 </script>
 
 <template>
-	<BaseModal id="deleteUserModal">
+	<BaseModal :is-open="accountModalOpen" @on-close="accountModalOpen = false">
+		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
 				Delete Account
 			</h3>
 		</template>
 
+		<!-- Modal body -->
 		<div>
 			<p class="text-sm text-gray-600">
 				Once your account is deleted, all of its resources and data will be permanently deleted. Please
@@ -59,20 +64,19 @@ onMounted(() => {
 
 				<InputError :message="form.errors.password" class="mt-2" />
 			</div>
-
 		</div>
 
+		<!-- Modal footer -->
 		<template #footer>
-			<SecondaryButton data-modal-hide="deleteUserModal"> Cancel </SecondaryButton>
+			<BaseButton variant="secondary" @click="accountModalOpen = false"> Cancel </BaseButton>
 
-			<DangerButton class="ms-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-				@click="deleteUser">
+			<BaseButton variant="danger" class="ms-3" :is-loading="form.processing" @click="deleteUser">
 				Delete Account
-			</DangerButton>
+			</BaseButton>
 		</template>
 	</BaseModal>
 </template>
 
 
-<style lang="scss" scoped>
+<style scoped>
 </style>
