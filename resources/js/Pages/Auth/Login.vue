@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 import Checkbox from '@/Components/Form/Checkbox.vue';
 import TextInput from '@/Components/Form/TextInput.vue';
@@ -71,9 +71,9 @@ const submit = () => {
 				Forgot your password?
 				</Link>
 
-				<PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+				<BaseButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
 					Log in
-				</PrimaryButton>
+				</BaseButton>
 			</div>
 		</form>
 	</GuestLayout>

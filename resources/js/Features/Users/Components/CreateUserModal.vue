@@ -1,6 +1,6 @@
 <script setup>
-import BaseModal from '@/Components/Shared/BaseModal.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import BaseModal from '@/Components/Modals/BaseModal.vue';
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
 </script>
 
 <template>
@@ -48,9 +48,9 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
 
 		<!-- Modal footer -->
 		<template #footer>
-			<PrimaryButton type="submit">
+			<BaseButton type="submit">
 				Create
-			</PrimaryButton>
+			</BaseButton>
 		</template>
 	</BaseModal>
 </template>

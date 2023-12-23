@@ -4,7 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
-import BaseConfirmationModal from '@/Components/Shared/BaseConfirmationModal.vue';
+import BaseConfirmationModal from '@/Components/Modals/BaseConfirmationModal.vue';
 
 const props = defineProps({
 	label: {
@@ -37,7 +37,7 @@ function onConfirm() {
 </script>
 
 <template>
-	<BaseConfirmationModal v-model:is-open="deleteLabelModalOpen" @on-confirm="onConfirm"
+	<BaseConfirmationModal v-model:is-open="deleteLabelModalOpen" :is-loading="form.processing" @on-confirm="onConfirm"
 		@on-close="deleteLabelModalOpen = false">
 		<template #title>
 			Are you sure you want to delete this label?

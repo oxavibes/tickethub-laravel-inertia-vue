@@ -1,6 +1,12 @@
 <script setup>
-import DangerButton from '@/Components/Buttons/DangerButton.vue';
-import DeleteUserModal from '@/Features/Profile/Components/DeleteUserModal.vue';
+import { storeToRefs } from 'pinia'
+import { useModalStore } from '@/Stores/modals';
+
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import DeleteAccountModal from '@/Features/Profile/Components/DeleteAccountModal.vue';
+
+const modalStore = useModalStore();
+const { accountModalOpen } = storeToRefs(modalStore)
 </script>
 
 <template>
@@ -14,10 +20,10 @@ import DeleteUserModal from '@/Features/Profile/Components/DeleteUserModal.vue';
 			</p>
 		</header>
 
-		<DangerButton data-modal-target="deleteUserModal" data-modal-show="deleteUserModal">
+		<BaseButton variant="danger" @click="accountModalOpen = true">
 			Delete Account
-		</DangerButton>
+		</BaseButton>
 
-		<DeleteUserModal />
+		<DeleteAccountModal />
 	</section>
 </template>

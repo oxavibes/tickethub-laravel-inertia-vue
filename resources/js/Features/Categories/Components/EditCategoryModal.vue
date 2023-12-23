@@ -5,9 +5,9 @@ import { useForm } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
-import BaseModal from '@/Components/Shared/BaseModal.vue';
+import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseInput from '@/Components/Form/BaseInput.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 const props = defineProps({
 	category: {
@@ -91,9 +91,9 @@ function onSubmit() {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<PrimaryButton form="edit-label-form" type="submit" :isLoading="form.processing">
+			<BaseButton form="edit-label-form" type="submit" :isLoading="form.processing">
 				Save
-			</PrimaryButton>
+			</BaseButton>
 		</template>
 	</BaseModal>
 </template>

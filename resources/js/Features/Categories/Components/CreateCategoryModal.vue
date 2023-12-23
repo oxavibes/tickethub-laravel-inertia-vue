@@ -5,8 +5,8 @@ import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
-import BaseModal from '@/Components/Shared/BaseModal.vue';
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import BaseModal from '@/Components/Modals/BaseModal.vue';
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 const form = useForm({
 	title: '',
@@ -73,9 +73,9 @@ function onSubmit() {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<PrimaryButton form="create-category-form" type="submit" :isLoading="form.processing">
+			<BaseButton form="create-category-form" type="submit" :isLoading="form.processing">
 				Create
-			</PrimaryButton>
+			</BaseButton>
 		</template>
 	</BaseModal>
 </template>

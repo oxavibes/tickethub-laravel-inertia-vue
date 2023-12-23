@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 
-import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
+import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 import TextInput from '@/Components/Form/TextInput.vue';
 import InputError from '@/Components/Form/InputError.vue';
@@ -69,9 +69,9 @@ const submit = () => {
 				Already registered?
 				</Link>
 
-				<PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+				<BaseButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
 					Register
-				</PrimaryButton>
+				</BaseButton>
 			</div>
 		</form>
 	</GuestLayout>

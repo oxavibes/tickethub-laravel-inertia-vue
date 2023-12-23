@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { router } from '@inertiajs/vue3'
 import { watchDebounced } from '@vueuse/core'
 
-import PrimaryButton from "@/Components/Buttons/PrimaryButton.vue";
+import BaseButton from "@/Components/Buttons/BaseButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
 const props = defineProps({
@@ -63,9 +63,9 @@ watchDebounced(search, (value) => {
 			</div>
 
 
-			<PrimaryButton @click="$emit('onCreate')" class="h-[38px]">
-				<slot name="button"></slot>
-			</PrimaryButton>
+			<BaseButton @click="$emit('onCreate')" class="h-[38px]">
+				<slot name="button" />
+			</BaseButton>
 		</div>
 
 		<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
