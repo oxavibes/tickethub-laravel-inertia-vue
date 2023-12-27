@@ -20,7 +20,7 @@ const props = defineProps({
 const isButtonDisabled = computed(() => props.isDisabled || props.isLoading);
 
 const computedClasses = computed(() => ({
-	'inline-flex items-center px-5 py-2.5': true,
+	'inline-flex items-center px-4 py-2': true,
 	'variant-primary': props.variant === 'primary',
 	'variant-secondary': props.variant === 'secondary',
 	'variant-tertiary': props.variant === 'tertiary',
