@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 
 import TheLogo from '@/Components/Layout/TheLogo.vue';
 
@@ -9,14 +10,21 @@ import DropdownLink from '@/Components/Shared/DropdownLink.vue';
 import ResponsiveNavLink from '@/Components/Shared/ResponsiveNavLink.vue';
 
 const navigationLinks = [
-	{ name: 'Dashboard', route: 'dashboard' },
-	{ name: 'Users', route: 'users.index' },
-	{ name: 'Tickets', route: 'tickets.index' },
+	{ name: 'Dashboard', route: 'dashboard', permission: 'view dashboard' },
+	{ name: 'Users', route: 'users.index', permission: 'view users' },
+	{ name: 'Tickets', route: 'tickets.index', permission: 'view tickets' },
+	{ name: 'Categories', route: 'categories.index', permission: 'view categories' },
+	{ name: 'Labels', route: 'labels.index', permission: 'view labels' },
 	// { name: 'Tickets logs', route: 'tickets.logs' },
-	{ name: 'Categories', route: 'categories.index' },
-	{ name: 'Labels', route: 'labels.index' },
 ];
 
+const permissions = computed(() => {
+	return usePage().props.auth.permissions || [];
+})
+
+const computedNavigationLinks = computed(() => {
+	return navigationLinks.filter((link) => permissions.value.includes(link.permission));
+});
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -36,7 +44,7 @@ const showingNavigationDropdown = ref(false);
 
 					<!-- Navigation Links -->
 					<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-						<NavLink v-for="link in navigationLinks" :key="link.name" :href="route(link.route)"
+						<NavLink v-for="link in computedNavigationLinks" :key="link.name" :href="route(link.route)"
 							:active="route().current(link.route)">
 							{{ link.name }}
 						</NavLink>
