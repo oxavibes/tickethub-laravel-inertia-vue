@@ -27,7 +27,7 @@ const headers = [
 		label: "Slug",
 	},
 	{
-		key: "is_visible",
+		key: "visible",
 		label: "Is Visible",
 	},
 	{
@@ -72,8 +72,7 @@ function onDelete(category) {
 
 		<template #default>
 			<BaseTable table-id="categories" placeholder="Search for categories" :headers="headers" :data="categories"
-				:route="route('categories.index')" :filters="filters" @on-create="onCreate" @on-edit="onEdit"
-				@on-delete="onDelete">
+				route="categories.index" :filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					New category
 				</template>
