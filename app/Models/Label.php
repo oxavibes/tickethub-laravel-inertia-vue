@@ -16,6 +16,7 @@ class Label extends Model
 		'title',
 		'slug',
 		'visible',
+		'user_id',
 	];
 
 	protected $casts = [

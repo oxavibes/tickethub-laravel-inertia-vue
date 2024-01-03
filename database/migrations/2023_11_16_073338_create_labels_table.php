@@ -13,6 +13,7 @@ return new class extends Migration
 	{
 		Schema::create('labels', function (Blueprint $table) {
 			$table->id();
+			$table->foreignId('user_id')->constrained()->onDelete('cascade');
 			$table->string('title', 50)->unique();
 			$table->string('slug', 50)->unique();
 			$table->boolean('visible')->default(true);

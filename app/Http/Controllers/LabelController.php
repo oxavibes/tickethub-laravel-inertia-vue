@@ -47,9 +47,11 @@ class LabelController extends Controller
 		$label->title = $request->get('title');
 		$label->visible = $request->get('visible');
 		$label->slug = Str::slug($request->get('title'));
+		$label->user_id = auth()->user()->id;
+
 		$label->save();
 
-		return redirect()->back()->with('success', 'Label created successfully');
+		return redirect()->back()->with('message', 'Label created successfully');
 	}
 
 	/**
@@ -79,7 +81,7 @@ class LabelController extends Controller
 
 		$label->save();
 
-		return redirect()->back()->with('success', 'Label updated successfully');
+		return redirect()->back()->with('message', 'Label updated successfully');
 	}
 
 	/**
@@ -89,6 +91,6 @@ class LabelController extends Controller
 	{
 		$label->delete();
 
-		return redirect()->back()->with('success', 'Label deleted successfully');
+		return redirect()->back()->with('message', 'Label deleted successfully');
 	}
 }
