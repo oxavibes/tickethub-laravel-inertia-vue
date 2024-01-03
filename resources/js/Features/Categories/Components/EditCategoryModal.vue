@@ -25,8 +25,7 @@ const form = useForm({
 });
 
 watch(() => props.category, (newVal) => {
-	form.title = newVal.title;
-	form.visible = newVal.visible;
+	form.defaults({ ...newVal }).reset();
 });
 
 const modalStore = useModalStore();

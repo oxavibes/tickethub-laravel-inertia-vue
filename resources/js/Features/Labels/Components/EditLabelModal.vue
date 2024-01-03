@@ -20,13 +20,12 @@ const props = defineProps({
 	},
 })
 
-const form = useForm({
+let form = useForm({
 	...props.label
 });
 
 watch(() => props.label, (newVal) => {
-	form.title = newVal.title;
-	form.visible = newVal.visible;
+	form.defaults({ ...newVal }).reset();
 });
 
 const modalStore = useModalStore();
