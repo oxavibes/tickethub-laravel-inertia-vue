@@ -47,9 +47,11 @@ class CategoryController extends Controller
 		$category->title = $request->get('title');
 		$category->visible = $request->get('visible');
 		$category->slug = Str::slug($request->get('title'));
+		$category->user_id = auth()->user()->id;
+
 		$category->save();
 
-		return redirect()->back()->with('success', 'Category created successfully');
+		return redirect()->back()->with('message', 'Category created successfully');
 	}
 
 	/**
@@ -78,7 +80,7 @@ class CategoryController extends Controller
 		$category->slug = Str::slug($request->get('title'));
 		$category->save();
 
-		return redirect()->back()->with('success', 'Category updated successfully');
+		return redirect()->back()->with('message', 'Category updated successfully');
 	}
 
 	/**
@@ -88,6 +90,6 @@ class CategoryController extends Controller
 	{
 		$category->delete();
 
-		return redirect()->back()->with('success', 'Category deleted successfully');
+		return redirect()->back()->with('message', 'Category deleted successfully');
 	}
 }
