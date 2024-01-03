@@ -40,10 +40,32 @@ Route::middleware(['auth'])->group(function () {
 	Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 	Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-	Route::resource('/users', UserController::class);
-	Route::resource('/tickets', TicketController::class);
-	Route::resource('/labels', LabelController::class);
-	Route::resource('/categories', CategoryController::class);
+	Route::middleware(['permission:view users'])->get('/users', [UserController::class, 'index'])->name('users.index');
+	Route::middleware(['permission:create users'])->post('/users', [UserController::class, 'store'])->name('users.store');
+	Route::middleware(['permission:view users'])->get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+	Route::middleware(['permission:edit users'])->patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
+	Route::middleware(['permission:delete users'])->delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+	// Tickets
+	Route::middleware(['permission:view tickets'])->get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+	Route::middleware(['permission:create tickets'])->post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+	Route::middleware(['permission:view tickets'])->get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+	Route::middleware(['permission:edit tickets'])->patch('/tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
+	Route::middleware(['permission:delete tickets'])->delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+
+	// Labels
+	Route::middleware(['permission:view labels'])->get('/labels', [LabelController::class, 'index'])->name('labels.index');
+	Route::middleware(['permission:create labels'])->post('/labels', [LabelController::class, 'store'])->name('labels.store');
+	Route::middleware(['permission:view labels'])->get('/labels/{label}', [LabelController::class, 'show'])->name('labels.show');
+	Route::middleware(['permission:edit labels'])->patch('/labels/{label}', [LabelController::class, 'update'])->name('labels.update');
+	Route::middleware(['permission:delete labels'])->delete('/labels/{label}', [LabelController::class, 'destroy'])->name('labels.destroy');
+
+	// Categories
+	Route::middleware(['permission:view categories'])->get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+	Route::middleware(['permission:create categories'])->post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+	Route::middleware(['permission:view categories'])->get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+	Route::middleware(['permission:edit categories'])->patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+	Route::middleware(['permission:delete categories'])->delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
 require __DIR__ . '/auth.php';
