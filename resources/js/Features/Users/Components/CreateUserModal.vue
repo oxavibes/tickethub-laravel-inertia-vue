@@ -1,54 +1,87 @@
 <script setup>
+import { useForm } from '@inertiajs/vue3';
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
+import BaseRadio from '@/Components/Shared/BaseRadio.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
+
+const form = useForm({
+	name: '',
+	email: '',
+	role: '',
+	password: '',
+	password_confirmation: '',
+});
+
+const roleOptions = [
+	{ id: 'create-user-role-admin', value: 'admin', label: 'Admin' },
+	{ id: 'create-user-role-agent', value: 'agent', label: 'Agent' },
+	{ id: 'create-user-role-user', value: 'user', label: 'User' },
+];
+
+const modalStore = useModalStore();
+const { createUserModalOpen } = storeToRefs(modalStore)
+
+function onSubmit() {
+	form.post(route('users.store'), {
+		preserveScroll: true,
+		onSuccess: () => {
+			createUserModalOpen.value = false
+
+			form.reset()
+		},
+	})
+}
 </script>
 
 <template>
-	<BaseModal id="createUserModal">
+	<BaseModal v-model:is-open="createUserModalOpen" @on-close="createUserModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
-				New User
+				New user
 			</h3>
 		</template>
 
 		<!-- Modal body -->
-		<div class="grid grid-cols-6 gap-6">
-			<div class="col-span-6 sm:col-span-3">
-				<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900">
-					Name
+		<form id="create-user-form" class="grid gap-4" novalidate @submit.prevent="onSubmit">
+			<BaseInput label="Name" id="create-user-name" type="text" placeholder="John Doe" v-model="form.name"
+				:error-message="form.errors.name" @focus="form.clearErrors('name')" />
+
+			<BaseInput label="Email" id="create-user-email" placeholder="youremail@domain.com" type="email" v-model="form.email"
+				:error-message="form.errors.email" @focus="form.clearErrors('email')" />
+
+			<BaseInput label="Password" id="create-user-password" placeholder="••••••••" type="password" v-model="form.password"
+				autocomplete="new-password" :error-message="form.errors.password" @focus="form.clearErrors('password')" />
+
+			<BaseInput label="Confirm password" id="create-user-confirm-password" placeholder="••••••••" type="password"
+				v-model="form.password_confirmation" autocomplete="new-password"
+				:error-message="form.errors.password_confirmation" @focus="form.clearErrors('confirm-password')" />
+
+			<div>
+				<label class="block mb-2 text-sm font-medium text-gray-900">
+					Role
 				</label>
-				<input type="text" name="first-name" id="first-name"
-					class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-					placeholder="Bonnie">
-			</div>
 
-			<div class="col-span-6 sm:col-span-3">
-				<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900">
-					Email
-				</label>
-				<input type="text" name="first-name" id="first-name"
-					class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-					placeholder="Bonnie">
-			</div>
+				<div class="flex flex-wrap gap-4">
+					<div v-for="option in roleOptions" class="flex-1">
+						<BaseRadio v-model:selected="form.role" :error-message="form.errors.role" :option="option" />
+					</div>
+				</div>
 
-			<div class="col-span-6 sm:col-span-3">
-				<label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-				<select id="category"
-					class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-					<option selected="">Select category</option>
-					<option value="TV">TV/Monitors</option>
-					<option value="PC">PC</option>
-					<option value="GA">Gaming/Console</option>
-					<option value="PH">Phones</option>
-				</select>
+				<p v-show="form.errors.role" class="text-red-600 text-sm mt-2">
+					{{ form.errors.role }}
+				</p>
 			</div>
-
-		</div>
+		</form>
 
 		<!-- Modal footer -->
 		<template #footer>
-			<BaseButton type="submit">
+			<BaseButton form="create-user-form" type="submit" :isLoading="form.processing">
 				Create
 			</BaseButton>
 		</template>

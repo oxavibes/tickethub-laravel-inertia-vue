@@ -54,6 +54,11 @@ class User extends Authenticatable
 		return $this->hasMany(Label::class);
 	}
 
+	public function categories(): HasMany
+	{
+		return $this->hasMany(Category::class);
+	}
+
 	public function tickets(): HasMany
 	{
 		return $this->hasMany(Ticket::class);

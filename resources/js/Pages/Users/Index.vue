@@ -1,13 +1,53 @@
 <script setup>
+import { ref } from "vue";
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
 import BaseTable from "@/Components/Shared/BaseTable.vue";
 import { CreateUserModal, EditUserModal, DeleteUserModal } from "@/Features/Users";
+
+defineProps({
+	users: {
+		type: [Object],
+		default: () => [],
+	},
+	filters: {
+		type: [Object],
+	}
+});
 
 const headers = [
 	{ label: 'Name', key: 'name' },
 	{ label: 'Email', key: 'email' },
-	{ label: 'Role', key: 'role' },
+	// { label: 'Role', key: 'role' },
 	{ label: 'Actions', key: 'actions' },
 ]
+
+const modalStore = useModalStore();
+const { createUserModalOpen, editUserModalOpen, deleteUserModalOpen } = storeToRefs(modalStore)
+
+const selectedUser = ref();
+
+function setSelectedUser(user) {
+	selectedUser.value = user;
+};
+
+function onCreate() {
+	createUserModalOpen.value = true
+}
+
+function onEdit(user) {
+	editUserModalOpen.value = true
+
+	setSelectedUser(user)
+}
+
+function onDelete(user) {
+	deleteUserModalOpen.value = true
+
+	setSelectedUser(user)
+}
 </script>
 
 <template>
@@ -19,7 +59,8 @@ const headers = [
 		</template>
 
 		<template #default>
-			<BaseTable :headers="headers" targetModalId="User" placeholder="Search for users">
+			<BaseTable table-id="users" placeholder="Search for users" :headers="headers" :data="users" route="users.index"
+				:filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					New user
 				</template>
@@ -28,6 +69,6 @@ const headers = [
 	</AuthenticatedLayout>
 
 	<CreateUserModal />
-	<EditUserModal />
-	<DeleteUserModal />
+	<EditUserModal :user="selectedUser" />
+	<DeleteUserModal :user="selectedUser" />
 </template>
