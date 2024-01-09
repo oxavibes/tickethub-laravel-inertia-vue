@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { usePage } from '@inertiajs/vue3';
+
+import usePermission from '@/Composables/usePermission';
 
 import TheLogo from '@/Components/Layout/TheLogo.vue';
 
@@ -18,12 +19,10 @@ const navigationLinks = [
 	// { name: 'Tickets logs', route: 'tickets.logs' },
 ];
 
-const permissions = computed(() => {
-	return usePage().props.auth.permissions || [];
-})
+const { hasPermission } = usePermission();
 
 const computedNavigationLinks = computed(() => {
-	return navigationLinks.filter((link) => permissions.value.includes(link.permission));
+	return navigationLinks.filter((link) => hasPermission.value(link.permission));
 });
 
 const showingNavigationDropdown = ref(false);
