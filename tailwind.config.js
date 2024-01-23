@@ -17,6 +17,12 @@ export default {
 			fontFamily: {
 				sans: ['Figtree', ...defaultTheme.fontFamily.sans],
 			},
+			colors: {
+				black: '#000000',
+				nickel: '#939393',
+				persian: '#f9f9f9',
+				yellow: '#F4BC2C',
+			},
 		},
 	},
 
