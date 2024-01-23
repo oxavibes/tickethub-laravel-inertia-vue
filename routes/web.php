@@ -36,10 +36,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+	// Profile
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 	Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 	Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+	// Users
 	Route::middleware(['permission:view users'])->get('/users', [UserController::class, 'index'])->name('users.index');
 	Route::middleware(['permission:create users'])->post('/users', [UserController::class, 'store'])->name('users.store');
 	Route::middleware(['permission:view users'])->get('/users/{user}', [UserController::class, 'show'])->name('users.show');
@@ -52,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::middleware(['permission:view tickets'])->get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
 	Route::middleware(['permission:edit tickets'])->patch('/tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
 	Route::middleware(['permission:delete tickets'])->delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+
+	Route::middleware(['permission:assign tickets'])->put('/tickets/{ticket}/assign', [TicketController::class, 'assign'])->name('tickets.assign');
 
 	// Labels
 	Route::middleware(['permission:view labels'])->get('/labels', [LabelController::class, 'index'])->name('labels.index');
