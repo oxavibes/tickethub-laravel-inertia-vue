@@ -13,9 +13,9 @@ import ResponsiveNavLink from '@/Components/Shared/ResponsiveNavLink.vue';
 const navigationLinks = [
 	{ name: 'Dashboard', route: 'dashboard', permission: 'view dashboard' },
 	{ name: 'Users', route: 'users.index', permission: 'view users' },
-	{ name: 'Tickets', route: 'tickets.index', permission: 'view tickets' },
-	{ name: 'Categories', route: 'categories.index', permission: 'view categories' },
 	{ name: 'Labels', route: 'labels.index', permission: 'view labels' },
+	{ name: 'Categories', route: 'categories.index', permission: 'view categories' },
+	{ name: 'Tickets', route: 'tickets.index', permission: 'view tickets' },
 	// { name: 'Tickets logs', route: 'tickets.logs' },
 ];
 
