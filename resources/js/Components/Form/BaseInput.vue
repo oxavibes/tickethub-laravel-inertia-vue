@@ -21,7 +21,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const computedValue = computed({
+const computedModelValue = computed({
 	get() {
 		return props.modelValue
 	},
@@ -37,10 +37,10 @@ defineOptions({
 const attrs = useAttrs()
 
 const computedClasses = computed(() => ({
-	'border border-gray-300 placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm': true,
+	'placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm': true,
 	'bg-white cursor-pointer': !props.isDisabled,
-	'bg-[#f9f9f9] cursor-not-allowed text-nickel': props.isDisabled,
-	'border border-gray-300 focus:ring-border-gray-300 focus:border-gray-300': !props.errorMessage,
+	'bg-persian cursor-not-allowed text-nickel': props.isDisabled,
+	'border border-gray-300 focus:ring-black focus:border-black': !props.errorMessage,
 	'border border-red-500 focus:ring-red-500 focus:border-red-500': props.errorMessage,
 }))
 
@@ -52,7 +52,7 @@ const computedClasses = computed(() => ({
 			{{ label }}
 		</label>
 
-		<input v-bind="attrs" v-model="computedValue" :class="computedClasses" :disabled="isDisabled">
+		<input v-bind="attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
 
 		<p v-show="errorMessage" class="text-red-600 text-sm mt-1">
 			{{ errorMessage }}
