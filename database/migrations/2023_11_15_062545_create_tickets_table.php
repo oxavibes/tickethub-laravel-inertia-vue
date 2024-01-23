@@ -13,13 +13,20 @@ return new class extends Migration
 	{
 		Schema::create('tickets', function (Blueprint $table) {
 			$table->id();
+
 			$table->string('title', 50);
 			$table->text('description', 1000);
 			$table->json('file_paths')->nullable();
+
 			$table->enum('status', ['open', 'closed'])->default('open');
 			$table->enum('priority', ['low', 'medium', 'high'])->default('low');
-			$table->unsignedBigInteger('assigned_user_id')->nullable(); // Foreign key to users table
-			$table->foreign('assigned_user_id')->references('id')->on('users');
+
+			$table->unsignedBigInteger('agent_id')->nullable();
+			$table->foreign('agent_id')->references('id')->on('users')->onDelete('cascade');
+
+			$table->unsignedBigInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
 			$table->timestamps();
 		});
 	}

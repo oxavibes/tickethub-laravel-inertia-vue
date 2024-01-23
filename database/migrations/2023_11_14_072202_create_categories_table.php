@@ -11,12 +11,16 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-		Schema::create('labels', function (Blueprint $table) {
+		Schema::create('categories', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('user_id')->constrained()->onDelete('cascade');
-			$table->string('title', 50)->unique();
+
+			$table->unsignedBigInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+			$table->string('title', 50);
 			$table->string('slug', 50)->unique();
 			$table->boolean('visible')->default(true);
+
 			$table->timestamps();
 		});
 	}
@@ -26,6 +30,6 @@ return new class extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('labels');
+		Schema::dropIfExists('categories');
 	}
 };
