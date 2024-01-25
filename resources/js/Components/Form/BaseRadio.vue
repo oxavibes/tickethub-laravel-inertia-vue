@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-	selected: {
+	modelValue: {
 		type: [String, Number],
 		required: true,
 	},
@@ -12,14 +12,14 @@ const props = defineProps({
 	},
 })
 
-const emit = defineEmits(["update:selected"]);
+const emit = defineEmits(["update:modelValue"]);
 
-const computedSelected = computed({
+const computedModelValue = computed({
 	get() {
-		return props.selected
+		return props.modelValue
 	},
 	set(value) {
-		emit('update:selected', value)
+		emit('update:modelValue', value)
 	},
 })
 </script>
@@ -27,7 +27,7 @@ const computedSelected = computed({
 <template>
 	<div class="flex-1">
 		<div class="flex items-center px-4 border border-gray-200 rounded">
-			<input v-model="computedSelected" :id="option.id" type="radio" :value="option.value"
+			<input v-model="computedModelValue" :id="option.id" type="radio" :value="option.value"
 				class="w-4 h-4 text-gray-800 bg-gray-100 border-gray-300 focus:ring-gray-800 focus:ring-2">
 			<label :for="option.id" class="w-full py-4 ms-2 text-sm font-medium text-gray-900">
 				{{ option.label }}
