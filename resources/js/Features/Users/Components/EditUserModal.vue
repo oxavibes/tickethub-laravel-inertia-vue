@@ -88,7 +88,7 @@ function onSubmit() {
 
 				<div class="flex flex-wrap gap-4">
 					<div v-for="option in roleOptions" class="flex-1">
-						<BaseRadio v-model:selected="form.role" :option="option" />
+						<BaseRadio v-model="form.role" :option="option" />
 					</div>
 				</div>
 
