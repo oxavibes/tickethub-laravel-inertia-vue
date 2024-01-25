@@ -20,7 +20,7 @@ defineProps({
 const headers = [
 	{ label: 'Name', key: 'name' },
 	{ label: 'Email', key: 'email' },
-	// { label: 'Role', key: 'role' },
+	{ label: 'Role', key: 'roles' },
 	{ label: 'Actions', key: 'actions' },
 ]
 

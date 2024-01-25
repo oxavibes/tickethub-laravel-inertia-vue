@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
-
 class UserController extends Controller
 {
 	/**
@@ -26,10 +25,21 @@ class UserController extends Controller
 						->orWhere('email', 'like', '%' . $search . '%');
 				});
 			})
-			// ->with('roles')
+			->with('roles:id,name')
 			->orderBy('created_at', 'desc')
 			->paginate(10)
 			->withQueryString();
+
+		$users->getCollection()->transform(function ($user) {
+			return [
+				'id' => $user->id,
+				'name' => $user->name,
+				'email' => $user->email,
+				'created_at' => $user->created_at,
+				'updated_at' => $user->updated_at,
+				'roles' => $user->roles->pluck('name')->first(),
+			];
+		});
 
 		return Inertia::render('Users/Index', [
 			'users' => $users,
@@ -56,7 +66,7 @@ class UserController extends Controller
 		$user->password = Hash::make($request->input('password'));
 		$user->save();
 
-		// $user->assignRole($request->get('role'));
+		$user->assignRole($request->get('role'));
 
 		return redirect()->back()->with('message', 'User created successfully');
 	}
@@ -91,7 +101,7 @@ class UserController extends Controller
 
 		$user->save();
 
-		// $user->syncRoles([$request->get('role')]);
+		$user->syncRoles([$request->get('role')]);
 
 		return redirect()->back()->with('message', 'User created successfully');
 	}

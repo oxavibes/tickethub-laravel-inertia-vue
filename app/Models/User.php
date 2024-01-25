@@ -72,6 +72,13 @@ class User extends Authenticatable
 		}
 	}
 
+	public function removeAgent()
+	{
+		if (auth()->user()->hasRole('admin')) {
+			$this->agent()->dissociate()->save();
+		}
+	}
+
 	public function tickets(): HasMany
 	{
 		return $this->hasMany(Ticket::class);
