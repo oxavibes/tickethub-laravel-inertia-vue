@@ -5,6 +5,8 @@ import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
+import BaseRadio from '@/Components/Form/BaseRadio.vue';
+
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
@@ -26,6 +28,11 @@ function onSubmit() {
 		},
 	})
 }
+
+const visibilityOptions = [
+	{ id: 'create-category-visible', value: true, label: 'True' },
+	{ id: 'create-category-hidden', value: false, label: 'False' },
+]
 </script>
 
 <template>
@@ -48,25 +55,11 @@ function onSubmit() {
 				</label>
 
 				<div class="flex flex-wrap gap-6">
-					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded">
-							<input v-model="form.visible" id="create-label-visible-true" type="radio" :value="true"
-								name="create-label-visible"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-							<label for="create-label-visible-true"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900">True</label>
-						</div>
-					</div>
+					<BaseRadio v-for="option in visibilityOptions" v-model="form.visible" :option="option" />
 
-					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded">
-							<input v-model="form.visible" id="create-label-visible-false" type="radio" :value="false"
-								name="create-label-visible"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-							<label for="create-label-visible-false"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900">False</label>
-						</div>
-					</div>
+					<p v-show="form.errors.visible" class="text-red-600 text-sm mt-2">
+						{{ form.errors.visible }}
+					</p>
 				</div>
 			</div>
 		</form>

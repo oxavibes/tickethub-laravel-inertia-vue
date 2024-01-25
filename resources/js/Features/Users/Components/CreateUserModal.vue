@@ -5,14 +5,15 @@ import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
+import BaseRadio from '@/Components/Form/BaseRadio.vue';
+
 import BaseModal from '@/Components/Modals/BaseModal.vue';
-import BaseRadio from '@/Components/Shared/BaseRadio.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 const form = useForm({
 	name: '',
 	email: '',
-	role: '',
+	role: 'user',
 	password: '',
 	password_confirmation: '',
 });

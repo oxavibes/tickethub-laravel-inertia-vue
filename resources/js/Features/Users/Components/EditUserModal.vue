@@ -6,8 +6,9 @@ import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
+import BaseRadio from '@/Components/Form/BaseRadio.vue';
+
 import BaseModal from '@/Components/Modals/BaseModal.vue';
-import BaseRadio from '@/Components/Shared/BaseRadio.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 const props = defineProps({
@@ -19,12 +20,13 @@ const props = defineProps({
 
 let form = useForm({
 	...props.user,
+	role: props?.user?.roles,
 	password: '',
 	password_confirmation: '',
 });
 
 watch(() => props.user, (newVal) => {
-	form.defaults({ ...newVal }).reset();
+	form.defaults({ ...newVal, role: props?.user?.roles }).reset();
 });
 
 const roleOptions = [
@@ -86,7 +88,7 @@ function onSubmit() {
 
 				<div class="flex flex-wrap gap-4">
 					<div v-for="option in roleOptions" class="flex-1">
-						<BaseRadio v-model:selected="form.role" :error-message="form.errors.role" :option="option" />
+						<BaseRadio v-model:selected="form.role" :option="option" />
 					</div>
 				</div>
 
