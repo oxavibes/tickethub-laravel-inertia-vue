@@ -21,9 +21,11 @@ return new class extends Migration
 			$table->enum('status', ['open', 'closed'])->default('open');
 			$table->enum('priority', ['low', 'medium', 'high'])->default('low');
 
+			// User that assigned the ticket
 			$table->unsignedBigInteger('agent_id')->nullable();
-			$table->foreign('agent_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('agent_id')->references('id')->on('users')->onDelete('set null');
 
+			// User that created the ticket
 			$table->unsignedBigInteger('user_id');
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

@@ -14,12 +14,13 @@ return new class extends Migration
 		Schema::create('labels', function (Blueprint $table) {
 			$table->id();
 
-			$table->unsignedBigInteger('user_id');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
 			$table->string('title', 50)->unique();
 			$table->string('slug', 50)->unique();
 			$table->boolean('visible')->default(true);
+
+			// User that created the label
+			$table->unsignedBigInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
 			$table->timestamps();
 		});
