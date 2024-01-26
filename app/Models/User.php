@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -58,25 +57,6 @@ class User extends Authenticatable
 	public function categories(): HasMany
 	{
 		return $this->hasMany(Category::class);
-	}
-
-	public function agent(): BelongsTo
-	{
-		return $this->belongsTo(User::class, 'agent_id');
-	}
-
-	public function assignAgent(User $agent)
-	{
-		if (auth()->user()->hasRole('admin')) {
-			$this->agent()->associate($agent)->save();
-		}
-	}
-
-	public function removeAgent()
-	{
-		if (auth()->user()->hasRole('admin')) {
-			$this->agent()->dissociate()->save();
-		}
 	}
 
 	public function tickets(): HasMany
