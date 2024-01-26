@@ -22,13 +22,14 @@ class PermissionSeeder extends Seeder
 
 		Permission::create(['name' => 'view tickets'])->syncRoles(['admin', 'agent', 'user']);
 		Permission::create(['name' => 'create tickets'])->syncRoles(['admin', 'user']);
-		Permission::create(['name' => 'edit tickets'])->syncRoles(['admin']);
+		Permission::create(['name' => 'edit tickets'])->syncRoles(['admin', 'agent']);
 		Permission::create(['name' => 'delete tickets'])->syncRoles(['admin']);
 
 		Permission::create(['name' => 'view categories'])->syncRoles(['admin']);
 		Permission::create(['name' => 'create categories'])->syncRoles(['admin']);
 		Permission::create(['name' => 'edit categories'])->syncRoles(['admin']);
 		Permission::create(['name' => 'delete categories'])->syncRoles(['admin']);
+
 
 		Permission::create(['name' => 'view labels'])->syncRoles(['admin']);
 		Permission::create(['name' => 'create labels'])->syncRoles(['admin']);
