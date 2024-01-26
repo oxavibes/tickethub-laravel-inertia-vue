@@ -55,8 +55,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::middleware(['permission:edit tickets'])->patch('/tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
 	Route::middleware(['permission:delete tickets'])->delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
 
-	Route::middleware(['permission:assign tickets'])->put('/tickets/{ticket}/assign', [TicketController::class, 'assign'])->name('tickets.assign');
-
 	// Labels
 	Route::middleware(['permission:view labels'])->get('/labels', [LabelController::class, 'index'])->name('labels.index');
 	Route::middleware(['permission:create labels'])->post('/labels', [LabelController::class, 'store'])->name('labels.store');
