@@ -63,4 +63,14 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Ticket::class);
 	}
+
+	public function getRedirectRoute()
+
+	{
+		return match ($this->getRoleNames()->first()) {
+			'admin' => route('dashboard'),
+			'agent' => route('tickets.index'),
+			'user' => route('tickets.index')
+		};
+	}
 }
