@@ -35,7 +35,7 @@ const submit = () => {
 
 		<form @submit.prevent="submit">
 			<div>
-				<BaseInput label="Email" id="forgot-password-email" type="email" v-model="form.email"
+				<BaseInput autofocus label="Email" id="forgot-password-email" type="email" v-model="form.email"
 					:error-message="form.errors.email" @focus="form.clearErrors('email')" />
 			</div>
 

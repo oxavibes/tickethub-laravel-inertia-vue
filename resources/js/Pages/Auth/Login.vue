@@ -5,9 +5,6 @@ import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 import Checkbox from '@/Components/Form/Checkbox.vue';
-import TextInput from '@/Components/Form/TextInput.vue';
-import InputError from '@/Components/Form/InputError.vue';
-import InputLabel from '@/Components/Form/InputLabel.vue';
 
 defineProps({
 	canResetPassword: {
@@ -42,8 +39,8 @@ const onSubmit = () => {
 
 		<form @submit.prevent="onSubmit">
 			<div>
-				<BaseInput label="Email" id="login-email" type="email" v-model="form.email" :error-message="form.errors.email"
-					@focus="form.clearErrors('email')" />
+				<BaseInput autofocus label="Email" id="login-email" type="email" v-model="form.email"
+					:error-message="form.errors.email" @focus="form.clearErrors('email')" />
 			</div>
 
 			<div class="mt-4">
@@ -64,7 +61,7 @@ const onSubmit = () => {
 				Forgot your password?
 				</Link>
 
-				<BaseButton class="ms-4" :is-loading="form.processing">
+				<BaseButton :is-loading="form.processing">
 					Log in
 				</BaseButton>
 			</div>
