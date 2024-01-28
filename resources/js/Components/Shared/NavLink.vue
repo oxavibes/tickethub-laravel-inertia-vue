@@ -12,9 +12,9 @@ const props = defineProps({
 });
 
 const computedClasses = computed(() => ({
-	"default": true,
-	"active": props.active,
-	"notActive": !props.active
+	"inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out": true,
+	"border-black text-gray-900 focus:border-black;": props.active,
+	"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300": !props.active
 }));
 </script>
 
@@ -24,16 +24,5 @@ const computedClasses = computed(() => ({
 	</Link>
 </template>
 
-<style lang="postcss" scoped>
-.default {
-	@apply inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out;
-}
-
-.active {
-	@apply border-black text-gray-900 focus:border-black;
-}
-
-.notActive {
-	@apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300;
-}
+<style scoped>
 </style>
