@@ -41,13 +41,14 @@ watchDebounced(search, (value) => {
 	router.get(route(props.route), { search: value }, {
 		replace: true,
 		preserveState: true,
+		preserveScroll: true
 	});
 }, { debounce: 300 });
 </script>
 
 <template>
 	<div class="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg px-6 pt-4 pb-6">
-		<div class="pb-4 bg-white dark:bg-gray-900 flex flex-wrap gap-4 justify-between items-baseline">
+		<div class="pb-4 bg-white flex flex-wrap gap-4 justify-between items-baseline">
 			<label :for="`${tableId}-table-search`" class="sr-only">Search</label>
 
 			<div class="relative mt-1">
@@ -64,7 +65,7 @@ watchDebounced(search, (value) => {
 					:placeholder="placeholder">
 			</div>
 
-			<BaseButton @click="$emit('onCreate')" class="h-[38px]">
+			<BaseButton @click="$emit('onCreate')">
 				<slot name="button" />
 			</BaseButton>
 		</div>

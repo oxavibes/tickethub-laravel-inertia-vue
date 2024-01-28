@@ -98,7 +98,7 @@ function onDelete(ticket) {
 			<BaseTable table-id="tickets" placeholder="Search for tickets" :headers="headers" :data="tickets"
 				route="tickets.index" :filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
-					New ticket
+					Add
 				</template>
 			</BaseTable>
 		</template>

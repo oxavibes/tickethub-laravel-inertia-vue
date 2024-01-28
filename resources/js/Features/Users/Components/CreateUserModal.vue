@@ -55,7 +55,7 @@ watch(createUserModalOpen, (isOpen) => {
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
-				New user
+				Add user
 			</h3>
 		</template>
 

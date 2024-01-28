@@ -74,7 +74,7 @@ function onDelete(category) {
 			<BaseTable table-id="categories" placeholder="Search for categories" :headers="headers" :data="categories"
 				route="categories.index" :filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
-					New category
+					Add
 				</template>
 			</BaseTable>
 		</template>

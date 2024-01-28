@@ -51,7 +51,7 @@ watch(createLabelModalOpen, (isOpen) => {
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
-				New label
+				Add label
 			</h3>
 		</template>
 

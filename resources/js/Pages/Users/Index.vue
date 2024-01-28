@@ -62,7 +62,7 @@ function onDelete(user) {
 			<BaseTable table-id="users" placeholder="Search for users" :headers="headers" :data="users" route="users.index"
 				:filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
-					New user
+					Add
 				</template>
 			</BaseTable>
 		</template>

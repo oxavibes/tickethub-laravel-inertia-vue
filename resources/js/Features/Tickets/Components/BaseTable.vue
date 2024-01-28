@@ -72,8 +72,7 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 					:placeholder="placeholder">
 			</div>
 
-			<BaseButton :is-disabled="!canCreateTicket" :aria-disabled="!canCreateTicket" @click="$emit('onCreate')"
-				class="h-[38px]">
+			<BaseButton :is-disabled="!canCreateTicket" :aria-disabled="!canCreateTicket" @click="$emit('onCreate')">
 				<slot name="button" />
 			</BaseButton>
 		</div>

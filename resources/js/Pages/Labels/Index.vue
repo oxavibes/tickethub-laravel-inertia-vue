@@ -74,7 +74,7 @@ function onDelete(label) {
 			<BaseTable table-id="labels" placeholder="Search for labels" :headers="headers" :data="labels" route="labels.index"
 				:filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
-					New label
+					Add
 				</template>
 			</BaseTable>
 		</template>

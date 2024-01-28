@@ -51,7 +51,7 @@ watch(createCategoryModalOpen, (isOpen) => {
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
-				New category
+				Add category
 			</h3>
 		</template>
 
