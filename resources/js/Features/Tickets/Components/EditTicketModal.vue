@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -68,6 +68,15 @@ const statusOptions = [
 	{ value: 'open', label: 'Open' },
 	{ value: 'closed', label: 'Closed' },
 ]
+
+const input = ref(null);
+watch(editTicketModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
+});
 </script>
 
 <template>
@@ -82,8 +91,8 @@ const statusOptions = [
 		<!-- Modal body -->
 		<form id="edit-ticket-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
 			<div>
-				<BaseInput label="Title" id="edit-ticket-name" type="text" v-model="form.title" :error-message="form.errors.title"
-					@focus="form.clearErrors('title')" />
+				<BaseInput ref="input" label="Title" id="edit-ticket-name" type="text" v-model="form.title"
+					:error-message="form.errors.title" @focus="form.clearErrors('title')" />
 			</div>
 
 			<div>

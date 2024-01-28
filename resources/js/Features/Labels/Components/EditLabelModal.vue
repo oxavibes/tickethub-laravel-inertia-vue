@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -50,6 +50,15 @@ const visibilityOptions = [
 	{ id: 'edit-label-visible', value: true, label: 'True' },
 	{ id: 'edit-label-hidden', value: false, label: 'False' },
 ]
+
+const input = ref(null);
+watch(editLabelModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
+});
 </script>
 
 <template>
@@ -64,8 +73,8 @@ const visibilityOptions = [
 		<!-- Modal body -->
 		<form id="editLabelForm" class="grid gap-6" novalidate @submit.prevent="onSubmit">
 
-			<BaseInput label="Title" id="editLabelTitle" type="text" v-model="form.title" :error-message="form.errors.title"
-				@focus="form.clearErrors('title')" />
+			<BaseInput ref="input" label="Title" id="editLabelTitle" type="text" v-model="form.title"
+				:error-message="form.errors.title" @focus="form.clearErrors('title')" />
 
 			<div>
 				<label class="block mb-2 text-sm font-medium text-gray-900">

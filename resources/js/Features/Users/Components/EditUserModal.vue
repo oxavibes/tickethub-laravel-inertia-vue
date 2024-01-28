@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -50,6 +50,16 @@ function onSubmit() {
 		},
 	})
 }
+
+const input = ref(null);
+
+watch(editUserModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
+});
 </script>
 
 <template>
@@ -63,7 +73,7 @@ function onSubmit() {
 
 		<!-- Modal body -->
 		<form id="edit-user-form" class="grid gap-4" novalidate @submit.prevent="onSubmit">
-			<BaseInput label="Name" id="edit-user-name" type="text" placeholder="John Doe" v-model="form.name"
+			<BaseInput ref="input" label="Name" id="edit-user-name" type="text" placeholder="John Doe" v-model="form.name"
 				:error-message="form.errors.name" @focus="form.clearErrors('name')" />
 
 			<BaseInput label="Email" id="edit-user-email" placeholder="youremail@domain.com" type="email" v-model="form.email"

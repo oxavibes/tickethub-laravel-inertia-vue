@@ -28,12 +28,12 @@ const onSuccess = () => {
 	form.reset();
 };
 
-const inputPassword = ref(null);
+const input = ref(null);
 
 watch(accountModalOpen, (isOpen) => {
 	if (isOpen) {
 		setTimeout(() => {
-			inputPassword.value.focus()
+			input.value.focus()
 		}, 0)
 	}
 });
@@ -56,8 +56,8 @@ watch(accountModalOpen, (isOpen) => {
 			</p>
 
 			<div class="mt-6">
-				<BaseInput ref="inputPassword" label="Password" id="delete-account-password" placeholder="••••••••"
-					type="password" v-model="form.password" @keyup.enter="deleteUser" :error-message="form.errors.password" />
+				<BaseInput ref="input" label="Password" id="delete-account-password" placeholder="••••••••" type="password"
+					v-model="form.password" @keyup.enter="deleteUser" :error-message="form.errors.password" />
 			</div>
 		</div>
 

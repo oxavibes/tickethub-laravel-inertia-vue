@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -50,6 +50,16 @@ const visibilityOptions = [
 	{ id: 'edit-category-visible', value: true, label: 'True' },
 	{ id: 'edit-category-hidden', value: false, label: 'False' },
 ]
+
+const input = ref(null);
+
+watch(editCategoryModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
+});
 </script>
 
 <template>
@@ -64,7 +74,7 @@ const visibilityOptions = [
 		<!-- Modal body -->
 		<form id="edit-label-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
 
-			<BaseInput label="Title" id="edit-category-title" type="text" v-model="form.title"
+			<BaseInput ref="input" label="Title" id="edit-category-title" type="text" v-model="form.title"
 				:error-message="form.errors.title" @focus="form.clearErrors('title')" />
 
 			<div>

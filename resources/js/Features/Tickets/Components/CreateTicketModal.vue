@@ -1,4 +1,5 @@
 <script setup>
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import usePermission from '@/Composables/usePermission';
@@ -66,6 +67,16 @@ const statusOptions = [
 
 const { hasRole } = usePermission();
 const canAssignAgent = hasRole.value('admin');
+
+const input = ref(null);
+
+watch(createTicketModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
+});
 </script>
 
 <template>
@@ -80,7 +91,7 @@ const canAssignAgent = hasRole.value('admin');
 		<!-- Modal body -->
 		<form id="create-ticket-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
 			<div>
-				<BaseInput label="Title" id="create-ticket-name" type="text" v-model="form.title"
+				<BaseInput ref="input" label="Title" id="create-ticket-name" type="text" v-model="form.title"
 					:error-message="form.errors.title" @focus="form.clearErrors('title')" />
 			</div>
 

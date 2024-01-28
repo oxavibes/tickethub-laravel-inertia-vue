@@ -1,4 +1,5 @@
 <script setup>
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
@@ -33,6 +34,16 @@ const visibilityOptions = [
 	{ id: 'create-category-visible', value: true, label: 'True' },
 	{ id: 'create-category-hidden', value: false, label: 'False' },
 ]
+
+const input = ref(null);
+
+watch(createCategoryModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			input.value.focus()
+		}, 0)
+	}
+});
 </script>
 
 <template>
@@ -46,8 +57,8 @@ const visibilityOptions = [
 
 		<!-- Modal body -->
 		<form id="create-category-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
-			<BaseInput label="Title" id="create-label-name" type="text" v-model="form.title" :error-message="form.errors.title"
-				@focus="form.clearErrors('title')" />
+			<BaseInput ref="input" label="Title" id="create-label-name" type="text" v-model="form.title"
+				:error-message="form.errors.title" @focus="form.clearErrors('title')" />
 
 			<div>
 				<label class="block mb-2 text-sm font-medium text-gray-900">
