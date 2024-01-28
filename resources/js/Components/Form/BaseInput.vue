@@ -38,17 +38,13 @@ const computedModelValue = computed({
 })
 
 const computedClasses = computed(() => {
-	const defaultClass = "bg-white cursor-pointer placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm border border-gray-300 focus:ring-black focus:border-black";
-	const disabledClass = "bg-persian cursor-not-allowed text-nickel";
-	const errorClass = "border-red-500 focus:ring-red-500 focus:border-red-500";
-
-	return cva(defaultClass, {
+	return cva('bg-white cursor-pointer placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm border border-gray-300 focus:ring-black focus:border-black', {
 		variants: {
 			disabled: {
-				true: disabledClass,
+				true: 'bg-persian cursor-not-allowed text-nickel',
 			},
 			error: {
-				true: errorClass,
+				true: 'border-red-500 focus:ring-red-500 focus:border-red-500',
 			}
 		},
 		compoundVariants: [],
