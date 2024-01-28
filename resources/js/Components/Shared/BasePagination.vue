@@ -34,7 +34,7 @@ const computedLinkClass = computed(() => {
 
 const computedClasses = computed(() => {
 	return (link) => {
-		return cva('flex text-gray-500 leading-tight items-center justify-center px-3 h-8 border border-gray-300 hover:bg-gray-100 hover:text-gray-700', {
+		return cva('flex min-w-max text-gray-500 leading-tight items-center justify-center px-3 h-8 border border-gray-300 hover:bg-gray-100 hover:text-gray-700', {
 			variants: {
 				intent: {
 					next: 'rounded-e-lg bg-white',
@@ -63,11 +63,12 @@ const computedClasses = computed(() => {
 </script>
 
 <template>
-	<nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-8" aria-label="Table navigation">
-		<span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+	<nav class="flex items-center flex-column gap-3 flex-wrap md:flex-row justify-between pt-8"
+		aria-label="Table navigation">
+		<span class="text-sm font-normal text-gray-500 block w-full md:w-auto">
 			Showing
-			<span class="font-semibold text-gray-900 dark:text-white">{{ data.from }}-{{ data.to }}</span> of
-			<span class="font-semibold text-gray-900 dark:text-white">{{ data.total }}</span>
+			<span class="font-semibold text-gray-900">{{ data.from }}-{{ data.to }}</span> of
+			<span class="font-semibold text-gray-900">{{ data.total }}</span>
 		</span>
 
 		<ul v-show="data.last_page > 1" class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
