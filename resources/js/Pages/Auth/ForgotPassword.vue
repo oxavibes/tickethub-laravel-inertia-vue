@@ -1,11 +1,8 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
-
-import TextInput from '@/Components/Form/TextInput.vue';
-import InputError from '@/Components/Form/InputError.vue';
-import InputLabel from '@/Components/Form/InputLabel.vue';
 
 defineProps({
 	status: {
@@ -38,17 +35,18 @@ const submit = () => {
 
 		<form @submit.prevent="submit">
 			<div>
-				<InputLabel for="email" value="Email" />
-
-				<TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
-					autocomplete="username" />
-
-				<InputError class="mt-2" :message="form.errors.email" />
+				<BaseInput label="Email" id="forgot-password-email" type="email" v-model="form.email"
+					:error-message="form.errors.email" @focus="form.clearErrors('email')" />
 			</div>
 
-			<div class="flex items-center justify-end mt-4">
-				<BaseButton :is-loading="form.processing">
-					Email Password Reset Link
+			<div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<Link :href="route('login')"
+					class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+				Go back
+				</Link>
+
+				<BaseButton class="align-self-center" :is-loading="form.processing">
+					Send Reset Link
 				</BaseButton>
 			</div>
 		</form>

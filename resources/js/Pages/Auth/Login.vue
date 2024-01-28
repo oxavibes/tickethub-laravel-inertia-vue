@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 
 import Checkbox from '@/Components/Form/Checkbox.vue';
@@ -23,9 +24,9 @@ const form = useForm({
 	remember: false,
 });
 
-const submit = () => {
+const onSubmit = () => {
 	form.post(route('login'), {
-		onFinish: () => form.reset('password'),
+		onSuccess: () => form.reset(),
 	});
 };
 </script>
@@ -39,23 +40,15 @@ const submit = () => {
 			{{ status }}
 		</div>
 
-		<form @submit.prevent="submit">
+		<form @submit.prevent="onSubmit">
 			<div>
-				<InputLabel for="email" value="Email" />
-
-				<TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
-					autocomplete="username" />
-
-				<InputError class="mt-2" :message="form.errors.email" />
+				<BaseInput label="Email" id="login-email" type="email" v-model="form.email" :error-message="form.errors.email"
+					@focus="form.clearErrors('email')" />
 			</div>
 
 			<div class="mt-4">
-				<InputLabel for="password" value="Password" />
-
-				<TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
-					autocomplete="current-password" />
-
-				<InputError class="mt-2" :message="form.errors.password" />
+				<BaseInput label="Password" id="login-password" type="password" v-model="form.password"
+					:error-message="form.errors.password" @focus="form.clearErrors('password')" />
 			</div>
 
 			<div class="block mt-4">
@@ -65,13 +58,13 @@ const submit = () => {
 				</label>
 			</div>
 
-			<div class="flex items-center justify-end mt-4">
+			<div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 				<Link v-if="canResetPassword" :href="route('password.request')"
-					class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+					class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
 				Forgot your password?
 				</Link>
 
-				<BaseButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+				<BaseButton class="ms-4" :is-loading="form.processing">
 					Log in
 				</BaseButton>
 			</div>

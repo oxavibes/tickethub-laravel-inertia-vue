@@ -1,16 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia'
 import { useModalStore } from '@/Stores/modals';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
-
-import TextInput from '@/Components/Form/TextInput.vue';
-import InputError from '@/Components/Form/InputError.vue';
-import InputLabel from '@/Components/Form/InputLabel.vue';
 
 const form = useForm({
 	password: '',
@@ -19,13 +16,11 @@ const form = useForm({
 const modalStore = useModalStore();
 const { accountModalOpen } = storeToRefs(modalStore)
 
-
 const deleteUser = () => {
 	form.delete(route('profile.destroy'), {
 		preserveScroll: true,
 		onSuccess: () => onSuccess(),
-		onError: () => passwordInput.value.focus(),
-		onFinish: () => form.reset(),
+		onError: () => { }
 	});
 };
 
@@ -33,15 +28,19 @@ const onSuccess = () => {
 	form.reset();
 };
 
-const passwordInput = ref(null);
+const inputPassword = ref(null);
 
-onMounted(() => {
-	passwordInput.value.focus();
+watch(accountModalOpen, (isOpen) => {
+	if (isOpen) {
+		setTimeout(() => {
+			inputPassword.value.focus()
+		}, 0)
+	}
 });
 </script>
 
 <template>
-	<BaseModal :is-open="accountModalOpen" @on-close="accountModalOpen = false">
+	<BaseModal v-model:is-open="accountModalOpen" @on-close="accountModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -57,12 +56,8 @@ onMounted(() => {
 			</p>
 
 			<div class="mt-6">
-				<InputLabel for="password" value="Password" class="sr-only" />
-
-				<TextInput id="password" ref="passwordInput" v-model="form.password" type="password" class="mt-1 block w-full"
-					placeholder="Password" @keyup.enter="deleteUser" />
-
-				<InputError :message="form.errors.password" class="mt-2" />
+				<BaseInput ref="inputPassword" label="Password" id="delete-account-password" placeholder="••••••••"
+					type="password" v-model="form.password" @keyup.enter="deleteUser" :error-message="form.errors.password" />
 			</div>
 		</div>
 

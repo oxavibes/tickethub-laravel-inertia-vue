@@ -1,10 +1,75 @@
 <script setup>
+import { useForm } from '@inertiajs/vue3';
+
+import usePermission from '@/Composables/usePermission';
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
+import BaseSelect from '@/Components/Form/BaseSelect.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
+
+defineProps({
+	labels: {
+		type: [Object],
+		default: () => [],
+	},
+	categories: {
+		type: [Object],
+		default: () => [],
+	},
+	agents: {
+		type: [Object],
+		default: () => [],
+	}
+});
+
+const form = useForm({
+	title: '',
+	description: '',
+	labels: null,
+	categories: null,
+	agent_id: null,
+	// status: 'open',
+	priority: 'low',
+	status: 'open',
+});
+
+
+const modalStore = useModalStore();
+const { createTicketModalOpen } = storeToRefs(modalStore)
+
+function onSubmit() {
+	form.post(route('tickets.store'), {
+		preserveScroll: true,
+		onSuccess: () => {
+			createTicketModalOpen.value = false
+
+			form.reset()
+		},
+	})
+}
+
+const priorityOptions = [
+	{ value: 'low', label: 'Low' },
+	{ value: 'medium', label: 'Medium' },
+	{ value: 'high', label: 'High' }
+]
+
+const statusOptions = [
+	{ value: 'open', label: 'Open' },
+	{ value: 'closed', label: 'Closed' },
+]
+
+const { hasRole } = usePermission();
+const canAssignAgent = hasRole.value('admin');
 </script>
 
 <template>
-	<BaseModal id="createTicketModal">
+	<BaseModal v-model:is-open="createTicketModalOpen" @on-close="createTicketModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
 			<h3 class="text-xl font-semibold text-gray-900">
@@ -13,46 +78,75 @@ import BaseButton from '@/Components/Buttons/BaseButton.vue';
 		</template>
 
 		<!-- Modal body -->
-		<div class="grid gap-6">
-			<div class="">
-				<label for="first-name" class="block mb-2 text-sm font-medium text-gray-900">
-					Name
-				</label>
-				<input type="text" name="first-name" id="first-name"
-					class="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-					placeholder="Bonnie">
+		<form id="create-ticket-form" class="grid gap-6" novalidate @submit.prevent="onSubmit">
+			<div>
+				<BaseInput label="Title" id="create-ticket-name" type="text" v-model="form.title"
+					:error-message="form.errors.title" @focus="form.clearErrors('title')" />
 			</div>
 
-			<div class="">
-				<label for="" class="block mb-2 text-sm font-medium text-gray-900">
-					Is Visible?
-				</label>
-
-				<div class="flex flex-wrap gap-6">
-					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-							<input id="is-visible-true" type="radio" value="" name="bordered-radio"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-							<label for="is-visible-true"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">True</label>
-						</div>
-					</div>
-
-					<div class="flex-1">
-						<div class=" flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-							<input id="is-visible-false" type="radio" value="" name="bordered-radio"
-								class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-							<label for="is-visible-false"
-								class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">False</label>
-						</div>
-					</div>
+			<div>
+				<div class="block mb-2 text-sm font-medium text-gray-900">
+					Description
 				</div>
+
+				<BaseTextarea v-model="form.description" :error-message="form.errors.description"
+					@focus="form.clearErrors('description')" />
 			</div>
-		</div>
+
+			<div v-if="canAssignAgent">
+				<div class="block mb-2 text-sm font-medium text-gray-900">
+					Agent
+				</div>
+
+				<BaseSelect :options="agents" v-model="form.agent_id" :error-message="form.errors.agentId"
+					@focus="form.clearErrors('agentId')" />
+			</div>
+
+			<div>
+				<div class="block mb-2 text-sm font-medium text-gray-900">
+					Labels
+				</div>
+
+				<BaseSelect is-multiple :options="labels" v-model="form.labels" :error-message="form.errors.labels"
+					@focus="form.clearErrors('labels')" />
+			</div>
+
+			<div>
+				<div class="block mb-2 text-sm font-medium text-gray-900">
+					Categories
+				</div>
+
+				<BaseSelect is-multiple :options="categories" v-model="form.categories" :error-message="form.errors.categories"
+					@focus="form.clearErrors('categories')" />
+			</div>
+
+			<div>
+				<div class="block mb-2 text-sm font-medium text-gray-900">
+					Priority
+				</div>
+
+				<BaseSelect :options="priorityOptions" v-model="form.priority" :error-message="form.errors.priority"
+					@focus="form.clearErrors('priority')" />
+			</div>
+
+
+			<div>
+				<div class="block mb-2 text-sm font-medium text-gray-900">
+					Status
+				</div>
+
+				<BaseSelect :options="statusOptions" v-model="form.status" :error-message="form.errors.status"
+					@focus="form.clearErrors('status')" />
+			</div>
+		</form>
 
 		<!-- Modal footer -->
 		<template #footer>
-			<BaseButton type="submit">
+			<BaseButton @click="createTicketModalOpen = false" variant="tertiary">
+				Cancel
+			</BaseButton>
+
+			<BaseButton form="create-ticket-form" type="submit" :isLoading="form.processing">
 				Create
 			</BaseButton>
 		</template>

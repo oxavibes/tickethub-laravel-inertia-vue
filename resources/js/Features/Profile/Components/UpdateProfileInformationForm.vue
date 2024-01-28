@@ -1,11 +1,8 @@
 <script setup>
 import { useForm, usePage } from '@inertiajs/vue3';
 
+import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
-
-import TextInput from '@/Components/Form/TextInput.vue';
-import InputError from '@/Components/Form/InputError.vue';
-import InputLabel from '@/Components/Form/InputLabel.vue';
 
 defineProps({
 	mustVerifyEmail: {
@@ -36,28 +33,20 @@ const form = useForm({
 
 		<form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
 			<div>
-				<InputLabel for="name" value="Name" />
-
-				<TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
-					autocomplete="name" />
-
-				<InputError class="mt-2" :message="form.errors.name" />
+				<BaseInput label="Name" id="update-profile-name" type="text" v-model="form.name" :error-message="form.errors.name"
+					@focus="form.clearErrors('name')" autocomplete="name" />
 			</div>
 
 			<div>
-				<InputLabel for="email" value="Email" />
-
-				<TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
-					autocomplete="username" />
-
-				<InputError class="mt-2" :message="form.errors.email" />
+				<BaseInput label="Email" id="update-profile-email" type="email" v-model="form.email"
+					:error-message="form.errors.email" @focus="form.clearErrors('email')" autocomplete="username" />
 			</div>
 
 			<div v-if="mustVerifyEmail && user.email_verified_at === null">
 				<p class="text-sm mt-2 text-gray-800">
 					Your email address is unverified.
 					<Link :href="route('verification.send')" method="post" as="button"
-						class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+						class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
 					Click here to re-send the verification email.
 					</Link>
 				</p>
@@ -68,7 +57,7 @@ const form = useForm({
 			</div>
 
 			<div class="flex items-center gap-4">
-				<BaseButton :disabled="form.processing">Save</BaseButton>
+				<BaseButton :is-loading="form.processing">Save</BaseButton>
 
 				<Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0"
 					leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
