@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { router } from '@inertiajs/vue3'
 import { watchDebounced } from '@vueuse/core'
 
+import usePermission from '@/Composables/usePermission';
+
 import BaseButton from "@/Components/Buttons/BaseButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
@@ -43,6 +45,12 @@ watchDebounced(search, (value) => {
 		preserveState: true,
 	});
 }, { debounce: 300 });
+
+const { hasPermission } = usePermission();
+
+const canCreateTicket = hasPermission.value('create tickets');
+const canEditTicket = hasPermission.value('edit tickets');
+const canDeleteTicket = hasPermission.value('delete tickets');
 </script>
 
 <template>
@@ -64,7 +72,8 @@ watchDebounced(search, (value) => {
 					:placeholder="placeholder">
 			</div>
 
-			<BaseButton @click="$emit('onCreate')" class="h-[38px]">
+			<BaseButton :is-disabled="!canCreateTicket" :aria-disabled="!canCreateTicket" @click="$emit('onCreate')"
+				class="h-[38px]">
 				<slot name="button" />
 			</BaseButton>
 		</div>
@@ -87,14 +96,14 @@ watchDebounced(search, (value) => {
 
 				<tr v-for="record in data?.data" :key="record" class="bg-white border-b hover:bg-gray-50">
 					<template v-for="header in headers" :key="header.key">
-						<td v-if="header.key.includes('status')" class="text-center">
-							<span v-if="record[header.key].includes('open')"
-								class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">
+
+						<td v-if="header.key.includes('status')" class="px-6">
+							<div class="flex items-center">
+								<span v-if="record[header.key].includes('open')"
+									class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></span>
+								<span v-else class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></span>
 								{{ record[header.key] }}
-							</span>
-							<span v-else class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">
-								{{ record[header.key] }}
-							</span>
+							</div>
 						</td>
 
 						<td v-else-if="header.key.includes('priority')" class="text-center">
@@ -114,12 +123,15 @@ watchDebounced(search, (value) => {
 						</td>
 
 						<td v-else-if="header.key.includes('actions')" class="px-6 py-4 flex flex-wrap gap-4">
-							<a href="#" type="button" @click="$emit('onEdit', record)"
-								class="font-medium text-gray-900 hover:underline">Edit
+							<a :disabled="!canEditTicket" :aria-disabled="!canEditTicket"
+								:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canEditTicket }" href="#" type="button"
+								@click="$emit('onEdit', record)" class="font-medium text-gray-900 hover:underline">Edit
 							</a>
 
-							<a href="#" type="button" class="font-medium text-red-600 hover:underline"
-								@click="$emit('onDelete', record)">Delete </a>
+							<a :disabled="!canDeleteTicket" :aria-disabled="!canDeleteTicket"
+								:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canDeleteTicket }" href="#" type="button"
+								class="font-medium text-red-600 hover:underline" @click="$emit('onDelete', record)">Delete
+							</a>
 						</td>
 
 						<td v-else-if="Array.isArray(record[header.key])" class="px-6 py-4 text-gray-900">
@@ -129,8 +141,8 @@ watchDebounced(search, (value) => {
 							</span>
 						</td>
 
-						<td v-else-if="header.key.includes('assigned_to')" class="px-6 py-4 text-gray-900">
-							{{ record[header.key] ?? 'Unassigned' }}
+						<td v-else-if="header.key.includes('agent')" class="px-6 py-4 text-gray-900">
+							{{ record[header.key]?.name ?? 'Unassigned' }}
 						</td>
 
 						<td v-else class="px-6 py-4 text-gray-900">

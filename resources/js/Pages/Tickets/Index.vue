@@ -1,6 +1,32 @@
 <script setup>
-import BaseTable from "@/Components/Shared/BaseTable.vue";
-import { CreateTicketModal, EditTicketModal, DeleteTicketModal } from "@/Features/Tickets";
+import { ref } from "vue";
+
+import { storeToRefs } from 'pinia';
+import { useModalStore } from '@/Stores/modals';
+
+import { BaseTable, CreateTicketModal, EditTicketModal, DeleteTicketModal } from "@/Features/Tickets";
+
+defineProps({
+	tickets: {
+		type: [Object],
+		default: () => [],
+	},
+	labels: {
+		type: [Object],
+		default: () => [],
+	},
+	categories: {
+		type: [Object],
+		default: () => [],
+	},
+	agents: {
+		type: [Object],
+		default: () => [],
+	},
+	filters: {
+		type: [Object],
+	}
+});
 
 const headers = [
 	{
@@ -16,8 +42,8 @@ const headers = [
 		key: 'priority'
 	},
 	{
-		label: 'Category',
-		key: 'category'
+		label: 'Categories',
+		key: 'categories'
 	},
 	{
 		label: 'Labels',
@@ -25,10 +51,39 @@ const headers = [
 	},
 	{
 		label: 'Assigned To',
-		key: 'assigned_to'
-
+		key: 'agent'
+	},
+	{
+		label: 'Actions',
+		key: 'actions'
 	}
 ]
+
+const modalStore = useModalStore();
+const { createTicketModalOpen, editTicketModalOpen, deleteTicketModalOpen } = storeToRefs(modalStore)
+
+const selectedTicket = ref();
+
+function setSelectedTicket(ticket) {
+	selectedTicket.value = ticket;
+};
+
+function onCreate() {
+	createTicketModalOpen.value = true
+}
+
+function onEdit(ticket) {
+	editTicketModalOpen.value = true
+
+	setSelectedTicket(ticket)
+}
+
+function onDelete(ticket) {
+	deleteTicketModalOpen.value = true
+
+	setSelectedTicket(ticket)
+}
+
 </script>
 
 <template>
@@ -40,7 +95,8 @@ const headers = [
 		</template>
 
 		<template #default>
-			<BaseTable :headers="headers" targetModalId="Ticket" placeholder="Search for tickets">
+			<BaseTable table-id="tickets" placeholder="Search for tickets" :headers="headers" :data="tickets"
+				route="tickets.index" :filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					New ticket
 				</template>
@@ -48,7 +104,7 @@ const headers = [
 		</template>
 	</AuthenticatedLayout>
 
-	<CreateTicketModal />
-	<EditTicketModal />
-	<DeleteTicketModal />
+	<CreateTicketModal :labels="labels" :categories="categories" :agents="agents" />
+	<EditTicketModal :ticket="selectedTicket" :labels="labels" :categories="categories" :agents="agents" />
+	<DeleteTicketModal :ticket="selectedTicket" />
 </template>

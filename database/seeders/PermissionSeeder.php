@@ -30,7 +30,6 @@ class PermissionSeeder extends Seeder
 		Permission::create(['name' => 'edit categories'])->syncRoles(['admin']);
 		Permission::create(['name' => 'delete categories'])->syncRoles(['admin']);
 
-
 		Permission::create(['name' => 'view labels'])->syncRoles(['admin']);
 		Permission::create(['name' => 'create labels'])->syncRoles(['admin']);
 		Permission::create(['name' => 'edit labels'])->syncRoles(['admin']);
