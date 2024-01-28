@@ -77,6 +77,10 @@ watch(createLabelModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
+			<BaseButton variant="tertiary" @click="createLabelModalOpen = false">
+				Cancel
+			</BaseButton>
+
 			<BaseButton form="create-label-form" type="submit" :isLoading="form.processing">
 				Create
 			</BaseButton>

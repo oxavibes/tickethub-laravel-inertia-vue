@@ -152,6 +152,10 @@ watch(editTicketModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
+			<BaseButton variant="tertiary" @click="editTicketModalOpen = false">
+				Cancel
+			</BaseButton>
+
 			<BaseButton form="edit-ticket-form" type="submit" :isLoading="form.processing">
 				Save
 			</BaseButton>

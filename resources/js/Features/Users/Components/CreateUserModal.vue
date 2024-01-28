@@ -93,6 +93,10 @@ watch(createUserModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
+			<BaseButton variant="tertiary" @click="createUserModalOpen = false">
+				Cancel
+			</BaseButton>
+
 			<BaseButton form="create-user-form" type="submit" :isLoading="form.processing">
 				Create
 			</BaseButton>

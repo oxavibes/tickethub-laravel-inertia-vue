@@ -45,7 +45,7 @@ const submit = () => {
 				Go back
 				</Link>
 
-				<BaseButton class="align-self-center" :is-loading="form.processing">
+				<BaseButton :is-loading="form.processing">
 					Send Reset Link
 				</BaseButton>
 			</div>

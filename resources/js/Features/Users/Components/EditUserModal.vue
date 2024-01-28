@@ -110,6 +110,10 @@ watch(editUserModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
+			<BaseButton variant="tertiary" @click="editUserModalOpen = false">
+				Cancel
+			</BaseButton>
+
 			<BaseButton form="edit-user-form" type="submit" :isLoading="form.processing">
 				Save
 			</BaseButton>
