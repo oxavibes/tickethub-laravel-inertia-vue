@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
 		$users = User::all();
 
 		foreach ($users as $user) {
-			$randomNumber = random_int(1, 3);
+			$randomNumber = random_int(1, 20);
 
 			Category::factory($randomNumber)->create([
 				'user_id' => $user->id,

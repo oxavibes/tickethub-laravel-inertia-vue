@@ -17,7 +17,7 @@ class LabelSeeder extends Seeder
 		$users = User::all();
 
 		foreach ($users as $user) {
-			$randomUsersQuantity = random_int(1, 5);
+			$randomUsersQuantity = random_int(1, 20);
 
 			Label::factory($randomUsersQuantity)->create([
 				'user_id' => $user->id,
