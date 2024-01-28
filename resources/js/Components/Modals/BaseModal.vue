@@ -31,7 +31,7 @@ useHideScrollbar({ target, currentModalModel })
 			<div v-show="isOpen" tabindex="-1" aria-hidden="true" role="dialog"
 				class="fixed top-0 left-0 right-0 z-[51] w-full p-2 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
 				<div ref="target"
-					class="relative w-full max-w-xl max-h-[560px] overflow-y-auto bg-white rounded inset-1/2 -translate-x-1/2 -translate-y-1/2">
+					class="relative w-full max-w-xl max-h-[600px] overflow-y-auto bg-white rounded inset-1/2 -translate-x-1/2 -translate-y-1/2">
 					<div class="flex items-start justify-between p-4 border-b">
 						<slot name="header">
 							<h3 class="text-xl font-semibold text-gray-900 dark:text-white">

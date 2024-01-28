@@ -1,5 +1,6 @@
 <script setup>
-import { useAttrs, computed } from 'vue'
+import { computed, useAttrs, ref, onMounted } from 'vue'
+import { cva } from "class-variance-authority";
 
 const props = defineProps({
 	label: {
@@ -19,6 +20,12 @@ const props = defineProps({
 	},
 })
 
+defineOptions({
+	inheritAttrs: false,
+})
+
+const attrs = useAttrs()
+
 const emit = defineEmits(['update:modelValue'])
 
 const computedModelValue = computed({
@@ -30,32 +37,55 @@ const computedModelValue = computed({
 	},
 })
 
-defineOptions({
-	inheritAttrs: false,
-})
+const computedClasses = computed(() => {
+	const defaultClass = "bg-white cursor-pointer placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm border border-gray-300 focus:ring-black focus:border-black";
+	const disabledClass = "bg-persian cursor-not-allowed text-nickel";
+	const errorClass = "border-red-500 focus:ring-red-500 focus:border-red-500";
 
-const attrs = useAttrs()
+	return cva(defaultClass, {
+		variants: {
+			disabled: {
+				true: disabledClass,
+			},
+			error: {
+				true: errorClass,
+			}
+		},
+		compoundVariants: [],
+		defaultVariants: {},
+	})({
+		error: !!props.errorMessage,
+		disabled: props.isDisabled
+	})
+});
 
-const computedClasses = computed(() => ({
-	'placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm': true,
-	'bg-white cursor-pointer': !props.isDisabled,
-	'bg-persian cursor-not-allowed text-nickel': props.isDisabled,
-	'border border-gray-300 focus:ring-black focus:border-black': !props.errorMessage,
-	'border border-red-500 focus:ring-red-500 focus:border-red-500': props.errorMessage,
-}))
+const input = ref(null);
 
+defineExpose({
+	input,
+	focus: () => input.value.focus()
+});
+
+onMounted(() => {
+	if (input.value.hasAttribute('autofocus')) {
+		input.value.focus();
+	}
+});
 </script>
 
 <template>
 	<div>
-		<label :for="attrs.id" class="block mb-2 text-sm font-medium text-gray-900">
+		<label :for="attrs.id" class="block mb-1 text-sm font-medium text-gray-900">
 			{{ label }}
 		</label>
 
-		<input v-bind="attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
+		<input ref="input" v-bind="attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
 
-		<p v-show="errorMessage" class="text-red-600 text-sm mt-1">
+		<p v-show="errorMessage" class="text-red-600 text-sm mt-2">
 			{{ errorMessage }}
 		</p>
 	</div>
 </template>
+
+<style scoped>
+</style>

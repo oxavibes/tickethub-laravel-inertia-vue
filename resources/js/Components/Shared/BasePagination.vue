@@ -1,5 +1,7 @@
 <script setup>
 import { computed } from "vue";
+import { cva } from "class-variance-authority";
+
 defineProps({
 	data: {
 		type: [Object],
@@ -26,9 +28,36 @@ const computedLinkClass = computed(() => {
 			return 'next'
 		} else if (link.active) {
 			return 'current'
-		} else {
-			return 'normal'
 		}
+	}
+});
+
+const computedClasses = computed(() => {
+	return (link) => {
+		return cva('flex text-gray-500 leading-tight items-center justify-center px-3 h-8 border border-gray-300 hover:bg-gray-100 hover:text-gray-700', {
+			variants: {
+				intent: {
+					next: 'rounded-e-lg bg-white',
+					previous: 'ms-0 rounded-s-lg bg-white',
+					current: 'text-black bg-gray-50 font-medium pointer-events-none',
+				},
+				disabled: {
+					true: 'cursor-not-allowed opacity-75 hover:bg-white',
+					false: 'cursor-pointer'
+				},
+			},
+			compoundVariants: [
+				{
+					intent: ['previous', 'next'],
+					current: false,
+					class: 'bg-white'
+				}
+			],
+			defaultVariants: {},
+		})({
+			intent: computedLinkClass.value(link),
+			disabled: !link.url
+		})
 	}
 });
 </script>
@@ -43,31 +72,12 @@ const computedLinkClass = computed(() => {
 
 		<ul v-show="data.last_page > 1" class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
 			<li v-for="link in data.links" :key="link.label">
-				<Component :is="computedComponent(link)" v-html="link.label" :href="link.url" class="base"
-					:class="computedLinkClass(link)" :aria-current="link.active ? 'page' : undefined" />
+				<Component :is="computedComponent(link)" v-html="link.label" :href="link.url" :disabled="!link.url"
+					:class="computedClasses(link)" :aria-current="link.active ? 'page' : undefined" />
 			</li>
 		</ul>
 	</nav>
 </template>
 
-<style lang="postcss" scoped>
-.base {
-	@apply flex items-center justify-center px-3 h-8 border border-gray-300
-}
-
-.previous {
-	@apply ms-0 leading-tight text-gray-500 bg-white rounded-s-lg hover:bg-gray-100 hover:text-gray-700
-}
-
-.normal {
-	@apply leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700
-}
-
-.current {
-	@apply text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700
-}
-
-.next {
-	@apply leading-tight text-gray-500 bg-white rounded-e-lg hover:bg-gray-100 hover:text-gray-700
-}
+<style scoped>
 </style>

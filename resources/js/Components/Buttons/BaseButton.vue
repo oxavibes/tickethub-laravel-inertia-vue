@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { cva } from "class-variance-authority";
 
 const props = defineProps({
 	isLoading: {
@@ -17,19 +18,34 @@ const props = defineProps({
 	}
 })
 
-const isButtonDisabled = computed(() => props.isDisabled || props.isLoading);
+const computedClasses = computed(() => {
+	return cva("inline-flex justify-center items-center px-4 py-2 text-xs uppercase tracking-widest transition ease-in-out duration-150 focus:ring-offset-2", {
+		variants: {
+			intent: {
+				primary: "bg-gray-800 border border-transparent rounded-md font-semibold text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black",
+				secondary: "bg-white border border-gray-300 rounded-md font-semibold text-gray-700 uppercase shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black",
+				tertiary: "text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-black rounded-lg border border-gray-200 font-medium hover:text-gray-900 focus:z-10",
+				danger: "text-white bg-red-600 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-center me-2",
+			},
+			disabled: {
+				true: "cursor-not-allowed opacity-75",
+			},
+		},
+		compoundVariants: [],
+		defaultVariants: {
+			intent: "primary",
+		},
+	})({
+		intent: props.variant,
+		disabled: props.isDisabled
+	})
+});
 
-const computedClasses = computed(() => ({
-	'inline-flex items-center px-4 py-2': true,
-	'variant-primary': props.variant === 'primary',
-	'variant-secondary': props.variant === 'secondary',
-	'variant-tertiary': props.variant === 'tertiary',
-	'variant-danger': props.variant === 'danger',
-}));
+const isButtonDisabled = computed(() => props.isDisabled || props.isLoading);
 </script>
 
 <template>
-	<button :disabled="isButtonDisabled" :class="computedClasses">
+	<button :class="computedClasses" :disabled="isButtonDisabled">
 		<template v-if="isLoading">
 			<svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101"
 				fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,20 +62,5 @@ const computedClasses = computed(() => ({
 	</button>
 </template>
 
-<style lang="postcss" scoped>
-.variant-primary {
-	@apply bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 transition ease-in-out duration-150;
-}
-
-.variant-secondary {
-	@apply bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150;
-}
-
-.variant-tertiary {
-	@apply text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium hover:text-gray-900 focus:z-10;
-}
-
-.variant-danger {
-	@apply text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center me-2;
-}
+<style scoped>
 </style>
