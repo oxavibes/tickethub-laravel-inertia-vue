@@ -29,7 +29,7 @@ const submit = () => {
 			link that will allow you to choose a new one.
 		</div>
 
-		<div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+		<div v-if="status" class="mb-4 text-sm font-medium text-green-600">
 			{{ status }}
 		</div>
 
@@ -39,9 +39,9 @@ const submit = () => {
 					:error-message="form.errors.email" @focus="form.clearErrors('email')" />
 			</div>
 
-			<div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+			<div class="flex flex-col gap-4 mt-4 sm:flex-row sm:items-center sm:justify-between">
 				<Link :href="route('login')"
-					class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+					class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
 				Go back
 				</Link>
 

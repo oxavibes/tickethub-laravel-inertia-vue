@@ -39,7 +39,7 @@ const computedClasses = computed(() => {
 				intent: {
 					next: 'rounded-e-lg bg-white',
 					previous: 'ms-0 rounded-s-lg bg-white',
-					current: 'text-black bg-gray-50 font-medium pointer-events-none',
+					current: 'text-black bg-gray-50 font-medium pointer-events-none border-gray-600',
 				},
 				disabled: {
 					true: 'cursor-not-allowed opacity-75 hover:bg-white',
@@ -63,15 +63,15 @@ const computedClasses = computed(() => {
 </script>
 
 <template>
-	<nav class="flex items-center flex-column gap-3 flex-wrap md:flex-row justify-between pt-8"
+	<nav class="flex flex-wrap items-center justify-between gap-3 pt-8 flex-column md:flex-row"
 		aria-label="Table navigation">
-		<span class="text-sm font-normal text-gray-500 block w-full md:w-auto">
+		<span class="block w-full text-sm font-normal text-gray-500 md:w-auto">
 			Showing
 			<span class="font-semibold text-gray-900">{{ data.from }}-{{ data.to }}</span> of
 			<span class="font-semibold text-gray-900">{{ data.total }}</span>
 		</span>
 
-		<ul v-show="data.last_page > 1" class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+		<ul v-show="data.last_page > 1" class="inline-flex h-8 -space-x-px text-sm rtl:space-x-reverse">
 			<li v-for="link in data.links" :key="link.label">
 				<Component :is="computedComponent(link)" v-html="link.label" :href="link.url" :disabled="!link.url"
 					:class="computedClasses(link)" :aria-current="link.active ? 'page' : undefined" />

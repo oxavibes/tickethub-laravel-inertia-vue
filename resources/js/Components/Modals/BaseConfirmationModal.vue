@@ -31,12 +31,12 @@ useHideScrollbar({ target, currentModalModel })
 
 <template>
 	<Teleport to="body">
-		<Transition enter-active-class="ease-out duration-300" enter-from-class="opacity-0"
-			enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class=""
-			leave-from-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0">
+		<Transition enter-active-class="duration-300 ease-out" enter-from-class="opacity-0"
+			enter-to-class="translate-y-0 opacity-100 sm:scale-100" leave-active-class=""
+			leave-from-class="translate-y-0 opacity-100 sm:scale-100" leave-to-class="opacity-0">
 			<div v-show="isOpen" tabindex="-1"
 				class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[51] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-				<div ref="target" class="relative p-4 w-full max-w-md max-h-full inset-1/2 -translate-x-1/2 -translate-y-1/2">
+				<div ref="target" class="relative w-full max-w-md max-h-full p-4 -translate-x-1/2 -translate-y-1/2 inset-1/2">
 					<form class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 
 						<button type="button" @click="$emit('onClose')"
@@ -48,8 +48,8 @@ useHideScrollbar({ target, currentModalModel })
 							<span class="sr-only">Close modal</span>
 						</button>
 
-						<div class="p-4 md:p-5 text-center">
-							<svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+						<div class="p-4 text-center md:p-5">
+							<svg class="w-12 h-12 mx-auto mb-4 text-gray-400 dark:text-gray-200" aria-hidden="true"
 								xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
 								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 									d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -59,7 +59,7 @@ useHideScrollbar({ target, currentModalModel })
 								<slot name="title"></slot>
 							</h3>
 
-							<div class="flex justify-center items-center">
+							<div class="flex items-center justify-center">
 								<BaseButton variant="danger" @click="$emit('onConfirm')" :is-loading="isLoading">
 									Yes, I'm sure
 								</BaseButton>

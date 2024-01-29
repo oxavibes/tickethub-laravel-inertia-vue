@@ -53,24 +53,26 @@ const selectedOption = computed(() => {
 })
 
 const computedSelectClasses = computed(() => {
-	const defaultClass = "placeholder-nickel text-sm rounded-md block w-full p-2.5 appearance-none cursor-pointer border border-gray-300 focus:ring-black focus:border-black";
-	const disabledClass = "text-nickel bg-persian cursor-not-allowed";
-	const errorClass = "border-red-500 focus:ring-red-500 focus:border-red-500";
-	const selectedOptionClass = "text-black";
-
-	return cva(defaultClass, {
+	return cva('placeholder-nickel text-sm rounded-md block w-full p-2.5 appearance-none cursor-pointer border', {
 		variants: {
 			disabled: {
-				true: disabledClass,
+				true: 'text-nickel bg-persian cursor-not-allowed',
 			},
 			error: {
-				true: errorClass,
+				true: 'border-red-500 focus:ring-red-500 focus:border-red-500 outline-red-500',
+				false: 'border-gray-300focus:ring-black focus:border-black'
 			},
 			selectedOption: {
-				true: selectedOptionClass
+				true: 'text-black'
 			}
 		},
-		compoundVariants: [],
+		compoundVariants: [
+			// {
+			// 	disabled: false,
+			// 	error: false,
+			// 	class: 'focus:ring-black focus:border-black'
+			// }
+		],
 		defaultVariants: {},
 	})({
 		error: !!props.errorMessage,
@@ -96,7 +98,7 @@ function onChange(event) {
 		</option>
 	</select>
 
-	<p v-show="errorMessage" class="text-red-600 text-sm mt-1">
+	<p v-show="errorMessage" class="mt-1 text-sm text-red-600">
 		{{ errorMessage }}
 	</p>
 </template>

@@ -6,8 +6,8 @@
 
 	<AuthenticatedLayout>
 		<template #header>
-			<div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-				<h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+			<div class="p-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
+				<h2 class="text-xl font-semibold leading-tight text-gray-800">Dashboard</h2>
 			</div>
 		</template>
 	</AuthenticatedLayout>

@@ -41,7 +41,7 @@ const computedSelectClasses = computed(() => ({
 <template>
 	<textarea v-bind="$attrs" v-model="computedModelValue" rows="6" :class="computedSelectClasses" :disabled="isDisabled" />
 
-	<p v-show="errorMessage" class="text-red-600 text-sm mt-1">
+	<p v-show="errorMessage" class="mt-1 text-sm text-red-600">
 		{{ errorMessage }}
 	</p>
 </template>

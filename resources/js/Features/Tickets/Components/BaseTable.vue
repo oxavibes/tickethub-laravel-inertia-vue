@@ -54,12 +54,12 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 </script>
 
 <template>
-	<div class="bg-white relative overflow-x-auto shadow-sm sm:rounded-lg px-6 pt-4 pb-6">
-		<div class="pb-4 bg-white dark:bg-gray-900 flex flex-wrap gap-4 justify-between items-baseline">
+	<div class="relative px-6 pt-4 pb-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
+		<div class="flex flex-wrap items-baseline justify-between gap-4 pb-4 bg-white dark:bg-gray-900">
 			<label :for="`${tableId}-table-search`" class="sr-only">Search</label>
 
 			<div class="relative mt-1">
-				<div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+				<div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
 					<svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
 						viewBox="0 0 20 20">
 						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -68,7 +68,7 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 				</div>
 
 				<input type="text" :id="`${tableId}-table-search`" v-model="search"
-					class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-black focus:border-black"
+					class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-black focus:border-black"
 					:placeholder="placeholder">
 			</div>
 
@@ -77,7 +77,7 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 			</BaseButton>
 		</div>
 
-		<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+		<table class="w-full text-sm text-left text-gray-500 rtl:text-right">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50">
 				<tr>
 					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3">
@@ -88,7 +88,7 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 
 			<tbody>
 				<tr v-show="!data?.data?.length" class="bg-white border-b hover:bg-gray-50">
-					<td :colspan="headers.length" class="px-6 py-4 text-gray-900 text-center">
+					<td :colspan="headers.length" class="px-6 py-4 text-center text-gray-900">
 						No records found
 					</td>
 				</tr>
@@ -121,7 +121,7 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 							</span>
 						</td>
 
-						<td v-else-if="header.key.includes('actions')" class="px-6 py-4 flex flex-wrap gap-4">
+						<td v-else-if="header.key.includes('actions')" class="flex flex-wrap gap-4 px-6 py-4">
 							<a :disabled="!canEditTicket" :aria-disabled="!canEditTicket"
 								:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canEditTicket }" href="#" type="button"
 								@click="$emit('onEdit', record)" class="font-medium text-gray-900 hover:underline">Edit

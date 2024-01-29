@@ -91,7 +91,7 @@ function onDelete(ticket) {
 
 	<AuthenticatedLayout>
 		<template #header>
-			<h2 class="p-6 font-semibold text-xl text-gray-800 leading-tight">Tickets</h2>
+			<h2 class="p-6 text-xl font-semibold leading-tight text-gray-800">Tickets</h2>
 		</template>
 
 		<template #default>

@@ -102,7 +102,7 @@ watch(editUserModalOpen, (isOpen) => {
 					</div>
 				</div>
 
-				<p v-show="form.errors.role" class="text-red-600 text-sm mt-2">
+				<p v-show="form.errors.role" class="mt-2 text-sm text-red-600">
 					{{ form.errors.role }}
 				</p>
 			</div>

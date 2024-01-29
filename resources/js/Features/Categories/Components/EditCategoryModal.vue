@@ -85,7 +85,7 @@ watch(editCategoryModalOpen, (isOpen) => {
 				<div class="flex flex-wrap gap-6">
 					<BaseRadio v-for="option in visibilityOptions" v-model="form.visible" :option="option" />
 
-					<p v-show="form.errors.visible" class="text-red-600 text-sm mt-2">
+					<p v-show="form.errors.visible" class="mt-2 text-sm text-red-600">
 						{{ form.errors.visible }}
 					</p>
 				</div>

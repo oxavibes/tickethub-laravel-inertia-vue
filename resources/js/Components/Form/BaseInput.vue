@@ -77,7 +77,7 @@ onMounted(() => {
 
 		<input ref="input" v-bind="attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
 
-		<p v-show="errorMessage" class="text-red-600 text-sm mt-2">
+		<p v-show="errorMessage" class="mt-2 text-sm text-red-600">
 			{{ errorMessage }}
 		</p>
 	</div>

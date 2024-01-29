@@ -9,8 +9,8 @@ import TheNavbar from '@/Components/Layout/TheNavbar.vue';
 
 			<!-- Page Heading -->
 			<header v-if="$slots.header">
-				<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-					<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+				<div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+					<div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
 						<slot name="header" />
 					</div>
 				</div>
@@ -18,7 +18,7 @@ import TheNavbar from '@/Components/Layout/TheNavbar.vue';
 
 			<!-- Page Content -->
 			<main>
-				<div class="max-w-7xl mx-auto space-y-8 sm:px-6 lg:px-8 pb-12">
+				<div class="pb-12 mx-auto space-y-8 max-w-7xl sm:px-6 lg:px-8">
 					<slot />
 				</div>
 			</main>
