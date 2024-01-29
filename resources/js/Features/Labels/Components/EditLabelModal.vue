@@ -94,7 +94,7 @@ watch(editLabelModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<BaseButton variant="tertiary" @click="editLabelModalOpen = false">
+			<BaseButton variant="secondary" @click="editLabelModalOpen = false">
 				Cancel
 			</BaseButton>
 

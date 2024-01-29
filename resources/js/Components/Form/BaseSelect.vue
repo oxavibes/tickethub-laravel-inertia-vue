@@ -53,25 +53,31 @@ const selectedOption = computed(() => {
 })
 
 const computedSelectClasses = computed(() => {
-	return cva('placeholder-nickel text-sm rounded-md block w-full p-2.5 appearance-none cursor-pointer border', {
+	return cva('placeholder-nickel text-sm rounded-md block w-full p-2.5 appearance-none border', {
 		variants: {
-			disabled: {
-				true: 'text-nickel bg-persian cursor-not-allowed',
-			},
-			error: {
-				true: 'border-red-500 focus:ring-red-500 focus:border-red-500 outline-red-500',
-				false: 'border-gray-300focus:ring-black focus:border-black'
-			},
-			selectedOption: {
-				true: 'text-black'
-			}
+			selectedOption: 'text-black'
 		},
 		compoundVariants: [
-			// {
-			// 	disabled: false,
-			// 	error: false,
-			// 	class: 'focus:ring-black focus:border-black'
-			// }
+			{
+				disabled: true,
+				error: false,
+				class: 'text-nickel bg-persian cursor-not-allowed bg-gray-50 border-gray-300 text-gray-900'
+			},
+			{
+				disabled: true,
+				error: true,
+				class: 'text-nickel bg-persian cursor-not-allowed bg-gray-50 border-gray-300 text-gray-900'
+			},
+			{
+				disabled: false,
+				error: true,
+				class: 'text-red-500 border-red-500 focus:ring-red-500 focus:border-red-500 outline-red-500'
+			},
+			{
+				disabled: false,
+				error: false,
+				class: 'bg-white cursor-pointer border-gray-300 focus:ring-black focus:border-black'
+			}
 		],
 		defaultVariants: {},
 	})({

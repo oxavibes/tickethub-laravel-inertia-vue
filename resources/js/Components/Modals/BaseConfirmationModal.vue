@@ -64,7 +64,7 @@ useHideScrollbar({ target, currentModalModel })
 									Yes, I'm sure
 								</BaseButton>
 
-								<BaseButton variant="tertiary" @click="$emit('onClose')">
+								<BaseButton variant="secondary" @click="$emit('onClose')">
 									No, cancel
 								</BaseButton>
 							</div>

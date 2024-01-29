@@ -14,33 +14,49 @@ const props = defineProps({
 	variant: {
 		type: [String],
 		default: 'primary',
-		validator: (value) => ['primary', 'secondary', 'tertiary', 'danger'].includes(value),
+		validator: (value) => ['primary', 'secondary', 'danger'].includes(value),
 	}
 })
 
 const computedClasses = computed(() => {
-	return cva("inline-flex justify-center items-center uppercase tracking-widest transition ease-in-out duration-150 focus:ring-offset-2", {
+	return cva('inline-flex items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow-sm focus:ring-2 focus:ring-offset-2', {
 		variants: {
-			intent: {
-				primary: "bg-gray-800 border border-transparent rounded-md font-semibold text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-black",
-				secondary: "bg-white border border-gray-300 rounded-md font-semibold text-gray-700 uppercase shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black",
-				tertiary: "text-gray-500 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-black rounded-lg border border-gray-200 font-medium hover:text-gray-900 focus:z-10",
-				danger: "text-white bg-red-600 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-center me-2",
+			variant: {
+				primary: 'text-white bg-gray-800 border border-transparent',
+				secondary: 'text-gray-700 bg-white border border-gray-300',
+				danger: 'text-white bg-red-600 me-2',
 			},
 			disabled: {
-				true: "cursor-not-allowed opacity-75",
+				false: 'cursor-pointer',
+				true: 'opacity-75 cursor-not-allowed',
 			},
 			size: {
-				xs: 'text-xs px-4 py-2',
+				xs: 'px-4 py-2 text-xs',
 			},
 		},
-		compoundVariants: [],
+		compoundVariants: [
+			{
+				variant: 'primary',
+				disabled: false,
+				class: 'hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-black active:bg-gray-900',
+			},
+			{
+				variant: 'secondary',
+				disabled: false,
+				class: 'hover:bg-gray-50 focus:outline-none focus:ring-black',
+			},
+			{
+				variant: 'danger',
+				disabled: false,
+				class: 'hover:bg-red-800 focus:outline-none focus:ring-red-500',
+			}
+		],
 		defaultVariants: {
-			intent: "primary",
-			size: "xs",
+			variant: 'primary',
+			size: 'xs',
 		},
 	})({
-		intent: props.variant,
+		variant: props.variant,
 		disabled: props.isDisabled
 	})
 });

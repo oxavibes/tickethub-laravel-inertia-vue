@@ -38,16 +38,30 @@ const computedModelValue = computed({
 })
 
 const computedClasses = computed(() => {
-	return cva('bg-white cursor-pointer placeholder-nickel text-sm rounded-lg block w-full p-2.5 shadow-sm border border-gray-300 focus:ring-black focus:border-black', {
-		variants: {
-			disabled: {
-				true: 'bg-persian cursor-not-allowed text-nickel',
+	return cva('text-sm rounded-md block w-full p-2.5 appearance-none border shadow-sm', {
+		variants: {},
+		compoundVariants: [
+			{
+				disabled: true,
+				error: false,
+				class: 'text-nickel bg-persian cursor-not-allowed bg-gray-50 border-gray-300 text-gray-900'
 			},
-			error: {
-				true: 'border-red-500 focus:ring-red-500 focus:border-red-500',
+			{
+				disabled: true,
+				error: true,
+				class: 'text-nickel bg-persian cursor-not-allowed bg-gray-50 border-gray-300'
+			},
+			{
+				disabled: false,
+				error: true,
+				class: 'text-red-500 border-red-500 outline-red-500 focus:ring-red-500 focus:border-red-500'
+			},
+			{
+				disabled: false,
+				error: false,
+				class: 'text-gray-900 bg-white border-gray-300 cursor-pointer focus:ring-black focus:border-black'
 			}
-		},
-		compoundVariants: [],
+		],
 		defaultVariants: {},
 	})({
 		error: !!props.errorMessage,

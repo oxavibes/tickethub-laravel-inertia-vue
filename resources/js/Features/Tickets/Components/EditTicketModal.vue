@@ -152,7 +152,7 @@ watch(editTicketModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<BaseButton variant="tertiary" @click="editTicketModalOpen = false">
+			<BaseButton variant="secondary" @click="editTicketModalOpen = false">
 				Cancel
 			</BaseButton>
 

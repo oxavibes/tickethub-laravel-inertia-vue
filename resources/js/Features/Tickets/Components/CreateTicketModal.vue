@@ -31,12 +31,11 @@ defineProps({
 const form = useForm({
 	title: '',
 	description: '',
+	status: 'open',
 	labels: null,
 	categories: null,
 	agent_id: null,
-	// status: 'open',
 	priority: 'low',
-	status: 'open',
 });
 
 
@@ -153,7 +152,7 @@ watch(createTicketModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<BaseButton variant="tertiary" @click="createTicketModalOpen = false">
+			<BaseButton variant="secondary" @click="createTicketModalOpen = false">
 				Cancel
 			</BaseButton>
 

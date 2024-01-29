@@ -93,7 +93,7 @@ watch(createUserModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
-			<BaseButton variant="tertiary" @click="createUserModalOpen = false">
+			<BaseButton variant="secondary" @click="createUserModalOpen = false">
 				Cancel
 			</BaseButton>
 
