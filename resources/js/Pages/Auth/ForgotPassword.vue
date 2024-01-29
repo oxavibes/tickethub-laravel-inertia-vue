@@ -40,8 +40,7 @@ const submit = () => {
 			</div>
 
 			<div class="flex flex-col gap-4 mt-4 sm:flex-row sm:items-center sm:justify-between">
-				<Link :href="route('login')"
-					class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+				<Link :href="route('login')" class="inertia-link">
 				Go back
 				</Link>
 

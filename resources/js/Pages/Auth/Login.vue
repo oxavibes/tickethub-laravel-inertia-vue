@@ -56,8 +56,7 @@ const onSubmit = () => {
 			</div>
 
 			<div class="flex flex-col gap-4 mt-4 sm:flex-row sm:items-center sm:justify-between">
-				<Link v-if="canResetPassword" :href="route('password.request')"
-					class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+				<Link v-if="canResetPassword" :href="route('password.request')" class="inertia-link">
 				Forgot your password?
 				</Link>
 
