@@ -94,6 +94,10 @@ watch(editCategoryModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
+			<BaseButton variant="secondary" @click="editCategoryModalOpen = false">
+				Cancel
+			</BaseButton>
+
 			<BaseButton form="edit-label-form" type="submit" :isLoading="form.processing">
 				Save
 			</BaseButton>

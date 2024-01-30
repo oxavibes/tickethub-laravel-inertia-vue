@@ -77,6 +77,10 @@ watch(createCategoryModalOpen, (isOpen) => {
 
 		<!-- Modal footer -->
 		<template #footer>
+			<BaseButton variant="secondary" @click="createCategoryModalOpen = false">
+				Cancel
+			</BaseButton>
+
 			<BaseButton form="create-category-form" type="submit" :isLoading="form.processing">
 				Create
 			</BaseButton>
