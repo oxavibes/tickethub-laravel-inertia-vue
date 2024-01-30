@@ -31,8 +31,8 @@ function onSubmit() {
 }
 
 const visibilityOptions = [
-	{ id: 'create-category-visible', value: true, label: 'True' },
-	{ id: 'create-category-hidden', value: false, label: 'False' },
+	{ id: 'create-category-visible', value: true, label: 'Yes' },
+	{ id: 'create-category-hidden', value: false, label: 'No' },
 ]
 
 const input = ref(null);

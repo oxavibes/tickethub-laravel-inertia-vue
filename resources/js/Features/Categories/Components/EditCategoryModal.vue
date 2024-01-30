@@ -47,8 +47,8 @@ function onSubmit() {
 }
 
 const visibilityOptions = [
-	{ id: 'edit-category-visible', value: true, label: 'True' },
-	{ id: 'edit-category-hidden', value: false, label: 'False' },
+	{ id: 'edit-category-visible', value: true, label: 'Yes' },
+	{ id: 'edit-category-hidden', value: false, label: 'No' },
 ]
 
 const input = ref(null);

@@ -31,8 +31,8 @@ function onSubmit() {
 }
 
 const visibilityOptions = [
-	{ id: 'create-label-visible', value: true, label: 'True' },
-	{ id: 'create-label-hidden', value: false, label: 'False' },
+	{ id: 'create-label-visible', value: true, label: 'Yes' },
+	{ id: 'create-label-hidden', value: false, label: 'No' },
 ]
 
 const input = ref(null);
