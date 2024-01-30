@@ -19,7 +19,7 @@ const props = defineProps({
 })
 
 const computedClasses = computed(() => {
-	return cva('inline-flex gap-2 items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow-sm focus:ring-2 focus:ring-offset-2', {
+	return cva('inline-flex gap-2 items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2', {
 		variants: {
 			variant: {
 				primary: 'text-white bg-gray-800 border border-transparent',
@@ -38,17 +38,17 @@ const computedClasses = computed(() => {
 			{
 				variant: 'primary',
 				disabled: false,
-				class: 'hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-black active:bg-gray-900',
+				class: 'hover:bg-gray-700 focus:bg-gray-700 focus:ring-black active:bg-gray-900',
 			},
 			{
 				variant: 'secondary',
 				disabled: false,
-				class: 'hover:bg-gray-50 focus:outline-none focus:ring-black',
+				class: 'hover:bg-gray-50 focus:border-black focus:ring-black',
 			},
 			{
 				variant: 'danger',
 				disabled: false,
-				class: 'hover:bg-red-800 focus:outline-none focus:ring-red-500',
+				class: 'hover:bg-red-800 focus:border-red-500 focus:ring-red-500',
 			}
 		],
 		defaultVariants: {
