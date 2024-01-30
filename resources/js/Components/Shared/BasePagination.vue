@@ -34,28 +34,28 @@ const computedLinkClass = computed(() => {
 
 const computedClasses = computed(() => {
 	return (link) => {
-		return cva('flex min-w-max text-gray-500 leading-tight items-center justify-center px-3 h-8 border border-gray-300 hover:bg-gray-100 hover:text-gray-700', {
+		return cva('flex min-w-max text-gray-500 leading-tight items-center justify-center px-3 h-8 border border-gray-300 shadow-sm', {
 			variants: {
-				intent: {
+				variant: {
 					next: 'rounded-e-lg bg-white',
 					previous: 'ms-0 rounded-s-lg bg-white',
-					current: 'text-black bg-gray-50 font-medium pointer-events-none border-gray-600',
+					current: 'text-black bg-gray-200 font-semibold pointer-events-none',
 				},
 				disabled: {
 					true: 'cursor-not-allowed opacity-75 hover:bg-white',
-					false: 'cursor-pointer'
+					false: 'cursor-pointer hover:bg-gray-100 hover:text-gray-700'
 				},
 			},
 			compoundVariants: [
 				{
-					intent: ['previous', 'next'],
+					variant: ['previous', 'next'],
 					current: false,
 					class: 'bg-white'
 				}
 			],
 			defaultVariants: {},
 		})({
-			intent: computedLinkClass.value(link),
+			variant: computedLinkClass.value(link),
 			disabled: !link.url
 		})
 	}

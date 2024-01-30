@@ -19,7 +19,7 @@ const props = defineProps({
 })
 
 const computedClasses = computed(() => {
-	return cva('inline-flex items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow-sm focus:ring-2 focus:ring-offset-2', {
+	return cva('inline-flex gap-2 items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow-sm focus:ring-2 focus:ring-offset-2', {
 		variants: {
 			variant: {
 				primary: 'text-white bg-gray-800 border border-transparent',
@@ -67,7 +67,7 @@ const isButtonDisabled = computed(() => props.isDisabled || props.isLoading);
 <template>
 	<button :class="computedClasses" :disabled="isButtonDisabled">
 		<template v-if="isLoading">
-			<svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101"
+			<svg aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101"
 				fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -78,7 +78,10 @@ const isButtonDisabled = computed(() => props.isDisabled || props.isLoading);
 			</svg>
 			Loading...
 		</template>
-		<slot v-else />
+
+		<slot v-if="!isLoading && $slots.icon" name="icon" />
+
+		<slot v-if="!isLoading" />
 	</button>
 </template>
 
