@@ -15,8 +15,8 @@ class UserAgentResource extends JsonResource
 	public function toArray(Request $request): array
 	{
 		return [
-			'label' => $this->name,
-			'value' => $this->id,
+			'id' => $this->id,
+			'name' => $this->name,
 		];
 	}
 }

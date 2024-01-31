@@ -9,9 +9,9 @@ import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
-import BaseSelect from '@/Components/Form/BaseSelect.vue';
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
+import BaseListbox from '@/Components/Form/BaseListbox.vue';
 
 defineProps({
 	labels: {
@@ -31,11 +31,17 @@ defineProps({
 const form = useForm({
 	title: '',
 	description: '',
-	status: 'open',
-	labels: null,
-	categories: null,
+	labels: [],
+	categories: [],
 	agent_id: null,
-	priority: 'low',
+	status: {
+		id: 'open',
+		name: 'Open'
+	},
+	priority: {
+		id: 'low',
+		name: 'Low'
+	},
 });
 
 
@@ -43,25 +49,34 @@ const modalStore = useModalStore();
 const { createTicketModalOpen } = storeToRefs(modalStore)
 
 function onSubmit() {
-	form.post(route('tickets.store'), {
-		preserveScroll: true,
-		onSuccess: () => {
-			createTicketModalOpen.value = false
+	form
+		.transform((data) => ({
+			...data,
+			agent_id: data.agent_id?.id,
+			labels: data.labels.map(({ id }) => id),
+			categories: data.categories.map(({ id }) => id),
+			status: data.status?.id,
+			priority: data.priority?.id
+		}))
+		.post(route('tickets.store'), {
+			preserveScroll: true,
+			onSuccess: () => {
+				createTicketModalOpen.value = false
 
-			form.reset()
-		},
-	})
+				form.reset()
+			},
+		})
 }
 
 const priorityOptions = [
-	{ value: 'low', label: 'Low' },
-	{ value: 'medium', label: 'Medium' },
-	{ value: 'high', label: 'High' }
+	{ id: 'low', name: 'Low' },
+	{ id: 'medium', name: 'Medium' },
+	{ id: 'high', name: 'High' }
 ]
 
 const statusOptions = [
-	{ value: 'open', label: 'Open' },
-	{ value: 'closed', label: 'Closed' },
+	{ id: 'open', name: 'Open' },
+	{ id: 'closed', name: 'Closed' },
 ]
 
 const { hasRole } = usePermission();
@@ -108,8 +123,8 @@ watch(createTicketModalOpen, (isOpen) => {
 					Agent
 				</div>
 
-				<BaseSelect :options="agents" v-model="form.agent_id" :error-message="form.errors.agentId"
-					@focus="form.clearErrors('agentId')" />
+				<BaseListbox v-model="form.agent_id" :options="agents" :error-message="form.errors.agentId"
+					@click="form.clearErrors('agentId')" />
 			</div>
 
 			<div>
@@ -117,8 +132,8 @@ watch(createTicketModalOpen, (isOpen) => {
 					Labels
 				</div>
 
-				<BaseSelect is-multiple :options="labels" v-model="form.labels" :error-message="form.errors.labels"
-					@focus="form.clearErrors('labels')" />
+				<BaseListbox is-multiple v-model="form.labels" :options="labels" :error-message="form.errors.labels"
+					@click="form.clearErrors('labels')" />
 			</div>
 
 			<div>
@@ -126,8 +141,8 @@ watch(createTicketModalOpen, (isOpen) => {
 					Categories
 				</div>
 
-				<BaseSelect is-multiple :options="categories" v-model="form.categories" :error-message="form.errors.categories"
-					@focus="form.clearErrors('categories')" />
+				<BaseListbox is-multiple v-model="form.categories" :options="categories" :error-message="form.errors.categories"
+					@click="form.clearErrors('categories')" />
 			</div>
 
 			<div>
@@ -135,7 +150,7 @@ watch(createTicketModalOpen, (isOpen) => {
 					Priority
 				</div>
 
-				<BaseSelect :options="priorityOptions" v-model="form.priority" :error-message="form.errors.priority"
+				<BaseListbox v-model="form.priority" :options="priorityOptions" :error-message="form.errors.priority"
 					@focus="form.clearErrors('priority')" />
 			</div>
 
@@ -145,8 +160,8 @@ watch(createTicketModalOpen, (isOpen) => {
 					Status
 				</div>
 
-				<BaseSelect :options="statusOptions" v-model="form.status" :error-message="form.errors.status"
-					@focus="form.clearErrors('status')" />
+				<BaseListbox v-model="form.status" :options="statusOptions" :error-message="form.errors.status"
+					@click="form.clearErrors('status')" />
 			</div>
 		</form>
 

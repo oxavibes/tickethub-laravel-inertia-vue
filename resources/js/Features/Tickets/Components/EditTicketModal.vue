@@ -7,9 +7,10 @@ import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
-import BaseSelect from '@/Components/Form/BaseSelect.vue';
+
 import BaseButton from '@/Components/Buttons/BaseButton.vue';
 import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
+import BaseListbox from '@/Components/Form/BaseListbox.vue';
 
 const props = defineProps({
 	ticket: {
@@ -32,15 +33,33 @@ const props = defineProps({
 
 const form = useForm({
 	...props.ticket,
-	labels: props.ticket?.labels.map((label) => label.id),
-	categories: props.ticket?.categories.map((category) => category.id),
+	agent_id: props.ticket?.agent?.id,
+	status: {
+		id: props.ticket?.status,
+		name: props.ticket?.status.at(0).toUpperCase() + props.ticket?.status.slice(1)
+	},
+	priority: {
+		id: props.ticket?.priority,
+		name: props.ticket?.priority.at(0).toUpperCase() + props.ticket?.priority.slice(1)
+	},
+	labels: props.ticket?.labels.map(({ id, title }) => ({ id, name: title })),
+	categories: props.ticket?.categories.map(({ id, title }) => ({ id, name: title })),
 });
 
 watch(() => props.ticket, (newVal) => {
 	form.defaults({
 		...newVal,
-		labels: props.ticket.labels.map((label) => label.id),
-		categories: props.ticket.categories.map((category) => category.id),
+		agent_id: props.ticket.agent,
+		status: {
+			id: props.ticket?.status,
+			name: props.ticket?.status.at(0).toUpperCase() + props.ticket?.status.slice(1)
+		},
+		priority: {
+			id: props.ticket?.priority,
+			name: props.ticket?.priority.at(0).toUpperCase() + props.ticket?.priority.slice(1)
+		},
+		labels: props.ticket?.labels.map(({ id, title }) => ({ id, name: title })),
+		categories: props.ticket?.categories.map(({ id, title }) => ({ id, name: title })),
 	}).reset();
 });
 
@@ -48,25 +67,34 @@ const modalStore = useModalStore();
 const { editTicketModalOpen } = storeToRefs(modalStore)
 
 function onSubmit() {
-	form.patch(route('tickets.update', { ticket: props.ticket }), {
-		preserveScroll: true,
-		onSuccess: () => {
-			editTicketModalOpen.value = false
+	form
+		.transform((data) => ({
+			...data,
+			agent_id: data.agent?.id,
+			labels: data.labels.map(({ id }) => id),
+			categories: data.categories.map(({ id }) => id),
+			status: data.status?.id,
+			priority: data.priority?.id
+		}))
+		.patch(route('tickets.update', { ticket: props.ticket }), {
+			preserveScroll: true,
+			onSuccess: () => {
+				editTicketModalOpen.value = false
 
-			form.reset()
-		},
-	})
+				form.reset()
+			},
+		})
 }
 
 const priorityOptions = [
-	{ value: 'low', label: 'Low' },
-	{ value: 'medium', label: 'Medium' },
-	{ value: 'high', label: 'High' }
+	{ id: 'low', name: 'Low' },
+	{ id: 'medium', name: 'Medium' },
+	{ id: 'high', name: 'High' }
 ]
 
 const statusOptions = [
-	{ value: 'open', label: 'Open' },
-	{ value: 'closed', label: 'Closed' },
+	{ id: 'open', name: 'Open' },
+	{ id: 'closed', name: 'Closed' },
 ]
 
 const input = ref(null);
@@ -109,8 +137,8 @@ watch(editTicketModalOpen, (isOpen) => {
 					Agent
 				</div>
 
-				<BaseSelect :options="agents" v-model="form.agent_id" :error-message="form.errors.agent_id"
-					@focus="form.clearErrors('agent_id')" />
+				<BaseListbox v-model="form.agent_id" :options="agents" :error-message="form.errors.agentId"
+					@click="form.clearErrors('agentId')" />
 			</div>
 
 			<div>
@@ -118,8 +146,8 @@ watch(editTicketModalOpen, (isOpen) => {
 					Labels
 				</div>
 
-				<BaseSelect is-multiple :options="labels" v-model="form.labels" :error-message="form.errors.labels"
-					@focus="form.clearErrors('labels')" />
+				<BaseListbox is-multiple v-model="form.labels" :options="labels" :error-message="form.errors.labels"
+					@click="form.clearErrors('labels')" />
 			</div>
 
 			<div>
@@ -127,8 +155,8 @@ watch(editTicketModalOpen, (isOpen) => {
 					Categories
 				</div>
 
-				<BaseSelect is-multiple :options="categories" v-model="form.categories" :error-message="form.errors.categories"
-					@focus="form.clearErrors('categories')" />
+				<BaseListbox is-multiple v-model="form.categories" :options="categories" :error-message="form.errors.categories"
+					@click="form.clearErrors('categories')" />
 			</div>
 
 			<div>
@@ -136,7 +164,7 @@ watch(editTicketModalOpen, (isOpen) => {
 					Priority
 				</div>
 
-				<BaseSelect :options="priorityOptions" v-model="form.priority" :error-message="form.errors.priority"
+				<BaseListbox v-model="form.priority" :options="priorityOptions" :error-message="form.errors.priority"
 					@focus="form.clearErrors('priority')" />
 			</div>
 
@@ -145,8 +173,8 @@ watch(editTicketModalOpen, (isOpen) => {
 					Status
 				</div>
 
-				<BaseSelect :options="statusOptions" v-model="form.status" :error-message="form.errors.status"
-					@focus="form.clearErrors('status')" />
+				<BaseListbox v-model="form.status" :options="statusOptions" :error-message="form.errors.status"
+					@click="form.clearErrors('status')" />
 			</div>
 		</form>
 

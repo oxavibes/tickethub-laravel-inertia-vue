@@ -30,6 +30,10 @@ class TicketController extends Controller
 			->orderBy('created_at', 'desc')
 			->paginate(10)
 			->withQueryString();
+		// ->through(fn ($ticket) => [
+		// 	'id' => $user->id,
+		// 	'name' => $user->name
+		// ]);
 
 		$categories = Category::orderBy('title', 'desc')->get();
 		$categories = CategoryResource::collection($categories);
@@ -42,9 +46,9 @@ class TicketController extends Controller
 
 		return Inertia::render('Tickets/Index', [
 			'tickets' => $tickets,
-			'categories' => $categories,
-			'agents' => $agents,
 			'labels' => $labels,
+			'agents' => $agents,
+			'categories' => $categories,
 			'filters' => Request::only(['search']),
 		]);
 	}
