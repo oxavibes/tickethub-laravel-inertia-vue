@@ -24,8 +24,6 @@ defineOptions({
 	inheritAttrs: false,
 })
 
-const attrs = useAttrs()
-
 const emit = defineEmits(['update:modelValue'])
 
 const computedModelValue = computed({
@@ -85,11 +83,11 @@ onMounted(() => {
 
 <template>
 	<div>
-		<label :for="attrs.id" class="block mb-1 text-sm font-medium text-gray-900">
+		<label :for="$attrs.id" class="block mb-1 text-sm font-medium text-gray-900">
 			{{ label }}
 		</label>
 
-		<input ref="input" v-bind="attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
+		<input ref="input" v-bind="$attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
 
 		<p v-show="errorMessage" class="mt-2 text-sm text-red-600">
 			{{ errorMessage }}
