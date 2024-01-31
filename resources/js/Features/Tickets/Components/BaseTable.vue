@@ -5,6 +5,7 @@ import { watchDebounced } from '@vueuse/core'
 
 import usePermission from '@/Composables/usePermission';
 
+import BaseTag from "@/Components/Form/BaseTag.vue";
 import BaseButton from "@/Components/Buttons/BaseButton.vue";
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
@@ -84,10 +85,10 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 			</BaseButton>
 		</div>
 
-		<table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+		<table class="w-full text-sm text-left text-gray-500">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50">
 				<tr>
-					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3">
+					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3 text-nowrap">
 						{{ label }}
 					</th>
 				</tr>
@@ -102,8 +103,11 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 
 				<tr v-for="record in data?.data" :key="record" class="bg-white border-b hover:bg-gray-50">
 					<template v-for="header in headers" :key="header.key">
+						<td v-if="header.key.includes('title')" class="px-6 py-4 text-gray-900 min-w-[150px] text-balance">
+							{{ record[header.key] }}
+						</td>
 
-						<td v-if="header.key.includes('status')" class="px-6">
+						<td v-else-if="header.key.includes('status')" class="px-6">
 							<div class="flex items-center">
 								<span v-if="record[header.key].includes('open')"
 									class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></span>
@@ -128,30 +132,37 @@ const canDeleteTicket = hasPermission.value('delete tickets');
 							</span>
 						</td>
 
-						<td v-else-if="header.key.includes('actions')" class="flex flex-wrap gap-4 px-6 py-4">
-							<a :disabled="!canEditTicket" :aria-disabled="!canEditTicket"
-								:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canEditTicket }" href="#" type="button"
-								@click="$emit('onEdit', record)" class="font-medium text-gray-900 hover:underline">Edit
-							</a>
+						<td v-else-if="header.key.includes('actions')" class="px-6 py-4">
+							<div class="flex flex-wrap gap-4 ">
+								<a :disabled="!canEditTicket" :aria-disabled="!canEditTicket"
+									:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canEditTicket }" href="#" type="button"
+									@click="$emit('onEdit', record)" class="font-medium text-gray-900 hover:underline">Edit
+								</a>
 
-							<a :disabled="!canDeleteTicket" :aria-disabled="!canDeleteTicket"
-								:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canDeleteTicket }" href="#" type="button"
-								class="font-medium text-red-600 hover:underline" @click="$emit('onDelete', record)">Delete
-							</a>
+								<a :disabled="!canDeleteTicket" :aria-disabled="!canDeleteTicket"
+									:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canDeleteTicket }" href="#"
+									type="button" class="font-medium text-red-600 hover:underline" @click="$emit('onDelete', record)">Delete
+								</a>
+							</div>
 						</td>
+
 
 						<td v-else-if="Array.isArray(record[header.key])" class="px-6 py-4 text-gray-900">
-							<span v-for="{ title } in record[header.key]" :key="key"
-								class="inline-flex gap-2 bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded border-gray-500">
-								{{ title }}
-							</span>
+							<div class="flex flex-wrap gap-3">
+								<BaseTag v-for="{ title } in record[header.key]" :key="key">
+									{{ title }}
+								</BaseTag>
+							</div>
+
 						</td>
 
-						<td v-else-if="header.key.includes('agent')" class="px-6 py-4 text-gray-900">
+						<td v-else-if="header.key.includes('agent')" class="px-6 py-4 text-center text-gray-900">
 							{{ record[header.key]?.name ?? 'Unassigned' }}
 						</td>
 
-						<td v-else class="px-6 py-4 text-gray-900">
+
+
+						<td v-else class="max-w-[180px] px-6 py-4 text-gray-900 truncate">
 							{{ record[header.key] }}
 						</td>
 					</template>

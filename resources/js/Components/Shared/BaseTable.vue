@@ -81,7 +81,7 @@ watchDebounced(search, (value) => {
 		<table class="w-full text-sm text-left text-gray-500 rtl:text-right">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50">
 				<tr>
-					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3">
+					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3 text-nowrap">
 						{{ label }}
 					</th>
 				</tr>
