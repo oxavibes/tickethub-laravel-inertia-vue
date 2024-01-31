@@ -54,7 +54,7 @@ watch(createUserModalOpen, (isOpen) => {
 	<BaseModal v-model:is-open="createUserModalOpen" @on-close="createUserModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
-			<h3 class="text-xl font-semibold text-gray-900">
+			<h3 class="text-lg font-medium text-gray-900">
 				Add user
 			</h3>
 		</template>

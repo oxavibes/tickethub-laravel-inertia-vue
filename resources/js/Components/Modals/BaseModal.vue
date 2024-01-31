@@ -34,7 +34,7 @@ useHideScrollbar({ target, currentModalModel })
 					class="relative w-full max-w-xl max-h-[600px] overflow-y-auto bg-white rounded inset-1/2 -translate-x-1/2 -translate-y-1/2">
 					<div class="flex items-start justify-between p-4 border-b">
 						<slot name="header">
-							<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+							<h3 class="text-lg font-medium text-gray-900">
 								Heading
 							</h3>
 						</slot>

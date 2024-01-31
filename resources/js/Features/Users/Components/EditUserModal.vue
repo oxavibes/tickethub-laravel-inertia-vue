@@ -66,7 +66,7 @@ watch(editUserModalOpen, (isOpen) => {
 	<BaseModal v-model:is-open="editUserModalOpen" @on-close="editUserModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
-			<h3 class="text-xl font-semibold text-gray-900">
+			<h3 class="text-lg font-medium text-gray-900">
 				Edit user
 			</h3>
 		</template>

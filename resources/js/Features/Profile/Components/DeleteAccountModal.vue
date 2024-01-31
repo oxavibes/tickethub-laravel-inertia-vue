@@ -43,7 +43,7 @@ watch(accountModalOpen, (isOpen) => {
 	<BaseModal v-model:is-open="accountModalOpen" @on-close="accountModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
-			<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+			<h3 class="text-lg font-medium text-gray-900">
 				Delete Account
 			</h3>
 		</template>
@@ -66,7 +66,7 @@ watch(accountModalOpen, (isOpen) => {
 			<BaseButton variant="secondary" @click="accountModalOpen = false"> Cancel </BaseButton>
 
 			<BaseButton variant="danger" class="ms-3" :is-loading="form.processing" @click="deleteUser">
-				Delete Account
+				Delete
 			</BaseButton>
 		</template>
 	</BaseModal>

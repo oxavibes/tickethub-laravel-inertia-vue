@@ -50,7 +50,7 @@ watch(createCategoryModalOpen, (isOpen) => {
 	<BaseModal v-model:is-open="createCategoryModalOpen" @on-close="createCategoryModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
-			<h3 class="text-xl font-semibold text-gray-900">
+			<h3 class="text-lg font-medium text-gray-900">
 				Add category
 			</h3>
 		</template>

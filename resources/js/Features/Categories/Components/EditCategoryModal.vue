@@ -66,7 +66,7 @@ watch(editCategoryModalOpen, (isOpen) => {
 	<BaseModal v-model:is-open="editCategoryModalOpen" @on-close="editCategoryModalOpen = false">
 		<!-- Modal header -->
 		<template #header>
-			<h3 class="text-xl font-semibold text-gray-900">
+			<h3 class="text-lg font-medium text-gray-900">
 				Edit category
 			</h3>
 		</template>
