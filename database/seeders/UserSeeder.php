@@ -33,6 +33,14 @@ class UserSeeder extends Seeder
 		])->assignRole('agent');
 
 		User::create([
+			'name' => 'Another Agent',
+			'email' => 'another@agent.com',
+			'email_verified_at' => now(),
+			'password' => Hash::make('password'),
+			'remember_token' => Str::random(10),
+		])->assignRole('agent');
+
+		User::create([
 			'name' => 'User',
 			'email' => 'user@user.com',
 			'email_verified_at' => now(),
