@@ -1,6 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { ref, computed, watch } from 'vue';
+import { useForm, usePage } from '@inertiajs/vue3';
 
 import usePermission from '@/Composables/usePermission';
 
@@ -79,7 +79,8 @@ const statusOptions = [
 	{ id: 'closed', name: 'Closed' },
 ]
 
-const { hasRole } = usePermission();
+const roles = computed(() => usePage().props.auth.roles);
+const { hasRole } = usePermission({ roles: roles.value });
 const canAssignAgent = hasRole.value('admin');
 
 const input = ref(null);

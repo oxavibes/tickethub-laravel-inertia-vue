@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from "vue";
-import { router } from '@inertiajs/vue3'
+import { ref, computed } from "vue";
+import { router, usePage } from '@inertiajs/vue3'
 import { watchDebounced } from '@vueuse/core'
 
 import usePermission from '@/Composables/usePermission';
@@ -36,9 +36,16 @@ const props = defineProps({
 	}
 })
 
-const search = ref(props.filters?.search);
-
 const emit = defineEmits(['onCreate', 'onEdit', 'onDelete']);
+
+const permissions = computed(() => usePage().props.auth.permissions);
+const { hasPermission } = usePermission({ permissions: permissions.value, });
+
+const canCreateTicket = hasPermission.value('create tickets');
+const canEditTicket = hasPermission.value('edit tickets');
+const canDeleteTicket = hasPermission.value('delete tickets');
+
+const search = ref(props.filters?.search);
 
 watchDebounced(search, (value) => {
 	router.get(route(props.route), { search: value }, {
@@ -46,12 +53,6 @@ watchDebounced(search, (value) => {
 		preserveState: true,
 	});
 }, { debounce: 300 });
-
-const { hasPermission } = usePermission();
-
-const canCreateTicket = hasPermission.value('create tickets');
-const canEditTicket = hasPermission.value('edit tickets');
-const canDeleteTicket = hasPermission.value('delete tickets');
 </script>
 
 <template>
