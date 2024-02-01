@@ -1,8 +1,8 @@
-import useAuth from '@/Composables/usePermission';
+import usePermission from '@/Composables/usePermission';
 
-describe('useAuth composable', () => {
+describe('usePermission composable', () => {
 	it('should return true if the user has the specified role', () => {
-		const { hasRole } = useAuth({ roles: ['admin'], permissions: ['read'] });
+		const { hasRole } = usePermission({ roles: ['admin'], permissions: ['read'] });
 
 		const result = hasRole.value('admin');
 
@@ -10,7 +10,7 @@ describe('useAuth composable', () => {
 	});
 
 	it('should return false if the user does not have the specified role', () => {
-		const { hasRole } = useAuth({ roles: ['admin'], permissions: ['read'] });
+		const { hasRole } = usePermission({ roles: ['admin'], permissions: ['read'] });
 
 		const result = hasRole.value('editor');
 
@@ -18,7 +18,7 @@ describe('useAuth composable', () => {
 	});
 
 	it('should return true if the user has the specified permission', () => {
-		const { hasPermission } = useAuth({ roles: ['admin'], permissions: ['read'] });
+		const { hasPermission } = usePermission({ roles: ['admin'], permissions: ['read'] });
 
 		const result = hasPermission.value('read');
 
@@ -26,7 +26,7 @@ describe('useAuth composable', () => {
 	});
 
 	it('should return false if the user does not have the specified permission', () => {
-		const { hasPermission } = useAuth({ roles: ['admin'], permissions: ['read'] });
+		const { hasPermission } = usePermission({ roles: ['admin'], permissions: ['read'] });
 
 		const result = hasPermission.value('write');
 
