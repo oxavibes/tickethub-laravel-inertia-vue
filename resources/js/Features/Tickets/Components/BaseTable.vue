@@ -5,8 +5,8 @@ import { watchDebounced } from '@vueuse/core'
 
 import usePermission from '@/Composables/usePermission';
 
-import BaseTag from "@/Components/Form/BaseTag.vue";
-import BaseButton from "@/Components/Buttons/BaseButton.vue";
+import BaseTag from "@/Components/Shared/BaseTag.vue";
+import BaseButton from '@/Components/Shared/BaseButton.vue';
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
 const props = defineProps({

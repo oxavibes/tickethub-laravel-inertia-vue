@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useModalStore } from '@/Stores/modals';
 
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 import DeleteAccountModal from '@/Features/Profile/Components/DeleteAccountModal.vue';
 
 const modalStore = useModalStore();

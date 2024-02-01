@@ -9,7 +9,7 @@ import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseRadio from '@/Components/Form/BaseRadio.vue';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 
 const props = defineProps({
 	user: {

@@ -9,7 +9,7 @@ import { useModalStore } from '@/Stores/modals';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
 import BaseListbox from '@/Components/Form/BaseListbox.vue';
 

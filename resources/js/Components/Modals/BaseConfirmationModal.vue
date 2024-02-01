@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import useHideScrollbar from '@/Composables/useHideScrollbar';
 
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 
 const props = defineProps({
 	isOpen: {

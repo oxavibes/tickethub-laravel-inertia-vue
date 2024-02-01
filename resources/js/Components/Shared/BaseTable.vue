@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { router } from '@inertiajs/vue3'
 import { watchDebounced } from '@vueuse/core'
 
-import BaseButton from "@/Components/Buttons/BaseButton.vue";
+import BaseButton from '@/Components/Shared/BaseButton.vue';
 import BasePagination from '@/Components/Shared/BasePagination.vue';
 
 const props = defineProps({

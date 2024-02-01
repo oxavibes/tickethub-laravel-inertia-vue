@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 
 const props = defineProps({
 	status: {

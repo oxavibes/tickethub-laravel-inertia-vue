@@ -2,7 +2,7 @@
 import { useForm, usePage } from '@inertiajs/vue3';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 
 defineProps({
 	mustVerifyEmail: {

@@ -7,7 +7,7 @@ import { useModalStore } from '@/Stores/modals';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseInput from '@/Components/Form/BaseInput.vue';
-import BaseButton from '@/Components/Buttons/BaseButton.vue';
+import BaseButton from '@/Components/Shared/BaseButton.vue'
 
 const form = useForm({
 	password: '',
