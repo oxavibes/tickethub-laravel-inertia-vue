@@ -5,7 +5,9 @@ import { useForm, usePage } from '@inertiajs/vue3';
 import usePermission from '@/Composables/usePermission';
 
 import { storeToRefs } from 'pinia';
+
 import { useModalStore } from '@/Stores/modals';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
@@ -62,6 +64,13 @@ function onSubmit() {
 			preserveScroll: true,
 			onSuccess: () => {
 				createTicketModalOpen.value = false
+
+				const toastStore = useToastStore()
+
+				toastStore.add({
+					type: 'success',
+					message: 'Ticket created successfully',
+				})
 
 				form.reset()
 			},

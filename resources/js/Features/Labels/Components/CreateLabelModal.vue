@@ -3,7 +3,9 @@ import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
+
 import { useModalStore } from '@/Stores/modals';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseRadio from '@/Components/Form/BaseRadio.vue';
@@ -24,6 +26,13 @@ function onSubmit() {
 		preserveScroll: true,
 		onSuccess: () => {
 			createLabelModalOpen.value = false
+
+			const toastStore = useToastStore()
+
+			toastStore.add({
+				type: 'success',
+				message: 'Label edited successfully',
+			})
 
 			form.reset()
 		},

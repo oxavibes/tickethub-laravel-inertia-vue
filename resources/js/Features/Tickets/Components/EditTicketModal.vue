@@ -3,7 +3,9 @@ import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
+
 import { useModalStore } from '@/Stores/modals';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
@@ -80,6 +82,13 @@ function onSubmit() {
 			preserveScroll: true,
 			onSuccess: () => {
 				editTicketModalOpen.value = false
+
+				const toastStore = useToastStore()
+
+				toastStore.add({
+					type: 'success',
+					message: 'Ticket updated successfully',
+				})
 
 				form.reset()
 			},

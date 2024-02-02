@@ -2,7 +2,9 @@
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia';
+
 import { useModalStore } from '@/Stores/modals';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue'
@@ -27,6 +29,13 @@ function onDelete() {
 		preserveScroll: true,
 		onSuccess: () => {
 			deleteTicketModalOpen.value = false
+
+			const toastStore = useToastStore()
+
+			toastStore.add({
+				type: 'success',
+				message: 'Ticket deleted successfully',
+			})
 
 			form.reset()
 		},
