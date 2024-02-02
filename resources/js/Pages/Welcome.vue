@@ -22,7 +22,7 @@ defineProps({
 <template>
 	<Head title="Welcome" />
 
-	<div class="relative max-w-screen-xl px-5 mx-auto h-svh">
+	<div class="relative h-screen max-w-screen-xl px-5 mx-auto">
 		<header class="flex flex-col items-center justify-between py-5 lg:flex-row">
 			<div class="flex items-center justify-between w-full">
 				<Link :href="route('welcome')" class="text-lg">
@@ -34,37 +34,37 @@ defineProps({
 					Log in
 					</Link>
 
-					<BaseLink size="sm" :href="route('register')">
+					<BaseLink :href="route('register')">
 						Register
 					</BaseLink>
 				</div>
 			</div>
 		</header>
 
-		<div class="absolute max-w-screen-xl px-5 mx-auto -translate-y-1/2 top-1/2">
-			<main class="grid pb-8 lg:grid-cols-2 place-items-center">
-				<div class="block py-6 order-0 lg:order-1">
+		<div class="w-full mx-auto lg:flex lg:items-center lg:justify-center lg:h-[calc(100vh-74px)]">
+			<main class="grid pb-8 place-items-center lg:grid-cols-2">
+				<div class="block pb-12 order-0 lg:order-1 lg:pb-0">
 					<picture>
 						<source
 							srcset="https://heytaco.com/images/people-right.gif 200w, https://heytaco.com/images/people-right.gif 400w, https://heytaco.com/images/people-right.gif 600w"
-							type="image/webp" sizes="(max-width: 800px) 100vw, 620px"> <img
+							type="image/gif" sizes="(max-width: 800px) 100vw, 620px"> <img
 							src="https://heytaco.com/images/people-right.gif"
 							srcset="https://heytaco.com/images/people-right.gif 200w, https://heytaco.com/images/people-right.gif 400w, https://heytaco.com/images/people-right.gif 600w"
-							alt="Astronaut in the air" sizes="(max-width: 800px) 100vw, 620px" loading="eager" width="520" height="424"
-							decoding="async">
+							alt="Two people talking each other" sizes="(max-width: 800px) 100vw, 620px" loading="eager" width="520"
+							height="673" decoding="async">
 					</picture>
 				</div>
 
 				<div>
-					<h1 class="text-4xl font-bold lg:text-6xl xl:text-7xl lg:tracking-tight xl:tracking-tighter">
+					<h1 class="text-4xl font-bold text-gray-900 lg:text-6xl xl:text-7xl lg:tracking-tight xl:tracking-tighter">
 						Elevate Support Experiences with TicketHub
 					</h1>
-					<p class="max-w-xl mt-6 text-base lg:text-lg text-slate-600 text-pretty">
+					<p class="max-w-xl mt-4 lg:text-lg text-slate-500 text-pretty">
 						TicketHub is your all-in-one support ticket solution. It provides everything you need for seamless support
 						management, combining the best features of modern tools with its own innovative approach. Say goodbye to
 						support challenges and hello to a smoother, more efficient support experience.
 					</p>
-					<div class="flex flex-col gap-3 mt-10 sm:flex-row">
+					<div class="flex flex-col gap-3 mt-6 sm:flex-row">
 						<BaseLink size="sm" :href="route('register')">
 							Get started
 						</BaseLink>
