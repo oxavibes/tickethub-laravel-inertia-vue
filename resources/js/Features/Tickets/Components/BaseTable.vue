@@ -171,7 +171,7 @@ watchDebounced(search, (value) => {
 			</tbody>
 		</table>
 
-		<BasePagination v-show="data?.data?.length" :data="data" />
+		<BasePagination :data="data" />
 	</div>
 </template>
 
