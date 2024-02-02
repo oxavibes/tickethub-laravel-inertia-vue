@@ -34,10 +34,14 @@ const submit = () => {
 
 		<Head title="Reset Password" />
 
+		<h3 class="mb-4 text-xl font-bold text-gray-700">
+			Reset your password
+		</h3>
+
 		<form @submit.prevent="submit">
 			<div>
-				<BaseInput autofocus id="reset-password-email" type="email" v-model="form.email" autocomplete="username"
-					:error-message="form.errors.email" @focus="form.clearErrors('email')" />
+				<BaseInput label="Email" autofocus id="reset-password-email" type="email" v-model="form.email"
+					autocomplete="username" :error-message="form.errors.email" @focus="form.clearErrors('email')" />
 			</div>
 
 			<div class="mt-4">

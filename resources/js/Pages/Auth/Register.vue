@@ -24,13 +24,17 @@ const submit = () => {
 		<Head title="Register" />
 
 		<form @submit.prevent="submit">
+			<h3 class="mb-4 text-xl font-bold text-gray-700">
+				Tell us about yourself
+			</h3>
+
 			<div>
 				<BaseInput autofocus label="Name" id="register-name" type="text" v-model="form.name" autocomplete="name"
 					:error-message="form.errors.name" @focus="form.clearErrors('name')" />
 			</div>
 
 			<div class="mt-4">
-				<BaseInput autofocus autocomplete="username" label="Email" id="register-email" type="email" v-model="form.email"
+				<BaseInput autocomplete="username" label="Email" id="register-email" type="email" v-model="form.email"
 					:error-message="form.errors.email" @focus="form.clearErrors('email')" />
 
 			</div>
