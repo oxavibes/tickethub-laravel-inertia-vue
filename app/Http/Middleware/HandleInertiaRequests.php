@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
 				'roles' => $roles,
 				'permissions' => $permissions,
 			],
+			'toast' => session('toast'),
 			'ziggy' => fn () => [
 				...(new Ziggy)->toArray(),
 				'location' => $request->url(),
