@@ -19,7 +19,7 @@ const props = defineProps({
 })
 
 const computedClasses = computed(() => {
-	return cva('inline-flex gap-2 items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2', {
+	return cva('inline-flex gap-2 items-center justify-center font-semibold tracking-widest uppercase transition duration-150 ease-in-out rounded-md shadow focus:outline-none focus:ring-2 focus:ring-offset-2', {
 		variants: {
 			variant: {
 				primary: 'text-white bg-gray-800 border border-transparent',
@@ -31,7 +31,11 @@ const computedClasses = computed(() => {
 				true: 'opacity-75 cursor-not-allowed',
 			},
 			size: {
-				xs: 'px-4 py-2 text-xs',
+				xs: 'px-3 py-2 text-xs',
+				sm: 'px-4 py-2.5 text-xs',
+				md: 'px-5 py-2.5 text-sm',
+				lg: 'px-5 py-3 text-base',
+				xl: 'px-6 py-3.5 text-base'
 			},
 		},
 		compoundVariants: [
@@ -53,7 +57,7 @@ const computedClasses = computed(() => {
 		],
 		defaultVariants: {
 			variant: 'primary',
-			size: 'xs',
+			size: 'sm',
 		},
 	})({
 		variant: props.variant,
