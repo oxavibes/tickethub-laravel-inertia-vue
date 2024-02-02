@@ -48,7 +48,7 @@ watchDebounced(search, (value) => {
 
 <template>
 	<div class="relative px-6 pt-4 pb-6 overflow-x-auto bg-white shadow-sm sm:rounded-lg">
-		<div class="flex flex-wrap items-baseline justify-between gap-4 pb-4 bg-white">
+		<div class="flex flex-wrap items-center justify-between gap-4 pb-4 bg-white">
 			<label :for="`${tableId}-table-search`" class="sr-only">Search</label>
 
 			<div class="relative mt-1">
