@@ -16,6 +16,7 @@ use App\Http\Resources\UserAgentResource;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -24,16 +25,23 @@ class TicketController extends Controller
 	 */
 	public function index()
 	{
-		$tickets = Ticket::query()
+		$user = Auth::user();
+		$role = $user->getRoleNames()->first();
+
+		$ticketsQuery = Ticket::query()
 			->with('categories:id,title', 'labels:id,title', 'agent:id,name') // Eager load relationships
 			->when(Request::input('search'), fn ($query, $search) => $query->where('title', 'like', '%' . $search . '%'))
-			->orderBy('created_at', 'desc')
-			->paginate(10)
-			->withQueryString();
-		// ->through(fn ($ticket) => [
-		// 	'id' => $user->id,
-		// 	'name' => $user->name
-		// ]);
+			->orderBy('created_at', 'desc');
+
+		if ($role === 'user') {
+			// User gets tickets created by themselves
+			$ticketsQuery->where('user_id', $user->id);
+		} elseif ($role == 'agent') {
+			// Agent gets tickets assigned to them
+			$ticketsQuery->where('agent_id', $user->id);
+		}
+
+		$tickets = $ticketsQuery->paginate(10)->withQueryString();
 
 		$categories = Category::orderBy('title', 'desc')->get();
 		$categories = CategoryResource::collection($categories);
