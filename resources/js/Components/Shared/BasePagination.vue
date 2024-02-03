@@ -63,7 +63,7 @@ const computedClasses = computed(() => {
 </script>
 
 <template>
-	<nav class="flex flex-wrap items-center justify-between gap-3 pt-8 flex-column md:flex-row"
+	<nav v-if="data?.data?.length" class="flex flex-wrap items-center justify-between gap-3 pt-8 flex-column md:flex-row"
 		aria-label="Table navigation">
 		<span class="block w-full text-sm font-normal text-gray-500 md:w-auto">
 			Showing
