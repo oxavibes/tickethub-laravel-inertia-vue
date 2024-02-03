@@ -1,10 +1,9 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue';
-
-import { useToastStore } from '@/Stores/toast';
 
 import Checkbox from '@/Components/Form/Checkbox.vue';
 
@@ -34,8 +33,6 @@ const onSubmit = () => {
 
 			form.reset();
 		},
-
-
 	});
 };
 </script>

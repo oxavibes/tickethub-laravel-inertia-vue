@@ -40,7 +40,7 @@ function onSubmit() {
 
 			toastStore.add({
 				type: 'success',
-				message: 'Ticket created successfully',
+				message: 'User created successfully',
 			})
 
 			form.reset()

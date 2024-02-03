@@ -1,7 +1,9 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia'
+
 import { useModalStore } from '@/Stores/modals';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue'
@@ -31,6 +33,13 @@ function onDelete() {
 		onSuccess: () => {
 			deleteUserModalOpen.value = false
 
+			const toastStore = useToastStore()
+
+			toastStore.add({
+				type: 'success',
+				message: 'User deleted successfully',
+			})
+
 			form.reset()
 		},
 	})
@@ -58,7 +67,7 @@ function onDelete() {
 		<template #footer>
 			<BaseButton variant="secondary" @click="deleteUserModalOpen = false"> Cancel </BaseButton>
 
-			<BaseButton @click="onDeleteUser" variant="danger" class="ms-3" :is-loading="form.processing">
+			<BaseButton @click="onDelete" variant="danger" class="ms-3" :is-loading="form.processing">
 				Delete
 			</BaseButton>
 		</template>

@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue'
@@ -13,7 +14,16 @@ const form = useForm({
 const onSubmit = () => {
 	form.put(route('password.update'), {
 		preserveScroll: true,
-		onSuccess: () => form.reset(),
+		onSuccess: () => {
+			const toastStore = useToastStore()
+
+			toastStore.add({
+				type: 'success',
+				message: 'Password updated successfully',
+			})
+
+			form.reset()
+		},
 		onError: () => { }
 	});
 };
@@ -31,20 +41,18 @@ const onSubmit = () => {
 
 		<form @submit.prevent="onSubmit" class="mt-6 space-y-6">
 			<div>
-				<BaseInput label="Current Password" id="update-current-password" type="password" placeholder="••••••••"
-					v-model="form.current_password" :error-message="form.errors.current_password"
-					@focus="form.clearErrors('current_password')" />
+				<BaseInput label="Current Password" id="update-current-password" type="password" v-model="form.current_password"
+					:error-message="form.errors.current_password" @focus="form.clearErrors('current_password')" />
 			</div>
 
 			<div>
 				<BaseInput label="New Password" id="update-new-password" type="password" autocomplete="new-password"
-					placeholder="••••••••" v-model="form.password" :error-message="form.errors.password"
-					@focus="form.clearErrors('password')" />
+					v-model="form.password" :error-message="form.errors.password" @focus="form.clearErrors('password')" />
 			</div>
 
 			<div>
 				<BaseInput label="Confirm Password" id="update-password-confirmation" type="password" autocomplete="new-password"
-					placeholder="••••••••" v-model="form.password_confirmation" :error-message="form.errors.password_confirmation"
+					v-model="form.password_confirmation" :error-message="form.errors.password_confirmation"
 					@focus="form.clearErrors('password_confirmation')" />
 			</div>
 

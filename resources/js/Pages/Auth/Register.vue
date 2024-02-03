@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue'
@@ -13,7 +14,15 @@ const form = useForm({
 
 const submit = () => {
 	form.post(route('register'), {
-		onSuccess: () => form.reset(),
+		onSuccess: () => {
+			const toastStore = useToastStore()
+
+			toastStore.add({
+				message: `Welcome to TicketHub 🥳`,
+			})
+
+			form.reset()
+		},
 	});
 };
 </script>

@@ -1,9 +1,11 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import { storeToRefs } from 'pinia'
+
 import { useModalStore } from '@/Stores/modals';
+import { useToastStore } from '@/Stores/toast';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseInput from '@/Components/Form/BaseInput.vue';
@@ -19,17 +21,24 @@ const { accountModalOpen } = storeToRefs(modalStore)
 const deleteUser = () => {
 	form.delete(route('profile.destroy'), {
 		preserveScroll: true,
-		onSuccess: () => onSuccess(),
+		onSuccess: () => {
+			accountModalOpen.value = false
+
+			const toastStore = useToastStore()
+
+			setTimeout(() => {
+				toastStore.add({
+					message: 'We are sorry to see you go! ☹️',
+				})
+			}, 2000)
+
+			form.reset();
+		},
 		onError: () => { }
 	});
 };
 
-const onSuccess = () => {
-	form.reset();
-};
-
 const input = ref(null);
-
 watch(accountModalOpen, (isOpen) => {
 	if (isOpen) {
 		setTimeout(() => {
@@ -56,8 +65,8 @@ watch(accountModalOpen, (isOpen) => {
 			</p>
 
 			<div class="mt-6">
-				<BaseInput ref="input" label="Password" id="delete-account-password" placeholder="••••••••" type="password"
-					v-model="form.password" @keyup.enter="deleteUser" :error-message="form.errors.password" />
+				<BaseInput ref="input" label="Password" id="delete-account-password" type="password" v-model="form.password"
+					@keyup.enter="deleteUser" :error-message="form.errors.password" />
 			</div>
 		</div>
 
