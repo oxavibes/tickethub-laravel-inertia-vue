@@ -5,7 +5,6 @@ import { useForm } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia'
 
 import { useModalStore } from '@/Stores/modals';
-import { useToastStore } from '@/Stores/toast';
 
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseInput from '@/Components/Form/BaseInput.vue';
@@ -24,17 +23,8 @@ const deleteUser = () => {
 		onSuccess: () => {
 			accountModalOpen.value = false
 
-			const toastStore = useToastStore()
-
-			setTimeout(() => {
-				toastStore.add({
-					message: 'We are sorry to see you go! ☹️',
-				})
-			}, 2000)
-
 			form.reset();
 		},
-		onError: () => { }
 	});
 };
 
