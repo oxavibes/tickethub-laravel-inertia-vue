@@ -41,9 +41,9 @@ const emit = defineEmits(['onCreate', 'onEdit', 'onDelete']);
 const permissions = computed(() => usePage().props.auth.permissions);
 const { hasPermission } = usePermission({ permissions: permissions.value, });
 
-const canCreateTicket = hasPermission.value('create tickets');
-const canEditTicket = hasPermission.value('edit tickets');
-const canDeleteTicket = hasPermission.value('delete tickets');
+const canCreateTicket = hasPermission.value('create-tickets');
+const canEditTicket = hasPermission.value('edit-tickets');
+const canDeleteTicket = hasPermission.value('delete-tickets');
 
 const search = ref(props.filters?.search);
 
@@ -147,7 +147,6 @@ watchDebounced(search, (value) => {
 							</div>
 						</td>
 
-
 						<td v-else-if="Array.isArray(record[header.key])" class="px-6 py-4 text-gray-900">
 							<div class="flex flex-wrap gap-3">
 								<BaseTag v-for="{ title } in record[header.key]" :key="key">
@@ -160,8 +159,6 @@ watchDebounced(search, (value) => {
 						<td v-else-if="header.key.includes('agent')" class="px-6 py-4 text-center text-gray-900">
 							{{ record[header.key]?.name ?? 'Unassigned' }}
 						</td>
-
-
 
 						<td v-else class="max-w-[180px] px-6 py-4 text-gray-900 truncate">
 							{{ record[header.key] }}

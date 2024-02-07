@@ -12,11 +12,11 @@ import ResponsiveNavLink from '@/Components/Shared/ResponsiveNavLink.vue';
 import { usePage } from '@inertiajs/vue3';
 
 const navigationLinks = [
-	{ name: 'Dashboard', route: 'dashboard', permission: 'view dashboard' },
-	{ name: 'Users', route: 'users.index', permission: 'view users' },
-	{ name: 'Labels', route: 'labels.index', permission: 'view labels' },
-	{ name: 'Categories', route: 'categories.index', permission: 'view categories' },
-	{ name: 'Tickets', route: 'tickets.index', permission: 'view tickets' },
+	{ name: 'Dashboard', route: 'dashboard', permission: 'view-dashboard' },
+	{ name: 'Users', route: 'users.index', permission: 'view-users' },
+	{ name: 'Labels', route: 'labels.index', permission: 'view-labels' },
+	{ name: 'Categories', route: 'categories.index', permission: 'view-categories' },
+	{ name: 'Tickets', route: 'tickets.index', permission: 'view-tickets' },
 	// { name: 'Tickets logs', route: 'tickets.logs' },
 ];
 
