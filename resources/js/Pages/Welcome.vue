@@ -1,4 +1,6 @@
 <script setup>
+import heroImage from "@/../images/people-right.webp"
+
 import BaseLink from '@/Components/Shared/BaseLink.vue';
 
 defineProps({
@@ -45,11 +47,9 @@ defineProps({
 			<main class="grid pb-8 place-items-center lg:grid-cols-2">
 				<div class="block pb-12 order-0 lg:order-1 lg:pb-0">
 					<picture>
-						<source
-							srcset="https://heytaco.com/images/people-right.gif 200w, https://heytaco.com/images/people-right.gif 400w, https://heytaco.com/images/people-right.gif 600w"
-							type="image/gif" sizes="(max-width: 800px) 100vw, 620px"> <img
-							src="https://heytaco.com/images/people-right.gif"
-							srcset="https://heytaco.com/images/people-right.gif 200w, https://heytaco.com/images/people-right.gif 400w, https://heytaco.com/images/people-right.gif 600w"
+						<source :srcset="`${heroImage} 200w, ${heroImage} 400w, ${heroImage} 600w`" type="image/webp"
+							sizes="(max-width: 800px) 100vw, 620px">
+						<img :src="`${heroImage}`" :srcset="`${heroImage} 200w, ${heroImage} 400w, ${heroImage} 600w`"
 							alt="Two people talking each other" sizes="(max-width: 800px) 100vw, 620px" loading="eager" width="520"
 							height="673" decoding="async">
 					</picture>
