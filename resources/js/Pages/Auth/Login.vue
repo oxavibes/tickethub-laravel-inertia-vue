@@ -4,8 +4,7 @@ import { useToastStore } from '@/Stores/toast';
 
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue';
-
-import Checkbox from '@/Components/Form/Checkbox.vue';
+import BaseCheckbox from '@/Components/Form/BaseCheckbox.vue';
 
 defineProps({
 	canResetPassword: {
@@ -63,7 +62,7 @@ const onSubmit = () => {
 
 			<div class="flex justify-between gap-2 mt-4">
 				<label class="flex items-center">
-					<Checkbox name="remember" v-model:checked="form.remember" />
+					<BaseCheckbox name="remember" v-model:checked="form.remember" />
 					<span class="text-sm text-gray-600 ms-2">Remember me</span>
 				</label>
 
