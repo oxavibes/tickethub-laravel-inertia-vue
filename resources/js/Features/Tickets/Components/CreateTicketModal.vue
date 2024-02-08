@@ -12,8 +12,8 @@ import { useToastStore } from '@/Stores/toast';
 import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 import BaseButton from '@/Components/Shared/BaseButton.vue'
-import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
 import BaseListbox from '@/Components/Form/BaseListbox.vue';
+import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
 
 defineProps({
 	labels: {
@@ -133,8 +133,8 @@ watch(createTicketModalOpen, (isOpen) => {
 					Agent
 				</div>
 
-				<BaseListbox v-model="form.agent_id" :options="agents" :error-message="form.errors.agentId"
-					@click="form.clearErrors('agentId')" />
+				<BaseListbox v-model="form.agent_id" :options="agents" :error-message="form.errors.agent_id"
+					@click="form.clearErrors('agent_id')" />
 			</div>
 
 			<div>

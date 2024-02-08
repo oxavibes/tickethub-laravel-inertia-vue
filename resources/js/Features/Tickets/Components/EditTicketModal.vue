@@ -11,8 +11,8 @@ import BaseInput from '@/Components/Form/BaseInput.vue';
 import BaseModal from '@/Components/Modals/BaseModal.vue';
 
 import BaseButton from '@/Components/Shared/BaseButton.vue'
-import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
 import BaseListbox from '@/Components/Form/BaseListbox.vue';
+import BaseTextarea from '@/Components/Form/BaseTextarea.vue';
 
 const props = defineProps({
 	ticket: {
@@ -35,7 +35,7 @@ const props = defineProps({
 
 const form = useForm({
 	...props.ticket,
-	agent_id: props.ticket?.agent?.id,
+	agent_id: props.ticket?.agent,
 	status: {
 		id: props.ticket?.status,
 		name: props.ticket?.status.at(0).toUpperCase() + props.ticket?.status.slice(1)
@@ -51,7 +51,7 @@ const form = useForm({
 watch(() => props.ticket, (newVal) => {
 	form.defaults({
 		...newVal,
-		agent_id: props.ticket.agent,
+		agent_id: props.ticket?.agent,
 		status: {
 			id: props.ticket?.status,
 			name: props.ticket?.status.at(0).toUpperCase() + props.ticket?.status.slice(1)
@@ -72,7 +72,7 @@ function onSubmit() {
 	form
 		.transform((data) => ({
 			...data,
-			agent_id: data.agent?.id,
+			agent_id: data.agent_id?.id,
 			labels: data.labels.map(({ id }) => id),
 			categories: data.categories.map(({ id }) => id),
 			status: data.status?.id,
@@ -146,8 +146,8 @@ watch(editTicketModalOpen, (isOpen) => {
 					Agent
 				</div>
 
-				<BaseListbox v-model="form.agent_id" :options="agents" :error-message="form.errors.agentId"
-					@click="form.clearErrors('agentId')" />
+				<BaseListbox v-model="form.agent_id" :options="agents" :error-message="form.errors.agent_id"
+					@click="form.clearErrors('agent_id')" />
 			</div>
 
 			<div>
