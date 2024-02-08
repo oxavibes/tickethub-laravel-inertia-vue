@@ -1,4 +1,5 @@
-![localhost_8000_](https://github.com/oxavibes/tickethub/assets/8161360/8f341e21-14c6-412e-949f-505beed06fd3)
+![screenshot](https://github.com/oxavibes/tickethub/assets/8161360/bf57944b-78ed-42d2-bbe5-b8bf85295761)
+
 
 # Getting started
 
