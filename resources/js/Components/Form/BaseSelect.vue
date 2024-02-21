@@ -2,10 +2,9 @@
 import { computed } from 'vue'
 import { cva } from "class-variance-authority";
 
+const model = defineModel({ type: [String, Number] })
+
 const props = defineProps({
-	modelValue: {
-		type: [Number, String],
-	},
 	options: {
 		type: Array,
 		default: () => [],
@@ -18,10 +17,6 @@ const props = defineProps({
 		type: [Boolean],
 		default: false,
 	},
-	isMultiple: {
-		type: [Boolean],
-		default: false,
-	},
 	errorMessage: {
 		type: [String],
 	}
@@ -31,25 +26,8 @@ defineOptions({
 	inheritAttrs: false,
 })
 
-const emit = defineEmits(['update:modelValue'])
-
-const computedModelValue = computed({
-	get() {
-		return props.modelValue
-	},
-	set(value) {
-		if (props.isMultiple) {
-			emit('update:modelValue', [value])
-		}
-
-		else {
-			emit('update:modelValue', value)
-		}
-	},
-})
-
 const selectedOption = computed(() => {
-	return props.options.find(option => option.value == computedModelValue.value)
+	return props.options.find(option => option.value == model.value)
 })
 
 const computedSelectClasses = computed(() => {
@@ -88,7 +66,7 @@ const computedSelectClasses = computed(() => {
 });
 
 function onChange(event) {
-	computedModelValue.value = event.target.value
+	model.value = event.target.value
 }
 </script>
 

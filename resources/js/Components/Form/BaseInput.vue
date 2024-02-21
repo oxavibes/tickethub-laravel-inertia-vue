@@ -2,13 +2,12 @@
 import { computed, ref, onMounted } from 'vue'
 import { cva } from "class-variance-authority";
 
+const model = defineModel({ type: [String, Number] })
+
 const props = defineProps({
 	label: {
 		type: [String],
 		default: 'Default label',
-	},
-	modelValue: {
-		type: [String, Number],
 	},
 	errorMessage: {
 		type: [String],
@@ -22,17 +21,6 @@ const props = defineProps({
 
 defineOptions({
 	inheritAttrs: false,
-})
-
-const emit = defineEmits(['update:modelValue'])
-
-const computedModelValue = computed({
-	get() {
-		return props.modelValue
-	},
-	set(value) {
-		emit('update:modelValue', value)
-	},
 })
 
 const computedClasses = computed(() => {
@@ -87,7 +75,7 @@ onMounted(() => {
 			{{ label }}
 		</label>
 
-		<input ref="input" v-bind="$attrs" v-model="computedModelValue" :class="computedClasses" :disabled="isDisabled">
+		<input ref="input" v-bind="$attrs" v-model="model" :class="computedClasses" :disabled="isDisabled">
 
 		<p v-show="errorMessage" class="mt-2 text-sm text-red-600">
 			{{ errorMessage }}

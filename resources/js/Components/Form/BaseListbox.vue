@@ -8,12 +8,9 @@ import {
 	ListboxOption,
 } from '@headlessui/vue'
 
+const model = defineModel({ type: [Array, String, Number] })
 
 const props = defineProps({
-	modelValue: {
-		type: [Array, String],
-		required: true,
-	},
 	options: {
 		type: [Array],
 		required: true,
@@ -37,33 +34,22 @@ defineOptions({
 	inheritAttrs: false,
 })
 
-const emit = defineEmits(['update:modelValue'])
-
-const computedSelectedOption = computed({
-	get() {
-		return props.modelValue
-	},
-	set(value) {
-		emit('update:modelValue', value)
-	},
-})
-
 const isEmpty = computed(() => {
 	if (props.isMultiple) {
-		return computedSelectedOption.value?.length == 0
+		return model.value?.length == 0
 	}
 
-	return !computedSelectedOption.value
+	return !model.value
 })
 
 const computedLabel = computed(() => {
 	if (isEmpty.value) return "Please select an option"
 
 	if (props.isMultiple) {
-		return computedSelectedOption.value?.map((x) => x.name).join(", ")
+		return model.value?.map((x) => x.name).join(", ")
 	}
 
-	return computedSelectedOption.value?.name
+	return model.value?.name
 })
 
 const computedListboxButtonClasses = computed(() => {
@@ -116,7 +102,7 @@ const computedListboxOptionClasses = computed(() => {
 </script>
 
 <template>
-	<Listbox as="div" v-bind="$attrs" by="id" :disabled="isDisabled" :multiple="isMultiple" v-model="computedSelectedOption"
+	<Listbox as="div" v-bind="$attrs" by="id" :disabled="isDisabled" :multiple="isMultiple" v-model="model"
 		v-slot="{ open: isOpen }">
 		<div class="relative">
 			<span class="inline-block w-full rounded-md shadow-sm">

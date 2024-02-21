@@ -2,25 +2,11 @@
 import { computed } from 'vue';
 import { cva } from "class-variance-authority";
 
-const emit = defineEmits(['update:checked']);
+const model = defineModel('checked', { type: [Array, Boolean], required: true })
 
 const props = defineProps({
-	checked: {
-		type: [Array, Boolean],
-		required: true,
-	},
 	value: {
 		default: null,
-	},
-});
-
-const computedModelValue = computed({
-	get() {
-		return props.checked;
-	},
-
-	set(val) {
-		emit('update:checked', val);
 	},
 });
 
@@ -34,5 +20,5 @@ const computedClasses = computed(() => {
 </script>
 
 <template>
-	<input type="checkbox" :value="value" v-model="computedModelValue" :class="computedClasses" />
+	<input type="checkbox" :value="value" v-model="model" :class="computedClasses" />
 </template>
