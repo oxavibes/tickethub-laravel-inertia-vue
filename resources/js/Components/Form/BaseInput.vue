@@ -1,5 +1,5 @@
 <script setup>
-import { computed, useAttrs, ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { cva } from "class-variance-authority";
 
 const props = defineProps({

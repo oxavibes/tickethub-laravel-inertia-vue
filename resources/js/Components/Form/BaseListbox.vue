@@ -1,5 +1,5 @@
 <script setup>
-import { computed, } from 'vue'
+import { computed } from 'vue'
 import { cva } from 'class-variance-authority';
 import {
 	Listbox,
