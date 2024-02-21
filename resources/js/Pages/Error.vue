@@ -1,10 +1,12 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 
-import dogFootprintSm from '@/../images/dog-footprint-sm.svg'
-import dogFootprintLg from '@/../images/dog-footprint-lg.svg'
-
-const props = defineProps({ status: Number })
+const props = defineProps({
+	status: {
+		type: [Number],
+		default: 500,
+	}
+})
 
 const title = computed(() => {
 	return {
@@ -27,27 +29,6 @@ const description = computed(() => {
 </script>
 
 <template>
-	<!-- <div
-		class="relative flex justify-center items-center flex-col h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] lg:h-[calc(100vh-100px)] bg-yellow text-center px-8 z-0 overflow-hidden mt-[129px]">
-		<img :src="dogFootprintSm" alt="dog footprint icon" class="absolute -top-10 left-0 -z-[1]">
-		<img :src="dogFootprintLg" alt="dog footprint icon" class="absolute -bottom-4 right-0 -z-[1]">
-
-		<div class="relative">
-			<div class="absolute z-10 w-24 h-24 rotate-45 -translate-x-1/2 border-2 border-black left-1/2 -top-12">
-				<span class="absolute block w-5 h-5 bg-white border rounded-full -top-2 -left-2" />
-			</div>
-			<h2
-				class="relative text-6xl font-semibold mb-8 px-8 py-6 bg-white rounded-md shadow-[10px_10px_0px_0px_rgba(0,0,0,0.5)] z-20">
-				{{ status }}
-			</h2>
-		</div>
-		<p class="mb-2 text-2xl lg:text-4xl">
-			{{ title }}
-		</p>
-		<div>{{ description }}</div>
-	</div> -->
-
-
 	<div class="grid h-screen px-4 bg-white place-content-center">
 		<div class="text-center">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" class="w-auto h-56 mx-auto text-black sm:h-64">
@@ -71,9 +52,9 @@ const description = computed(() => {
 				</g>
 			</svg>
 
-			<h1 class="mt-6 font-black text-gray-200 text-9xl">{{ status }}</h1>
+			<h2 class="mt-6 font-black text-gray-200 text-9xl">{{ status }}</h2>
 
-			<h1 class="mt-6 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ title }}</h1>
+			<h2 class="mt-6 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ title }}</h2>
 
 			<p class="mt-4 text-gray-500">{{ description }}</p>
 		</div>
