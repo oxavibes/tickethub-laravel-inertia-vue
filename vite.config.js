@@ -11,6 +11,9 @@ const vitestConfig = {
 
 export default defineConfig({
 	test: vitestConfig.test,
+	build: {
+		chunkSizeWarningLimit: 1500,
+	},
 	plugins: [
 		laravel({
 			input: 'resources/js/app.js',
@@ -26,4 +29,7 @@ export default defineConfig({
 			},
 		}),
 	],
+	ssr: {
+		noExternal: ['@inertiajs/server'],
+	},
 });
