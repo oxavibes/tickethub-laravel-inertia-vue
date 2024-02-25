@@ -55,16 +55,19 @@ defineProps({
 					</picture>
 				</div>
 
-				<div>
-					<h1 class="text-4xl font-bold text-gray-900 lg:text-6xl xl:text-7xl lg:tracking-tight xl:tracking-tighter">
+				<div class="space-y-6">
+					<h1
+						class="text-4xl font-bold text-gray-900 text-balance lg:text-6xl xl:text-7xl lg:tracking-tight xl:tracking-tighter">
 						Elevate Support Experiences with TicketHub
 					</h1>
-					<p class="max-w-xl mt-4 lg:text-lg text-slate-500 text-pretty">
+
+					<p class="max-w-xl lg:text-lg text-slate-500 text-pretty">
 						TicketHub is your all-in-one support ticket solution. It provides everything you need for seamless support
 						management, combining the best features of modern tools with its own innovative approach. Say goodbye to
 						support challenges and hello to a smoother, more efficient support experience.
 					</p>
-					<div class="flex flex-col gap-3 mt-6 sm:flex-row">
+
+					<div class="flex flex-col gap-3 sm:flex-row">
 						<BaseLink size="sm" :href="route('register')">
 							Get started
 						</BaseLink>
