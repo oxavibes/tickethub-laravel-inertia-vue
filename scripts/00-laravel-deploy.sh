@@ -14,3 +14,9 @@ php artisan route:cache
 
 echo "Running migrations..."
 php artisan migrate --seed --force
+
+echo "Running server"
+php artisan serve
+
+echo "Running inertia ssr"
+php artisan inertia:start-ssr
