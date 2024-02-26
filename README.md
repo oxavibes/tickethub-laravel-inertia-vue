@@ -9,7 +9,7 @@
 
 Clone the repository
 		
-	git clone https://github.com/oxavibes/tickethub.git
+	git clone https://github.com/oxavibes/tickethub-laravel-inertia-vue.git
 
 Switch to the repo folder
 
