@@ -9,14 +9,14 @@ composer install --optimize-autoloader --no-dev
 echo "Caching config..."
 php artisan config:cache
 
+echo "Caching events..."
+php artisan event:cache
+
 echo "Caching routes..."
 php artisan route:cache
 
+echo "Caching views..."
+php artisan view:cache
+
 echo "Running migrations..."
 php artisan migrate --seed --force
-
-echo "Running server"
-php artisan serve
-
-echo "Running inertia ssr"
-php artisan inertia:start-ssr
