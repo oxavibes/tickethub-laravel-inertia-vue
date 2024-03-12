@@ -27,7 +27,6 @@
 		"@headlessui/vue": "^1.7.19",
 		"@vueuse/core": "^10.8.0",
 		"class-variance-authority": "^0.7.0",
-		"flowbite": "^2.3.0",
 		"pinia": "^2.1.7",
 		"tailwind-merge": "^2.2.1"
 	}

@@ -1,7 +1,5 @@
 import '../css/app.css';
 
-import 'flowbite';
-
 import { createSSRApp, h } from 'vue';
 import { renderToString } from '@vue/server-renderer';
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';

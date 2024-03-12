@@ -1,8 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
 
-import 'flowbite';
-
 import { createApp, createSSRApp, h } from 'vue';
 import { createPinia } from 'pinia'
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
