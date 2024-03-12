@@ -3,7 +3,7 @@ import '../css/app.css';
 
 import 'flowbite';
 
-import { createApp, h } from 'vue';
+import { createApp, createSSRApp, h } from 'vue';
 import { createPinia } from 'pinia'
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -20,7 +20,7 @@ createInertiaApp({
 	title: (title) => `${title} - ${appName}`,
 	resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
 	setup({ el, App, props, plugin }) {
-		return createApp({ render: () => h(App, props) })
+		return createSSRApp({ render: () => h(App, props) })
 			.component('Link', Link)
 			.component('Head', Head)
 			.component('GuestLayout', GuestLayout)

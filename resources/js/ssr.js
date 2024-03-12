@@ -1,9 +1,16 @@
+import '../css/app.css';
+
+import 'flowbite';
+
 import { createSSRApp, h } from 'vue';
 import { renderToString } from '@vue/server-renderer';
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import createServer from '@inertiajs/vue3/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -17,10 +24,12 @@ createServer((page) =>
 			return createSSRApp({ render: () => h(App, props) })
 				.component('Link', Link)
 				.component('Head', Head)
+				.component('GuestLayout', GuestLayout)
+				.component('AuthenticatedLayout', AuthenticatedLayout)
 				.use(plugin)
 				.use(ZiggyVue, {
 					...page.props.ziggy,
-					location: new URL(page.props.ziggy.url),
+					location: new URL(page.props.ziggy.location),
 				});
 		},
 	}),
