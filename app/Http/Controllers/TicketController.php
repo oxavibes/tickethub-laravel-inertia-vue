@@ -119,6 +119,8 @@ class TicketController extends Controller
 	 */
 	public function update(UpdateTicketRequest $request, Ticket $ticket)
 	{
+		$this->authorize('update', $ticket);
+
 		$ticket->update([
 			'title' => $request->input('title'),
 			'description' => $request->input('description'),
@@ -130,7 +132,6 @@ class TicketController extends Controller
 			$agent = User::findOrFail($request->input('agent_id'));
 			$ticket->assignAgent($agent);
 		} else {
-
 			$ticket->removeAgent();
 		}
 
@@ -146,6 +147,8 @@ class TicketController extends Controller
 	 */
 	public function destroy(Ticket $ticket)
 	{
+		$this->authorize('delete', $ticket);
+
 		$ticket->delete();
 
 		return redirect()->back()->with('success', 'Ticket deleted successfully');
