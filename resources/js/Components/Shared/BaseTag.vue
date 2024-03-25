@@ -3,10 +3,9 @@
 
 <template>
 	<span
-		class="inline-flex gap-2 text-xs bg-gray-100 cursor-pointer min-w-max text-gray-800 font-medium px-2.5 py-0.5 rounded-md transition duration-300 border border-gray-300 hover:bg-gray-50 hover:scale-105">
+		class="antialiased inline-flex gap-2 text-xs bg-gray-100 cursor-pointer min-w-max text-gray-800 font-medium px-2.5 py-0.5 rounded-md transition duration-300 border border-gray-300">
 		<slot></slot>
 	</span>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

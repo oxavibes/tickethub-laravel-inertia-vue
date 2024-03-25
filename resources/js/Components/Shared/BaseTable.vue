@@ -78,7 +78,7 @@ watchDebounced(search, (value) => {
 			</BaseButton>
 		</div>
 
-		<table class="w-full text-sm text-left text-gray-500 rtl:text-right">
+		<table class="w-full text-sm text-left text-gray-500">
 			<thead class="text-xs text-gray-700 uppercase bg-gray-50">
 				<tr>
 					<th v-for="{ label, key } in headers" :key="key" scope="col" class="px-6 py-3 text-nowrap">
@@ -88,16 +88,34 @@ watchDebounced(search, (value) => {
 			</thead>
 
 			<tbody>
-				<tr v-show="!data?.data?.length" class="bg-white border-b hover:bg-gray-50">
+				<tr v-show="!data?.data?.length" class="bg-white border-b">
 					<td :colspan="headers.length" class="px-6 py-4 text-center text-gray-900">
 						No records found
 					</td>
 				</tr>
 
-				<tr v-for="record in data?.data" :key="record" class="bg-white border-b hover:bg-gray-50">
+				<tr v-for="record in data?.data" :key="record" class="border-b even:bg-white odd:bg-gray-50">
 					<template v-for="header in headers" :key="header.key">
-						<td v-if="!header.key.includes('actions')" class="px-6 py-4 text-gray-900">
+						<td v-if="!header.key.includes('actions') && !header.key.includes('visible')"
+							class="px-6 py-4 text-gray-900">
 							{{ record[header.key] }}
+						</td>
+
+						<td v-if="header.key.includes('visible')" class="px-6 py-4 text-gray-900">
+							<svg v-if="record[header.key]" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" class="lucide lucide-circle-check">
+								<circle cx="12" cy="12" r="10" />
+								<path d="m9 12 2 2 4-4" />
+							</svg>
+
+							<svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+								stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+								class="text-red-600 lucide lucide-circle-x">
+								<circle cx="12" cy="12" r="10" />
+								<path d="m15 9-6 6" />
+								<path d="m9 9 6 6" />
+							</svg>
 						</td>
 					</template>
 
@@ -118,5 +136,4 @@ watchDebounced(search, (value) => {
 	</div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

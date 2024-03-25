@@ -96,13 +96,13 @@ watchDebounced(search, (value) => {
 			</thead>
 
 			<tbody>
-				<tr v-show="!data?.data?.length" class="bg-white border-b hover:bg-gray-50">
+				<tr v-show="!data?.data?.length" class="bg-white border-b">
 					<td :colspan="headers.length" class="px-6 py-4 text-center text-gray-900">
 						No records found
 					</td>
 				</tr>
 
-				<tr v-for="record in data?.data" :key="record" class="bg-white border-b hover:bg-gray-50">
+				<tr v-for="record in data?.data" :key="record" class="border-b even:bg-white odd:bg-gray-50">
 					<template v-for="header in headers" :key="header.key">
 						<td v-if="header.key.includes('title')" class="px-6 py-4 text-gray-900 min-w-[150px] text-balance">
 							{{ record[header.key] }}
@@ -125,8 +125,8 @@ watchDebounced(search, (value) => {
 
 							<span v-else-if="record[header.key].includes('medium')"
 								class="bg-yellow text-black text-sm font-medium me-2 px-2.5 py-0.5 rounded-full border border-yellow">{{
-									record[header.key]
-								}}</span>
+				record[header.key]
+			}}</span>
 
 							<span v-else class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">
 								{{ record[header.key] }}
@@ -136,13 +136,14 @@ watchDebounced(search, (value) => {
 						<td v-else-if="header.key.includes('actions')" class="px-6 py-4">
 							<div class="flex flex-wrap gap-4 ">
 								<a :disabled="!canEditTicket" :aria-disabled="!canEditTicket"
-									:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canEditTicket }" href="#" type="button"
-									@click="$emit('onEdit', record)" class="font-medium text-gray-900 hover:underline">Edit
+									:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canEditTicket }" href="#"
+									type="button" @click="$emit('onEdit', record)" class="font-medium text-gray-900 hover:underline">Edit
 								</a>
 
 								<a :disabled="!canDeleteTicket" :aria-disabled="!canDeleteTicket"
 									:class="{ 'cursor-not-allowed pointer-events-none opacity-50': !canDeleteTicket }" href="#"
-									type="button" class="font-medium text-red-600 hover:underline" @click="$emit('onDelete', record)">Delete
+									type="button" class="font-medium text-red-600 hover:underline"
+									@click="$emit('onDelete', record)">Delete
 								</a>
 							</div>
 						</td>
@@ -172,5 +173,4 @@ watchDebounced(search, (value) => {
 	</div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
