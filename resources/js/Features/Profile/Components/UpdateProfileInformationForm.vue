@@ -31,10 +31,12 @@ const form = useForm({
 			</p>
 		</header>
 
-		<form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+		<hr class="my-6">
+
+		<form @submit.prevent="form.patch(route('profile.update'))" class="space-y-6">
 			<div>
-				<BaseInput label="Name" id="update-profile-name" type="text" v-model="form.name" :error-message="form.errors.name"
-					@focus="form.clearErrors('name')" autocomplete="name" />
+				<BaseInput label="Name" id="update-profile-name" type="text" v-model="form.name"
+					:error-message="form.errors.name" @focus="form.clearErrors('name')" autocomplete="name" />
 			</div>
 
 			<div>

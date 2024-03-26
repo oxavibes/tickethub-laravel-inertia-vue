@@ -12,24 +12,27 @@ defineProps({
 </script>
 
 <template>
+
 	<Head title="Profile" />
 
 	<AuthenticatedLayout>
 		<template #header>
-			<h2 class="p-6 text-xl font-semibold leading-tight text-gray-800">Profile</h2>
+			<div class="flex items-center justify-between p-6">
+				<h2 class="text-xl font-semibold leading-tight text-gray-800">Profile</h2>
+
+				<DeleteUserForm />
+			</div>
 		</template>
 
 		<template #default>
-			<div class="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-				<UpdateProfileInformationForm :status="status" :must-verify-email="mustVerifyEmail" class="max-w-xl" />
-			</div>
+			<div class="grid gap-6">
+				<div class="p-6 bg-white rounded-lg shadow sm:p-8">
+					<UpdateProfileInformationForm :status="status" :must-verify-email="mustVerifyEmail" class="max-w-xl" />
+				</div>
 
-			<div class="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-				<UpdatePasswordForm class="max-w-xl" />
-			</div>
-
-			<div class="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-				<DeleteUserForm class="max-w-xl" />
+				<div class="p-6 bg-white rounded-lg shadow sm:p-8">
+					<UpdatePasswordForm class="max-w-xl" />
+				</div>
 			</div>
 		</template>
 	</AuthenticatedLayout>

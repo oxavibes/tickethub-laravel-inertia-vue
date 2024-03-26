@@ -39,6 +39,8 @@ const onSubmit = () => {
 			</p>
 		</header>
 
+		<hr class="my-6">
+
 		<form @submit.prevent="onSubmit" class="mt-6 space-y-6">
 			<div>
 				<BaseInput label="Current Password" id="update-current-password" type="password" v-model="form.current_password"
@@ -51,9 +53,9 @@ const onSubmit = () => {
 			</div>
 
 			<div>
-				<BaseInput label="Confirm Password" id="update-password-confirmation" type="password" autocomplete="new-password"
-					v-model="form.password_confirmation" :error-message="form.errors.password_confirmation"
-					@focus="form.clearErrors('password_confirmation')" />
+				<BaseInput label="Confirm Password" id="update-password-confirmation" type="password"
+					autocomplete="new-password" v-model="form.password_confirmation"
+					:error-message="form.errors.password_confirmation" @focus="form.clearErrors('password_confirmation')" />
 			</div>
 
 			<div class="flex items-center gap-4">
