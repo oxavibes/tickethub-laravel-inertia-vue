@@ -63,15 +63,12 @@ function onDelete(category) {
 </script>
 
 <template>
+
 	<Head title="Categories" />
 
 	<AuthenticatedLayout>
-		<template #header>
-			<h2 class="p-6 text-xl font-semibold leading-tight text-gray-800">Categories</h2>
-		</template>
-
 		<template #default>
-			<BaseTable table-id="categories" placeholder="Search for categories" :headers="headers" :data="categories"
+			<BaseTable table-id="categories" placeholder="Search" :headers="headers" :data="categories"
 				route="categories.index" :filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					Add

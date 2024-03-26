@@ -51,15 +51,12 @@ function onDelete(user) {
 </script>
 
 <template>
+
 	<Head title="Users" />
 
 	<AuthenticatedLayout>
-		<template #header>
-			<h2 class="p-6 text-xl font-semibold leading-tight text-gray-800">Users</h2>
-		</template>
-
 		<template #default>
-			<BaseTable table-id="users" placeholder="Search for users" :headers="headers" :data="users" route="users.index"
+			<BaseTable table-id="users" placeholder="Search" :headers="headers" :data="users" route="users.index"
 				:filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					Add

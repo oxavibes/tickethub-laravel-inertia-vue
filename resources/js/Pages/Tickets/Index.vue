@@ -87,16 +87,13 @@ function onDelete(ticket) {
 </script>
 
 <template>
+
 	<Head title="Tickets" />
 
 	<AuthenticatedLayout>
-		<template #header>
-			<h2 class="p-6 text-xl font-semibold leading-tight text-gray-800">Tickets</h2>
-		</template>
-
 		<template #default>
-			<BaseTable table-id="tickets" placeholder="Search for tickets" :headers="headers" :data="tickets"
-				route="tickets.index" :filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
+			<BaseTable table-id="tickets" placeholder="Search" :headers="headers" :data="tickets" route="tickets.index"
+				:filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					Add
 				</template>

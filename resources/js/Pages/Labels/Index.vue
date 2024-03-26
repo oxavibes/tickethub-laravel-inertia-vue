@@ -63,15 +63,12 @@ function onDelete(label) {
 </script>
 
 <template>
+
 	<Head title="Labels" />
 
 	<AuthenticatedLayout>
-		<template #header>
-			<h2 class="p-6 text-xl font-semibold leading-tight text-gray-800">Labels</h2>
-		</template>
-
 		<template #default>
-			<BaseTable table-id="labels" placeholder="Search for labels" :headers="headers" :data="labels" route="labels.index"
+			<BaseTable table-id="labels" placeholder="Search" :headers="headers" :data="labels" route="labels.index"
 				:filters="filters" @on-create="onCreate" @on-edit="onEdit" @on-delete="onDelete">
 				<template #button>
 					Add
