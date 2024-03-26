@@ -11,7 +11,7 @@ import ToastList from '@/Components/Shared/ToastList.vue';
 			<TheNavbar />
 			<!-- Page Heading -->
 			<header v-if="$slots.header">
-				<div class="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<div class="pt-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
 					<div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
 						<slot name="header" />
 					</div>
@@ -20,7 +20,7 @@ import ToastList from '@/Components/Shared/ToastList.vue';
 
 			<!-- Page Content -->
 			<main>
-				<div class="pb-12 mx-auto space-y-8 max-w-7xl sm:px-6 lg:px-8">
+				<div class="pt-6 pb-12 mx-auto space-y-8 max-w-7xl sm:px-6 lg:px-8">
 					<slot />
 				</div>
 			</main>
