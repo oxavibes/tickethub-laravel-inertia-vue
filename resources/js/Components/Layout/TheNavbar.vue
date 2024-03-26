@@ -45,7 +45,7 @@ const showingNavigationDropdown = ref(false);
 					</div>
 
 					<!-- Navigation Links -->
-					<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+					<div class="hidden space-x-4 sm:-my-px sm:ms-10 sm:flex lg:space-x-6">
 						<NavLink v-for="link in computedNavigationLinks" :key="link.name" :href="route(link.route)"
 							:active="route().current(link.route)">
 							{{ link.name }}
