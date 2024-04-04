@@ -1,22 +1,8 @@
 <script setup>
-import { onUnmounted } from 'vue'
-import { router, usePage } from '@inertiajs/vue3'
-
 import { useToastStore } from '@/Stores/toast'
 import ToastListItem from '@/Components/Shared/ToastListItem.vue'
 
-const page = usePage()
 const toastStore = useToastStore()
-
-const removeFinishEventListener = router.on('finish', () => {
-	if (page.props.toast) {
-		toastStore.add({
-			message: page.props.toast,
-		})
-	}
-})
-
-onUnmounted(() => removeFinishEventListener())
 
 function remove(index) {
 	toastStore.remove(index)
