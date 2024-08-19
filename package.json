@@ -14,7 +14,7 @@
 		"@vue/server-renderer": "^3.4.19",
 		"@vue/test-utils": "^2.4.4",
 		"autoprefixer": "^10.4.17",
-		"axios": "^1.6.7",
+		"axios": "^1.7.4",
 		"happy-dom": "^13.3.8",
 		"laravel-vite-plugin": "^1.0.1",
 		"postcss": "^8.4.35",
